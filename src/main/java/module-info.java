@@ -17,6 +17,7 @@ module com.ucab.proyectouno_fx {
     opens com.ucab.proyectouno_fx.Model.Carta.Accion to com.google.gson;
     opens com.ucab.proyectouno_fx.Model.Carta.Pila to com.google.gson;
     opens com.ucab.proyectouno_fx.Model.Jugador to com.google.gson;
+
     opens com.ucab.proyectouno_fx.Controller.GameScreens.Decks to javafx.fxml;
     opens com.ucab.proyectouno_fx.Controller.GameScreens to javafx.fxml;
     opens com.ucab.proyectouno_fx.Controller.GameScreens.MicroControllers to javafx.fxml;
@@ -31,4 +32,6 @@ module com.ucab.proyectouno_fx {
     exports com.ucab.proyectouno_fx.Controller.GameScreens;
     exports com.ucab.proyectouno_fx.Controller.GameScreens.MicroControllers;
     exports com.ucab.proyectouno_fx.Model.Carta.Pila;
+    exports com.ucab.proyectouno_fx.Controller.GameScreens.AuthenticationControllers;
+    opens com.ucab.proyectouno_fx.Controller.GameScreens.AuthenticationControllers to javafx.fxml;
 }

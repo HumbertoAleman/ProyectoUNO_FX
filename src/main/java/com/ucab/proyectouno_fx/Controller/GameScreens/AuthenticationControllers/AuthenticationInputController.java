@@ -1,5 +1,7 @@
-package com.ucab.proyectouno_fx.Controller;
+package com.ucab.proyectouno_fx.Controller.GameScreens.AuthenticationControllers;
 
+import com.ucab.proyectouno_fx.Controller.ControllerParent;
+import com.ucab.proyectouno_fx.Controller.MainMenuController;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.PasswordField;

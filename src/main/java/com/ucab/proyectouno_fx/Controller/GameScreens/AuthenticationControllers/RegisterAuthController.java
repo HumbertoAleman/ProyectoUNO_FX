@@ -1,5 +1,6 @@
-package com.ucab.proyectouno_fx.Controller;
+package com.ucab.proyectouno_fx.Controller.GameScreens.AuthenticationControllers;
 
+import com.ucab.proyectouno_fx.Controller.ControllerParent;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 
