@@ -32,6 +32,6 @@ module com.ucab.proyectouno_fx {
     exports com.ucab.proyectouno_fx.Controller.GameScreens;
     exports com.ucab.proyectouno_fx.Controller.GameScreens.MicroControllers;
     exports com.ucab.proyectouno_fx.Model.Carta.Pila;
-    exports com.ucab.proyectouno_fx.Controller.GameScreens.AuthenticationControllers;
-    opens com.ucab.proyectouno_fx.Controller.GameScreens.AuthenticationControllers to javafx.fxml;
+    exports com.ucab.proyectouno_fx.Controller.AuthenticationControllers;
+    opens com.ucab.proyectouno_fx.Controller.AuthenticationControllers to javafx.fxml;
 }
