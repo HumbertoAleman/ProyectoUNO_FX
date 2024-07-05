@@ -83,6 +83,8 @@ public class GameScreenController extends ControllerParent {
         playPile.setText(juego.getTopCard().getEtiqueta());
 
         colorSelector.setColorPickerDisable(true);
+
+        refreshAll();
     }
 
     @FXML
