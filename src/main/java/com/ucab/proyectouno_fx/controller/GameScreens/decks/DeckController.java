@@ -1,6 +1,6 @@
-package com.ucab.proyectouno_fx.controller.decks;
+package com.ucab.proyectouno_fx.controller.GameScreens.decks;
 
-import com.ucab.proyectouno_fx.controller.GameScreenController;
+import com.ucab.proyectouno_fx.controller.GameScreens.GameScreenController;
 import com.ucab.proyectouno_fx.model.Carta.Carta;
 import com.ucab.proyectouno_fx.model.Carta.Comodin.CartaComodin;
 import com.ucab.proyectouno_fx.model.Carta.Validator;
@@ -8,7 +8,6 @@ import com.ucab.proyectouno_fx.model.Controlador.Juego;
 import com.ucab.proyectouno_fx.model.Jugador.Humano;
 import com.ucab.proyectouno_fx.model.Jugador.Jugador;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -24,11 +23,11 @@ public class DeckController {
         mainContainer.getChildren().add(actions);
         mainContainer.getChildren().add(new ScrollPane(deck));
 
-        assert(controller != null);
+        assert (controller != null);
         this.controller = controller;
     }
 
-    private GameScreenController controller;
+    private final GameScreenController controller;
 
     private final Juego juego = Juego.getInstance();
 
@@ -52,7 +51,7 @@ public class DeckController {
      * @return Valor de verdad si se debe deshabilitar el mazo
      */
     private boolean getDisabledStatus() {
-        return !juego.getCurrentPlayer().equals(jugador);
+        return !juego.getCurrentPlayer().equals(jugador) || controller.isPickingColor();
     }
 
     private void addCardToHBox(Carta card) {
@@ -62,27 +61,39 @@ public class DeckController {
 
     private void addCardToHBox(Carta card, boolean show) {
         boolean disableDeck = getDisabledStatus();
-        CardButton cardButton = new CardButton(card, show, (!show || (disableDeck || !Validator.validateCard(card))));
+        CardButton cardButton = new CardButton(card, show, (!show || !(!disableDeck && Validator.validateCard(card))));
         cardButton.getButton().setOnAction(event -> {
-            if (Validator.validateCard(card)) {
-                juego.jugarCarta(card);
 
-                if (card instanceof CartaComodin) {
-                    actions.setText("Escoja un color");
-                    controller.triggerChooseColor(card);
-                    return;
-                }
+            // Validamos si la carta es jugable, si lo es, jugamos la carta, y ejecutamos su efecto
+            if (!Validator.validateCard(card)) return;
+            juego.jugarCarta(card);
+            card.ejecutarAccion();
 
-                card.ejecutarAccion();
-
-                actions.setText("El jugador jugo la carta " + card.getEtiqueta());
+            // Si la carta es saltar turno, saltamos el turno del siguiente jugador
+            if (juego.isSaltarTurno()) {
                 juego.siguienteJugador();
-                if (!juego.isCurrentPlayerHuman()) {
-                    controller.triggerCurrentPlayerTurn();
-                    controller.refreshDecks();
-                    controller.refreshPlayPile();
-                }
+
+                controller.refreshDecks();
+                controller.refreshPlayPile();
+                return;
             }
+
+            // Si la carta es comodin, triggerear la seleccion de color
+            if (card instanceof CartaComodin) {
+                actions.setText("Escoja un color");
+                controller.triggerChooseColor(card);
+
+                controller.refreshDecks();
+                controller.refreshPlayPile();
+                return;
+            }
+
+            actions.setText("El jugador jugo la carta " + card.getEtiqueta());
+            juego.siguienteJugador();
+            if (!juego.isCurrentPlayerHuman()) {
+                controller.triggerCPUTurn();
+            }
+
             controller.refreshDecks();
             controller.refreshPlayPile();
         });
@@ -93,11 +104,5 @@ public class DeckController {
         clearHBox();
         for (Carta carta : jugador.getMazo())
             addCardToHBox(carta);
-    }
-
-    public void refreshHBox(boolean show) {
-        clearHBox();
-        for (Carta carta : jugador.getMazo())
-            addCardToHBox(carta, show);
     }
 }

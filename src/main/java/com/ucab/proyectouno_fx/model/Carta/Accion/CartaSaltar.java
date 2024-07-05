@@ -7,12 +7,6 @@ public class CartaSaltar extends CartaAccion {
 
     /**
      * Constructor de la carta saltar
-     */
-    public CartaSaltar() {
-    }
-
-    /**
-     * Constructor de la carta saltar
      *
      * @param color color de la carta
      */
@@ -25,7 +19,9 @@ public class CartaSaltar extends CartaAccion {
      */
     @Override
     public void ejecutarAccion() {
+        System.out.println("Saltando turno del siguiente jugador");
         Juego.getInstance().setSaltarTurno(true);
+        System.out.println(Juego.getInstance().isSaltarTurno());
     }
 
     /**

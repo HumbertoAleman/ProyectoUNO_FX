@@ -1,7 +1,6 @@
-package com.ucab.proyectouno_fx.controller.decks;
+package com.ucab.proyectouno_fx.controller.GameScreens.decks;
 
-import com.ucab.proyectouno_fx.controller.GameScreenController;
-import com.ucab.proyectouno_fx.model.Controlador.Juego;
+import com.ucab.proyectouno_fx.controller.GameScreens.GameScreenController;
 import com.ucab.proyectouno_fx.model.Jugador.Jugador;
 import javafx.scene.layout.VBox;
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Humano extends Jugador {
-    private Juego juego = Juego.getInstance();
+    private final Juego juego = Juego.getInstance();
 
     /**
      * Costructor de humano
@@ -35,8 +35,8 @@ public class Humano extends Jugador {
 
             System.out.println();
             System.out.println("Es el turno de: " + getNombre());
-            if (Juego.getCartasATomar() > 0)
-                System.out.println("Ingrese T para tomar " + Juego.getCartasATomar() + " cartas");
+            if (juego.getCartasATomar() > 0)
+                System.out.println("Ingrese T para tomar " + juego.getCartasATomar() + " cartas");
             else System.out.println("Ingrese T para tomar una carta");
             System.out.println();
             System.out.println("Presione 0 para regresar al menu principal");
@@ -53,7 +53,7 @@ public class Humano extends Jugador {
         if (seleccion.equals("T")) {
             ArrayList<Carta> cartasAgregadas = juego.darCartas();
             if (cartasAgregadas.size() == 1) {
-                Carta cartaTomada = cartasAgregadas.get(0);
+                Carta cartaTomada = cartasAgregadas.getFirst();
                 while (!seleccion.equals("S") && !seleccion.equals("N")) {
                     System.out.println("La carta tomada fue ");
                     System.out.println("+---+");

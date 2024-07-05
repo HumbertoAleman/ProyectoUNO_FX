@@ -4,24 +4,15 @@ import com.ucab.proyectouno_fx.controller.MainMenuController;
 import com.ucab.proyectouno_fx.model.Carta.Carta;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Jugadores {
-    private List<Jugador> listaJugadores = new ArrayList<>();
+    private final List<Jugador> listaJugadores = new ArrayList<>();
+
     /**
      * Constructor jugadores
      */
     public Jugadores() { }
-
-    /**
-     * Constructor Jugadores
-     * 
-     * @param listaJugadores Lista de jugadores con los que inicializar la lista
-     */
-    public Jugadores(ArrayList<Jugador> listaJugadores){
-        this.listaJugadores = listaJugadores;
-    }
 
     /**
      * Obtiene la lista de jugadores
@@ -78,22 +69,7 @@ public class Jugadores {
     public Jugador getCurrentPlayer(){
         return listaJugadores.get(index);
     }
-    /**
-     * Valida si el jugador actual es humano
-     * 
-     * @return true si el jugador actual es humano, false si no
-     */
-    public boolean validarJugadorHumano() {
-        return (listaJugadores.get(index) instanceof Humano);
-    }
-    /**
-     * Valida si el jugador actual es un computador
-     * 
-     * @return true si el jugador actual es un computador, false si no
-     */
-    public boolean validarJugadorComputador() {
-        return (listaJugadores.get(index) instanceof Computador);
-    }
+
     /**
      * Obtiene la cantidad de cartas del mazo del jugador actual
      * 
@@ -128,27 +104,6 @@ public class Jugadores {
      */
     public void setIndex(int index){
         this.index = index;
-    }
-
-    /**
-     * Asigna el orden de jugadores
-     * 
-     * @param order orden de jugadores
-     */
-    public void setOrder(boolean order){
-        this.order = order;
-    }
-
-    public LinkedList<Carta> getCartasHumano() {
-        return listaJugadores.stream().filter(x -> x instanceof Humano).toList().getFirst().mazo;
-    }
-
-    public LinkedList<Carta> getCartasComputador() {
-        return listaJugadores.stream().filter(x -> x instanceof Computador).toList().getFirst().mazo;
-    }
-
-    public LinkedList<Carta> getCartasJugadorActual() {
-        return listaJugadores.get(index).mazo;
     }
 
     public void removeCardFromCurrentPlayer(Carta card) {

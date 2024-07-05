@@ -14,7 +14,6 @@ import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Juego {
@@ -39,7 +38,7 @@ public class Juego {
      *
      * @return cantidad de cartas
      */
-    public static int getCartasATomar() {
+    public int getCartasATomar() {
         return cartasATomar;
     }
 
@@ -48,7 +47,7 @@ public class Juego {
      *
      * @param cartasATomar cartas a tomar
      */
-    public static void setCartasATomar(int cartasATomar) {
+    public void setCartasATomar(int cartasATomar) {
         Juego.cartasATomar = cartasATomar;
     }
 
@@ -69,7 +68,7 @@ public class Juego {
      * @param saltarTurno true si se debe saltar turno, false si no
      */
     public void setSaltarTurno(boolean saltarTurno) {
-        saltarTurno = saltarTurno;
+        this.saltarTurno = saltarTurno;
     }
 
     /**
@@ -89,24 +88,6 @@ public class Juego {
      */
     public static int getNumeroJugadores() {
         return listaJugadores == null ? 0 : listaJugadores.size();
-    }
-
-    /**
-     * Revisa si el jugador actual es humano
-     *
-     * @return true si el jugador es humano, false si no
-     */
-    public static boolean jugadorEsHumano() {
-        return listaJugadores != null && listaJugadores.validarJugadorHumano();
-    }
-
-    /**
-     * Revisa si el jugador actual es CPU
-     *
-     * @return true si el jugador es CPU, false si no
-     */
-    public static boolean jugadorActualEsCPU() {
-        return listaJugadores != null && listaJugadores.validarJugadorComputador();
     }
 
     private static PilaTomar pilaTomar;
@@ -152,6 +133,7 @@ public class Juego {
 
     /**
      * Muestra el menu del juego
+     * @deprecated
      */
     public static void mostrarMenu() {
         System.out.println("----------------------------------");
@@ -193,6 +175,7 @@ public class Juego {
      *
      * @throws IOException    Se lanza si ocurre un error al leer el archivo
      * @throws ParseException Se lanza si ocurre un error al transformar el archivo en un json
+     * @deprecated
      */
     public void cargarJuego() throws IOException, ParseException {
         listaJugadores = Cargador.cargarJugadores();
@@ -215,6 +198,7 @@ public class Juego {
      * - Se pasa al siguiente jugador
      *
      * @return Retorna un booleano, retorna falso si el juego termina
+     * @deprecated
      */
     public boolean loopJuego() {
         // limpiarConsola();
@@ -275,31 +259,21 @@ public class Juego {
         return getCurrentPlayer() instanceof Humano;
     }
 
-    public static LinkedList<Carta> getCartasHumano() {
-        return listaJugadores.getCartasHumano();
-    }
-
-    public static LinkedList<Carta> getCartasComputador() {
-        return listaJugadores.getCartasComputador();
-    }
-
-    public static LinkedList<Carta> getCartasJugadorActual() {
-        return listaJugadores.getCartasJugadorActual();
-    }
-
     public Carta getTopCard() {
         return pilaJugar.getCartaTope();
     }
 
     public void siguienteJugador() {
+        if (saltarTurno) {
+            listaJugadores.siguienteJugador();
+            saltarTurno = false;
+        }
+
         listaJugadores.siguienteJugador();
     }
 
     public void currentPlayerTakeTurn() {
         listaJugadores.jugadorActualTurno();
-    }
-
-    public void setColorSelectorColor() {
     }
 
     /**
@@ -314,9 +288,6 @@ public class Juego {
         // como en windows se lo agradeceria.
         // - Humberto Aleman
 
-        StringBuilder out = new StringBuilder();
-        for (int i = 0; i < 15; i++)
-            out.append("\n");
-        System.out.println(out);
+        System.out.println("\n".repeat(15));
     }
 }

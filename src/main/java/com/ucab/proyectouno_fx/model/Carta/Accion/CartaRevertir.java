@@ -7,12 +7,6 @@ public class CartaRevertir extends CartaAccion {
 
     /**
      * Constructor de la carta revertir
-     */
-    public CartaRevertir() {
-    }
-
-    /**
-     * Constructor de la carta revertir
      *
      * @param color color de la carta
      */
@@ -27,6 +21,7 @@ public class CartaRevertir extends CartaAccion {
      */
     @Override
     public void ejecutarAccion() {
+        System.out.println("Revirtiendo el flow del juego");
         if (Juego.getNumeroJugadores() == 2) {
             Juego.getInstance().setSaltarTurno(true);
             return;

@@ -23,7 +23,7 @@ public interface Validator {
         if (Objects.equals(carta.getTipo(), "T4"))
             return true;
 
-        if (Juego.getCartasATomar() > 0)
+        if (juego.getCartasATomar() > 0)
             return topCard.getTipo().equals(carta.getTipo());
 
         return carta.getTipo().equals("C") ||

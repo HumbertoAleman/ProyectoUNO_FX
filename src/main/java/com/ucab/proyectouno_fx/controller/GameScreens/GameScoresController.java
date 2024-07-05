@@ -1,5 +1,7 @@
-package com.ucab.proyectouno_fx.controller;
+package com.ucab.proyectouno_fx.controller.GameScreens;
 
+import com.ucab.proyectouno_fx.controller.ControllerParent;
+import com.ucab.proyectouno_fx.controller.MainMenuController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
