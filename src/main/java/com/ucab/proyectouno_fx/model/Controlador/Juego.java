@@ -5,6 +5,8 @@ import com.ucab.proyectouno_fx.model.Carta.Carta;
 import com.ucab.proyectouno_fx.model.Carta.Comodin.CartaComodin;
 import com.ucab.proyectouno_fx.model.Carta.Pila.PilaJugar;
 import com.ucab.proyectouno_fx.model.Carta.Pila.PilaTomar;
+import com.ucab.proyectouno_fx.model.Carta.Validator;
+import com.ucab.proyectouno_fx.model.Jugador.Humano;
 import com.ucab.proyectouno_fx.model.Jugador.Jugador;
 import com.ucab.proyectouno_fx.model.Jugador.Jugadores;
 
@@ -19,15 +21,28 @@ public class Juego {
     private Juego() {
     }
 
+    private static Juego instance;
+
+    public static Juego getInstance() {
+        if (instance == null) instance = new Juego();
+        return instance;
+    }
+
+    public List<Jugador> getPlayers() {
+        return listaJugadores.getListaJugadores();
+    }
+
     private static int cartasATomar;
+
     /**
      * Obtiene las cartas a tomar
-     * 
+     *
      * @return cantidad de cartas
      */
     public static int getCartasATomar() {
         return cartasATomar;
     }
+
     /**
      * Asigna la cantidad de cartas a tomar
      *
@@ -37,23 +52,26 @@ public class Juego {
         Juego.cartasATomar = cartasATomar;
     }
 
-    private static boolean saltarTurno;
+    private boolean saltarTurno;
+
     /**
      * Revisa si se debe saltar un turno
      *
      * @return true si hay que saltar un turno, false si no
      */
-    public static boolean isSaltarTurno() {
+    public boolean isSaltarTurno() {
         return saltarTurno;
     }
+
     /**
      * Notifica si se debe de saltar el turno
      *
      * @param saltarTurno true si se debe saltar turno, false si no
      */
-    public static void setSaltarTurno(boolean saltarTurno) {
-        Juego.saltarTurno = saltarTurno;
+    public void setSaltarTurno(boolean saltarTurno) {
+        saltarTurno = saltarTurno;
     }
+
     /**
      * Revierte el orden de jugadores
      */
@@ -63,25 +81,28 @@ public class Juego {
     }
 
     private static Jugadores listaJugadores;
+
     /**
      * Obtiene la cantidad de jugadores en la partida
-     * 
+     *
      * @return cantidad de jugadores
      */
     public static int getNumeroJugadores() {
         return listaJugadores == null ? 0 : listaJugadores.size();
     }
+
     /**
      * Revisa si el jugador actual es humano
-     * 
+     *
      * @return true si el jugador es humano, false si no
      */
     public static boolean jugadorEsHumano() {
         return listaJugadores != null && listaJugadores.validarJugadorHumano();
     }
+
     /**
      * Revisa si el jugador actual es CPU
-     * 
+     *
      * @return true si el jugador es CPU, false si no
      */
     public static boolean jugadorActualEsCPU() {
@@ -89,38 +110,46 @@ public class Juego {
     }
 
     private static PilaTomar pilaTomar;
+
     /**
      * Le da cartas a un jugador
      *
-     * @param jugador Jugador al que se le daran las cartas
      * @return Retorna la lista de las cartas que se le dieron al jugador
      */
-    public static ArrayList<Carta> darCartas(Jugador jugador) {
-        ArrayList<Carta> listaRetornar = pilaTomar.tomarCartas(jugador, cartasATomar == 0 ? 1 : cartasATomar);
+    public ArrayList<Carta> darCartas() {
+        ArrayList<Carta> listaRetornar = pilaTomar.tomarCartas(listaJugadores.getCurrentPlayer(), cartasATomar == 0 ? 1 : cartasATomar);
         cartasATomar = 0;
         return listaRetornar;
     }
 
     private static PilaJugar pilaJugar;
+
     /**
      * Revisa si la carta se puede jugar
      *
      * @param carta una carta
      * @return true si se puede jugar la carta, false si no
      */
-    public static boolean jugarCarta(Carta carta) {
-        if (!pilaJugar.validarCarta(carta)) return false;
+    public boolean jugarCarta(Carta carta) {
+        if (!Validator.validateCard(carta)) return false;
         pilaJugar.jugarCarta(carta);
+        removeCardFromCurrentPlayer(carta);
         return true;
     }
+
+    private void removeCardFromCurrentPlayer(Carta card) {
+        listaJugadores.removeCardFromCurrentPlayer(card);
+    }
+
     /**
      * Obtiene las cartas de la Pila jugar menos la del tope
-     * 
+     *
      * @return lista de cartas
      */
     public static List<Carta> getCartasPorDebajo() {
         return pilaJugar.getCartasPorDebajo();
     }
+
     /**
      * Muestra el menu del juego
      */
@@ -140,7 +169,7 @@ public class Juego {
     /**
      * Instancia los objetos del juego
      */
-    public static void iniciarJuego() {
+    public void initializeGame() {
         listaJugadores = new Jugadores();
         pilaTomar = new PilaTomar();
         pilaJugar = new PilaJugar();
@@ -153,9 +182,7 @@ public class Juego {
         pilaTomar.repartirCartas(listaJugadores.getListaJugadores());
 
         Carta primeraCarta = null;
-        while (primeraCarta == null ||
-                primeraCarta instanceof CartaComodin ||
-                primeraCarta instanceof CartaAccion) {
+        while (primeraCarta == null || primeraCarta instanceof CartaComodin || primeraCarta instanceof CartaAccion) {
             primeraCarta = pilaTomar.tomarCarta();
             pilaJugar.jugarCarta(primeraCarta);
         }
@@ -163,10 +190,11 @@ public class Juego {
 
     /**
      * Funcion para cargar el juego
-     * @throws IOException Se lanza si ocurre un error al leer el archivo
+     *
+     * @throws IOException    Se lanza si ocurre un error al leer el archivo
      * @throws ParseException Se lanza si ocurre un error al transformar el archivo en un json
      */
-    public static void cargarJuego() throws IOException, ParseException {
+    public void cargarJuego() throws IOException, ParseException {
         listaJugadores = Cargador.cargarJugadores();
         pilaTomar = Cargador.cargarPilaTomar();
         pilaJugar = Cargador.cargarPilaJugar();
@@ -185,9 +213,10 @@ public class Juego {
      * - Si solo queda una carta, y no es comodin, el jugador canta UNO
      * - Se aplica el efecto de la carta jugada
      * - Se pasa al siguiente jugador
+     *
      * @return Retorna un booleano, retorna falso si el juego termina
      */
-    public static boolean loopJuego() {
+    public boolean loopJuego() {
         // limpiarConsola();
         if (saltarTurno) {
             listaJugadores.siguienteJugador();
@@ -201,7 +230,7 @@ public class Juego {
 
         try {
             Guardador.guardarJuego(listaJugadores, pilaJugar, pilaTomar, saltarTurno, cartasATomar);
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.err.println(e.getMessage());
             System.out.println();
             System.out.println("Ha ocurrido un error guardando el juego, continuando...");
@@ -212,24 +241,23 @@ public class Juego {
             }
             // limpiarConsola();
         }
-        if (!listaJugadores.jugadorActualTurno())
-            return false;
+        if (!listaJugadores.jugadorActualTurno()) return false;
         int cartas = listaJugadores.getNumCartasJugadorActual();
 
         if (cartas == 1) {
-            if (listaJugadores.getJugadorActual().getCarta() instanceof CartaComodin) {
+            if (listaJugadores.getCurrentPlayer().getCarta() instanceof CartaComodin) {
                 System.out.println("No se puede ganar con un comodin, estas obligado a tomar una carta...");
                 try {
                     Thread.sleep(1500);
                 } catch (Exception sleepError) {
                     System.err.println(sleepError.getMessage());
                 }
-                pilaTomar.tomarCartas(listaJugadores.getJugadorActual(),1);
-            } else if(!listaJugadores.getJugadorActual().cantarUno()){
-                pilaTomar.tomarCartas(listaJugadores.getJugadorActual(),7);
+                pilaTomar.tomarCartas(listaJugadores.getCurrentPlayer(), 1);
+            } else if (!listaJugadores.getCurrentPlayer().cantarUno()) {
+                pilaTomar.tomarCartas(listaJugadores.getCurrentPlayer(), 7);
             }
         } else if (cartas == 0) {
-            System.out.println("HA GANADO : " + listaJugadores.getJugadorActual().getNombre());
+            System.out.println("HA GANADO : " + listaJugadores.getCurrentPlayer().getNombre());
             // FUNCION GANAR
             return false;
         }
@@ -237,6 +265,14 @@ public class Juego {
         pilaJugar.usarEfectoDeCarta();
         listaJugadores.siguienteJugador();
         return true;
+    }
+
+    public Jugador getCurrentPlayer() {
+        return listaJugadores.getCurrentPlayer();
+    }
+
+    public boolean isCurrentPlayerHuman() {
+        return getCurrentPlayer() instanceof Humano;
     }
 
     public static LinkedList<Carta> getCartasHumano() {
@@ -251,25 +287,24 @@ public class Juego {
         return listaJugadores.getCartasJugadorActual();
     }
 
-    public static Carta getCartaTope() {
+    public Carta getTopCard() {
         return pilaJugar.getCartaTope();
     }
 
-    public static void siguienteJugador() {
+    public void siguienteJugador() {
         listaJugadores.siguienteJugador();
     }
 
-    public static void tomarAccionJugadorActual() {
+    public void currentPlayerTakeTurn() {
         listaJugadores.jugadorActualTurno();
     }
 
-    public static void tomarAccionJugadorActual(String seleccion) {
-        listaJugadores.jugadorActualTurno(seleccion);
-        pilaJugar.usarEfectoDeCarta();
+    public void setColorSelectorColor() {
     }
 
     /**
      * Limpia la patalla
+     *
      * @deprecated
      */
     public static void limpiarConsola() {

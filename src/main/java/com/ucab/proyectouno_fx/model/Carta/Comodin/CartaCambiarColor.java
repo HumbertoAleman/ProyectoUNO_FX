@@ -1,5 +1,9 @@
 package com.ucab.proyectouno_fx.model.Carta.Comodin;
 
+import com.ucab.proyectouno_fx.controller.GameScreenController;
+import com.ucab.proyectouno_fx.model.Carta.Commands.CardCommand;
+import com.ucab.proyectouno_fx.model.Carta.Commands.PickColor;
+
 public class CartaCambiarColor extends CartaComodin {
     private static final String tipo = "C";
 

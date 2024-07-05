@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Humano extends Jugador {
+    private Juego juego = Juego.getInstance();
+
     /**
      * Costructor de humano
      *
@@ -15,33 +17,6 @@ public class Humano extends Jugador {
     public Humano(String nombre) {
         super(nombre);
         tipo = "H";
-    }
-
-    /**
-     * El jugador realiza una accion en su turno, se pre-especifica una accion
-     *
-     * @param seleccion Seleccion del jugador
-     * @return Retorna si el jugador va a salir al menu principal
-     */
-    @Override
-    public boolean tomarTurno(String seleccion) {
-        String finalSeleccion = seleccion;
-        Carta cartaSeleccionada = mazo.stream().filter(carta -> (carta.getEtiqueta()).equals(finalSeleccion)).findFirst().orElse(null);
-
-        if (finalSeleccion.equals("T")) {
-            ArrayList<Carta> cartasAgregadas = Juego.darCartas(this);
-            if (cartasAgregadas.size() == 1) {
-                // Si las cartas agregadas es solo una, deberiamos mostrar una "prompt" preguntando si el jugador
-                // quiere jugar la carta tomada
-            }
-            return true;
-        }
-
-        if (seleccion.equals("0")) return false;
-
-        System.out.println("Removing " + cartaSeleccionada.getEtiqueta());
-        if (Juego.jugarCarta(cartaSeleccionada)) mazo.remove(cartaSeleccionada);
-        return true;
     }
 
     /**
@@ -55,7 +30,7 @@ public class Humano extends Jugador {
         Carta cartaSeleccionada = null;
         String seleccion = "";
 
-        while (!Juego.jugarCarta(cartaSeleccionada) && !seleccion.equals("T") && !seleccion.equals("0")) {
+        while (!juego.jugarCarta(cartaSeleccionada) && !seleccion.equals("T") && !seleccion.equals("0")) {
             ImpresoraCarta.mostrarMazo(mazo, true);
 
             System.out.println();
@@ -76,7 +51,7 @@ public class Humano extends Jugador {
         }
 
         if (seleccion.equals("T")) {
-            ArrayList<Carta> cartasAgregadas = Juego.darCartas(this);
+            ArrayList<Carta> cartasAgregadas = juego.darCartas();
             if (cartasAgregadas.size() == 1) {
                 Carta cartaTomada = cartasAgregadas.get(0);
                 while (!seleccion.equals("S") && !seleccion.equals("N")) {
@@ -96,7 +71,7 @@ public class Humano extends Jugador {
 
                 if (seleccion.equals("N")) return true;
 
-                if (Juego.jugarCarta(cartaTomada)) {
+                if (juego.jugarCarta(cartaTomada)) {
                     System.out.println("Si se pudo jugar la carta tomada");
                     mazo.remove(cartaTomada);
                 } else System.out.println("No se pudo jugar la carta tomada");

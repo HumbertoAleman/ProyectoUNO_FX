@@ -28,7 +28,7 @@ public class CartaRevertir extends CartaAccion {
     @Override
     public void ejecutarAccion() {
         if (Juego.getNumeroJugadores() == 2) {
-            Juego.setSaltarTurno(true);
+            Juego.getInstance().setSaltarTurno(true);
             return;
         }
         Juego.revertirOrden();

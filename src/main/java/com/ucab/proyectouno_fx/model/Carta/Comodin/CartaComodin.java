@@ -1,12 +1,9 @@
 package com.ucab.proyectouno_fx.model.Carta.Comodin;
 
 import com.ucab.proyectouno_fx.model.Carta.Carta;
-import com.ucab.proyectouno_fx.model.Controlador.Juego;
-
-import java.util.Random;
-import java.util.Scanner;
 
 public abstract class CartaComodin implements Carta {
+
     protected char colorSeleccionado = 'C';
 
     /**
@@ -46,47 +43,7 @@ public abstract class CartaComodin implements Carta {
         System.out.print("Ingrese el color a jugar: ");
     }
 
-    protected void changeColor() {
-        if (Juego.jugadorActualEsCPU()) {
-            Random rand = new Random();
-            final String colores = "RBYG";
-            this.colorSeleccionado = colores.charAt(rand.nextInt(colores.length()));
-            return;
-        }
-
-        Scanner scanner = new Scanner(System.in);
-        while (this.colorSeleccionado == 'C') {
-            // Juego.limpiarConsola();
-            cambiarColorDialogo();
-            switch (scanner.nextLine().toLowerCase()) {
-                case "r":
-                case "rojo":
-                case "red":
-                    this.colorSeleccionado = 'R';
-                    break;
-                case "b":
-                case "blue":
-                case "azul":
-                    this.colorSeleccionado = 'B';
-                    break;
-                case "y":
-                case "yellow":
-                case "amarillo":
-                    this.colorSeleccionado = 'Y';
-                    break;
-                case "g":
-                case "green":
-                case "verde":
-                    this.colorSeleccionado = 'G';
-                    break;
-                default:
-                    this.colorSeleccionado = 'C';
-                    System.out.println();
-                    System.out.println("La opcion seleccionada es invalida");
-                    scanner.nextLine();
-            }
-        }
-    }
+    public void changeColor() { }
 
     @Override
     public String getEtiqueta() {

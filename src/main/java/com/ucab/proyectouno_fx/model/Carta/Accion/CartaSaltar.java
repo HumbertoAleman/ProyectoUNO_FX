@@ -25,7 +25,7 @@ public class CartaSaltar extends CartaAccion {
      */
     @Override
     public void ejecutarAccion() {
-        Juego.setSaltarTurno(true);
+        Juego.getInstance().setSaltarTurno(true);
     }
 
     /**

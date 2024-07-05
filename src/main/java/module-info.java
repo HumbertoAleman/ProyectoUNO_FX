@@ -20,4 +20,6 @@ module com.ucab.proyectouno_fx {
     opens com.ucab.proyectouno_fx.model.Carta.Pila to com.google.gson;
     opens com.ucab.proyectouno_fx.model.Jugador to com.google.gson;
     exports com.ucab.proyectouno_fx.model.Jugador;
+    exports com.ucab.proyectouno_fx.controller.decks;
+    opens com.ucab.proyectouno_fx.controller.decks to javafx.fxml;
 }

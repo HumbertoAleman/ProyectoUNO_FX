@@ -6,8 +6,14 @@ import java.util.LinkedList;
 
 public abstract class Jugador {
     protected LinkedList<Carta> mazo = new LinkedList<>();
+
     protected String tipo;
+
     private String nombre;
+
+    public LinkedList<Carta> getMazo() {
+        return this.mazo;
+    }
 
     /**
      * Constructor de Jugador
@@ -77,5 +83,8 @@ public abstract class Jugador {
      * @return Retorna si el jugador tomo la decision de regresar al menu principal
      */
     public abstract boolean tomarTurno();
-    public abstract boolean tomarTurno(String seleccion);
+
+    public void removeCardFromDeck(Carta card) {
+        mazo.remove(card);
+    }
 }

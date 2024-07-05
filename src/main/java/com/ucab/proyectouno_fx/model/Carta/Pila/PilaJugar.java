@@ -58,29 +58,6 @@ public class PilaJugar {
     }
 
     /**
-     * Valida si una carta se puede jugar
-     *
-     * @param carta una carta
-     * @return true si se puede jugar o false si no se puede jugar
-     */
-    public boolean validarCarta(Carta carta) {
-        if (carta == null)
-            return false;
-
-        if (Objects.equals(carta.getTipo(), "T4"))
-            return true;
-
-        if (Juego.getCartasATomar() > 0)
-            return listaCartas.peek().getTipo().equals(carta.getTipo());
-            /*&&
-                    carta.getTipo().equals("T2") &&
-                    listaCartas.peek().getColor() == carta.getColor();*/
-
-        return carta.getTipo().equals("C") ||
-                listaCartas.peek().getColor() == carta.getColor() ||
-                listaCartas.peek().getTipo().equals(carta.getTipo());
-    }
-    /**
      * Agrega una carta a la pila
      *
      * @param carta carta a agregar

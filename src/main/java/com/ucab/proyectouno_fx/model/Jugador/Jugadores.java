@@ -6,16 +6,14 @@ import com.ucab.proyectouno_fx.model.Carta.Carta;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Jugadores {
     private List<Jugador> listaJugadores = new ArrayList<>();
     /**
      * Constructor jugadores
      */
-    public Jugadores() {
-    }
+    public Jugadores() { }
+
     /**
      * Constructor Jugadores
      * 
@@ -24,6 +22,7 @@ public class Jugadores {
     public Jugadores(ArrayList<Jugador> listaJugadores){
         this.listaJugadores = listaJugadores;
     }
+
     /**
      * Obtiene la lista de jugadores
      * 
@@ -33,9 +32,10 @@ public class Jugadores {
         return this.listaJugadores;
     }
 
-
     private int index = 0;
+
     private boolean order = true;
+
     /**
      * Cambia el turno de los jugaores
      */
@@ -60,10 +60,6 @@ public class Jugadores {
         return listaJugadores.get(index).tomarTurno();
     }
 
-    public boolean jugadorActualTurno(String seleccion) {
-        return listaJugadores.get(index).tomarTurno(seleccion);
-    }
-
     /**
      * Cambia el turno al siguiente jugador
      */
@@ -79,7 +75,7 @@ public class Jugadores {
      *
      * @return Jugador actual
      */
-    public Jugador getJugadorActual(){
+    public Jugador getCurrentPlayer(){
         return listaJugadores.get(index);
     }
     /**
@@ -115,7 +111,6 @@ public class Jugadores {
         return listaJugadores.size();
     }
 
-
     //Esta funcion es unicamente usada al cargar
     /**
      * Agrega un jugador a la lista de jugadores
@@ -125,6 +120,7 @@ public class Jugadores {
     public void agregarJugador(Jugador jugador){
         listaJugadores.add(jugador);
     }
+
     /**
      * Asigna a quien le toca el turno
      * 
@@ -133,6 +129,7 @@ public class Jugadores {
     public void setIndex(int index){
         this.index = index;
     }
+
     /**
      * Asigna el orden de jugadores
      * 
@@ -152,5 +149,9 @@ public class Jugadores {
 
     public LinkedList<Carta> getCartasJugadorActual() {
         return listaJugadores.get(index).mazo;
+    }
+
+    public void removeCardFromCurrentPlayer(Carta card) {
+        listaJugadores.get(index).removeCardFromDeck(card);
     }
 }
