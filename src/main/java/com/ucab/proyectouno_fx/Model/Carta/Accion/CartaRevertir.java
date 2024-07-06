@@ -1,7 +1,5 @@
 package com.ucab.proyectouno_fx.Model.Carta.Accion;
 
-import com.ucab.proyectouno_fx.Model.Controlador.Juego;
-
 public class CartaRevertir extends CartaAccion {
     private static final String tipo = "R";
 
@@ -22,11 +20,7 @@ public class CartaRevertir extends CartaAccion {
     @Override
     public void ejecutarAccion() {
         System.out.println("Revirtiendo el flow del juego");
-        if (Juego.getNumeroJugadores() == 2) {
-            Juego.getInstance().setSaltarTurno(true);
-            return;
-        }
-        Juego.revertirOrden();
+        juego.revertirOrden();
     }
 
     /**

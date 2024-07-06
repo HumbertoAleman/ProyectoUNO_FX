@@ -8,6 +8,8 @@ module com.ucab.proyectouno_fx {
     requires json.simple;
     requires com.google.gson;
 
+    opens com.ucab.proyectouno_fx.Model.Controlador to com.google.gson;
+
     opens com.ucab.proyectouno_fx to javafx.fxml;
 
     opens com.ucab.proyectouno_fx.Controller to javafx.fxml;
@@ -34,4 +36,8 @@ module com.ucab.proyectouno_fx {
     exports com.ucab.proyectouno_fx.Model.Carta.Pila;
     exports com.ucab.proyectouno_fx.Controller.AuthenticationControllers;
     opens com.ucab.proyectouno_fx.Controller.AuthenticationControllers to javafx.fxml;
+    exports com.ucab.proyectouno_fx.Model.Controlador.Guardador;
+    opens com.ucab.proyectouno_fx.Model.Controlador.Guardador to com.google.gson;
+    exports com.ucab.proyectouno_fx.Model.Controlador.Cargador;
+    opens com.ucab.proyectouno_fx.Model.Controlador.Cargador to com.google.gson;
 }

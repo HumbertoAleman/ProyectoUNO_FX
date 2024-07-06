@@ -7,7 +7,6 @@ import com.ucab.proyectouno_fx.Model.Carta.Carta;
 import com.ucab.proyectouno_fx.Model.Carta.CartaNumerica;
 import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaCambiarColor;
 import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaMasCuatro;
-import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import com.ucab.proyectouno_fx.Model.Jugador.Jugador;
 
 import java.util.ArrayList;
@@ -16,10 +15,13 @@ import java.util.List;
 import java.util.Stack;
 
 public class PilaTomar {
+    private final PilaJugar pilaJugar;
+
     /**
      * Constructor de la pila de cartas a tomar
      */
-    public PilaTomar() {
+    public PilaTomar(PilaJugar pilaJugar) {
+        this.pilaJugar = pilaJugar;
     }
 
     private final Stack<Carta> listaCartas = new Stack<>();
@@ -71,7 +73,7 @@ public class PilaTomar {
     public ArrayList<Carta> tomarCartas(Jugador jugador, int n) {
         ArrayList<Carta> listaRetornar = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            if (listaCartas.isEmpty()) listaCartas.addAll(Juego.getCartasPorDebajo());
+            if (listaCartas.isEmpty()) listaCartas.addAll(pilaJugar.getCartasPorDebajo());
             Carta carta = tomarCarta();
             jugador.agregarCarta(carta);
             listaRetornar.add(carta);

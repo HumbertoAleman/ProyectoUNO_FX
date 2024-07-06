@@ -1,15 +1,18 @@
 package com.ucab.proyectouno_fx.Model.Jugador;
 
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
+import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 
 import java.util.LinkedList;
 
 public abstract class Jugador {
+    protected transient final Juego juego = Juego.getInstance();
+
     protected LinkedList<Carta> mazo = new LinkedList<>();
 
-    protected String tipo;
+    protected final String nombre;
 
-    private final String nombre;
+    protected final String tipo;
 
     public LinkedList<Carta> getMazo() {
         return this.mazo;
@@ -20,8 +23,9 @@ public abstract class Jugador {
      *
      * @param nombre nombre jugador
      */
-    public Jugador(String nombre) {
+    public Jugador(String nombre, String tipo) {
         this.nombre = nombre;
+        this.tipo = tipo;
     }
 
     /**
@@ -42,13 +46,6 @@ public abstract class Jugador {
         if (carta == null) return;
         mazo.add(carta);
     }
-
-    /**
-     * Revisa si el jugador canta uno
-     *
-     * @return true si canta uno, false si no
-     */
-    public abstract boolean cantarUno();
 
     /**
      * Obtiene la cantidad de cartas del mazo del jugador

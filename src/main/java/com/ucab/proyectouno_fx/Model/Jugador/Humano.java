@@ -1,22 +1,18 @@
 package com.ucab.proyectouno_fx.Model.Jugador;
 
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
-import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Humano extends Jugador {
-    private final Juego juego = Juego.getInstance();
-
     /**
      * Costructor de humano
      *
      * @param nombre nombre del jugador
      */
     public Humano(String nombre) {
-        super(nombre);
-        tipo = "H";
+        super(nombre, "H");
     }
 
     /**
@@ -51,7 +47,7 @@ public class Humano extends Jugador {
         }
 
         if (seleccion.equals("T")) {
-            ArrayList<Carta> cartasAgregadas = juego.darCartas();
+            ArrayList<Carta> cartasAgregadas = juego.darCartasAJugadorActual();
             if (cartasAgregadas.size() == 1) {
                 Carta cartaTomada = cartasAgregadas.getFirst();
                 while (!seleccion.equals("S") && !seleccion.equals("N")) {
@@ -84,31 +80,5 @@ public class Humano extends Jugador {
 
         mazo.remove(cartaSeleccionada);
         return true;
-    }
-
-
-    //Calcula el tiempo desde que se ejecuta la funcion hasta que se recibe la entrada del usuario
-    //Si es menor a 3 segundos es considerado valido y retorna true
-
-    /**
-     * Le da 3 segundos al jugador para cantar uno, sino agarrara cartas
-     *
-     * @return true si el jugador canta uno en menos de 3 segundos, false si no lo hace a tiempo
-     */
-    public boolean cantarUno() {
-        Scanner scanner = new Scanner(System.in);
-        long tiempoInicio = System.currentTimeMillis();
-        System.out.println("Es momento de cantar UNO!\nPresiona la tecla U y ENTER rapido!");
-        if (scanner.nextLine().equalsIgnoreCase("U")) {
-            long tiempoFinal = System.currentTimeMillis();
-            if (tiempoFinal - tiempoInicio >= 3000) {
-                System.out.println("No presionaste la tecla a tiempo :(");
-                return false;
-            }
-            return true;
-        } else {
-            System.out.println("Ingresaste la letra incorrecta :(");
-            return false;
-        }
     }
 }

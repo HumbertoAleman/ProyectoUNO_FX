@@ -6,13 +6,12 @@ import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaComodin;
 import com.ucab.proyectouno_fx.Model.Carta.Pila.PilaJugar;
 import com.ucab.proyectouno_fx.Model.Carta.Pila.PilaTomar;
 import com.ucab.proyectouno_fx.Model.Carta.Validator;
+import com.ucab.proyectouno_fx.Model.Controlador.Cargador.CargadorJSONSimple;
+import com.ucab.proyectouno_fx.Model.Controlador.Guardador.GuardadorGson;
 import com.ucab.proyectouno_fx.Model.Jugador.Humano;
 import com.ucab.proyectouno_fx.Model.Jugador.Jugador;
 import com.ucab.proyectouno_fx.Model.Jugador.Jugadores;
 
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,9 @@ public class Juego {
         return listaJugadores.getListaJugadores();
     }
 
-    private static int cartasATomar;
+    private int cartasATomar;
+
+    private boolean saltarTurno;
 
     /**
      * Obtiene las cartas a tomar
@@ -39,19 +40,17 @@ public class Juego {
      * @return cantidad de cartas
      */
     public int getCartasATomar() {
-        return cartasATomar;
+        return this.cartasATomar;
     }
 
     /**
-     * Asigna la cantidad de cartas a tomar
+     * Aumenta la cantidad de cartas a tomar
      *
-     * @param cartasATomar cartas a tomar
+     * @param increase Numero de cartas a tomar por aumentar
      */
-    public void setCartasATomar(int cartasATomar) {
-        Juego.cartasATomar = cartasATomar;
+    public void increaseCartasATomar(int increase) {
+        cartasATomar += increase;
     }
-
-    private boolean saltarTurno;
 
     /**
      * Revisa si se debe saltar un turno
@@ -74,36 +73,31 @@ public class Juego {
     /**
      * Revierte el orden de jugadores
      */
-    public static void revertirOrden() {
-        if (listaJugadores == null) return;
+    public void revertirOrden() {
+        assert (listaJugadores != null);
+        if (listaJugadores.size() < 3) {
+            saltarTurno = true;
+            return;
+        }
         listaJugadores.cambiarOrden();
     }
 
-    private static Jugadores listaJugadores;
+    private Jugadores listaJugadores;
+
+    private PilaTomar pilaTomar;
+
+    private PilaJugar pilaJugar;
 
     /**
-     * Obtiene la cantidad de jugadores en la partida
-     *
-     * @return cantidad de jugadores
-     */
-    public static int getNumeroJugadores() {
-        return listaJugadores == null ? 0 : listaJugadores.size();
-    }
-
-    private static PilaTomar pilaTomar;
-
-    /**
-     * Le da cartas a un jugador
+     * Le da cartas a el jugador actual
      *
      * @return Retorna la lista de las cartas que se le dieron al jugador
      */
-    public ArrayList<Carta> darCartas() {
+    public ArrayList<Carta> darCartasAJugadorActual() {
         ArrayList<Carta> listaRetornar = pilaTomar.tomarCartas(listaJugadores.getCurrentPlayer(), cartasATomar == 0 ? 1 : cartasATomar);
         cartasATomar = 0;
         return listaRetornar;
     }
-
-    private static PilaJugar pilaJugar;
 
     /**
      * Revisa si la carta se puede jugar
@@ -114,38 +108,8 @@ public class Juego {
     public boolean jugarCarta(Carta carta) {
         if (!Validator.validateCard(carta)) return false;
         pilaJugar.jugarCarta(carta);
-        removeCardFromCurrentPlayer(carta);
+        listaJugadores.removeCardFromCurrentPlayer(carta);
         return true;
-    }
-
-    private void removeCardFromCurrentPlayer(Carta card) {
-        listaJugadores.removeCardFromCurrentPlayer(card);
-    }
-
-    /**
-     * Obtiene las cartas de la Pila jugar menos la del tope
-     *
-     * @return lista de cartas
-     */
-    public static List<Carta> getCartasPorDebajo() {
-        return pilaJugar.getCartasPorDebajo();
-    }
-
-    /**
-     * Muestra el menu del juego
-     * @deprecated
-     */
-    public static void mostrarMenu() {
-        System.out.println("----------------------------------");
-        System.out.format("| %-30s |%n", "UNO");
-        System.out.format("| %30s |%n", "");
-        System.out.format("| %4s %25s |%n", "1.", "Comenzar juego");
-        System.out.format("| %4s %25s |%n", "2.", "Cargar juego");
-        System.out.format("| %30s |%n", "");
-        System.out.format("| %4s %25s |%n", "0.", "Salir del juego");
-        System.out.println("----------------------------------");
-        System.out.println();
-        System.out.print("Seleccion: ");
     }
 
     /**
@@ -153,8 +117,8 @@ public class Juego {
      */
     public void initializeGame() {
         listaJugadores = new Jugadores();
-        pilaTomar = new PilaTomar();
         pilaJugar = new PilaJugar();
+        pilaTomar = new PilaTomar(pilaJugar);
         cartasATomar = 0;
         saltarTurno = false;
 
@@ -170,85 +134,26 @@ public class Juego {
         }
     }
 
-    /**
-     * Funcion para cargar el juego
-     *
-     * @throws IOException    Se lanza si ocurre un error al leer el archivo
-     * @throws ParseException Se lanza si ocurre un error al transformar el archivo en un json
-     * @deprecated
-     */
-    public void cargarJuego() throws IOException, ParseException {
-        listaJugadores = Cargador.cargarJugadores();
-        pilaTomar = Cargador.cargarPilaTomar();
-        pilaJugar = Cargador.cargarPilaJugar();
-
-        saltarTurno = Cargador.cargarSaltarTurno();
-        cartasATomar = Cargador.cargarCartasAtomar();
+    public void guardarJuego() {
+        ManejadorSesion manejadorSesion = ManejadorSesion.getInstance();
+        manejadorSesion.setGuardador(new GuardadorGson());
+        try {
+            manejadorSesion.guardarJuego(listaJugadores, pilaJugar, pilaTomar, saltarTurno, cartasATomar);
+        } catch (Exception e) {
+            System.err.println("Unable to save game");
+            System.err.println(e.getMessage());
+        }
     }
 
-    /**
-     * Loop del juego
-     * - Se revisa si se salta el turno de un jugador
-     * - Se muestra la carta actual
-     * - Se guarda el juego
-     * - El jugador actual toma su turno
-     * - Si solo queda una carta, y es comodin, se le da una carta al jugador
-     * - Si solo queda una carta, y no es comodin, el jugador canta UNO
-     * - Se aplica el efecto de la carta jugada
-     * - Se pasa al siguiente jugador
-     *
-     * @return Retorna un booleano, retorna falso si el juego termina
-     * @deprecated
-     */
-    public boolean loopJuego() {
-        // limpiarConsola();
-        if (saltarTurno) {
-            listaJugadores.siguienteJugador();
-            saltarTurno = false;
-        }
-
-        System.out.println();
-        System.out.println();
-        pilaJugar.mostrarCartaTope();
-        System.out.println();
-
+    public void cargarJuego() {
+        ManejadorSesion manejadorSesion = ManejadorSesion.getInstance();
+        manejadorSesion.setCargador(new CargadorJSONSimple());
         try {
-            Guardador.guardarJuego(listaJugadores, pilaJugar, pilaTomar, saltarTurno, cartasATomar);
-        } catch (IOException e) {
+            manejadorSesion.cargarJuego(this);
+        } catch (Exception e) {
+            System.err.println("Unable to load game");
             System.err.println(e.getMessage());
-            System.out.println();
-            System.out.println("Ha ocurrido un error guardando el juego, continuando...");
-            try {
-                Thread.sleep(3000);
-            } catch (Exception sleepError) {
-                System.err.println(sleepError.getMessage());
-            }
-            // limpiarConsola();
         }
-        if (!listaJugadores.jugadorActualTurno()) return false;
-        int cartas = listaJugadores.getNumCartasJugadorActual();
-
-        if (cartas == 1) {
-            if (listaJugadores.getCurrentPlayer().getCarta() instanceof CartaComodin) {
-                System.out.println("No se puede ganar con un comodin, estas obligado a tomar una carta...");
-                try {
-                    Thread.sleep(1500);
-                } catch (Exception sleepError) {
-                    System.err.println(sleepError.getMessage());
-                }
-                pilaTomar.tomarCartas(listaJugadores.getCurrentPlayer(), 1);
-            } else if (!listaJugadores.getCurrentPlayer().cantarUno()) {
-                pilaTomar.tomarCartas(listaJugadores.getCurrentPlayer(), 7);
-            }
-        } else if (cartas == 0) {
-            System.out.println("HA GANADO : " + listaJugadores.getCurrentPlayer().getNombre());
-            // FUNCION GANAR
-            return false;
-        }
-
-        pilaJugar.usarEfectoDeCarta();
-        listaJugadores.siguienteJugador();
-        return true;
     }
 
     public Jugador getCurrentPlayer() {
@@ -289,5 +194,21 @@ public class Juego {
         // - Humberto Aleman
 
         System.out.println("\n".repeat(15));
+    }
+
+    public void setListaJugadores(Jugadores listaJugadores) {
+        this.listaJugadores = listaJugadores;
+    }
+
+    public void setPilaJugar(PilaJugar pilaJugar) {
+        this.pilaJugar = pilaJugar;
+    }
+
+    public PilaJugar getPilaJugar() {
+        return pilaJugar;
+    }
+
+    public void setPilaTomar(PilaTomar pilaTomar) {
+        this.pilaTomar = pilaTomar;
     }
 }

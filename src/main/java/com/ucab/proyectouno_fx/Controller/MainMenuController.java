@@ -1,5 +1,6 @@
 package com.ucab.proyectouno_fx.Controller;
 
+import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -29,13 +30,17 @@ public class MainMenuController extends ControllerParent {
 
     @FXML
     public void newGame(ActionEvent event) throws IOException {
-        // TODO: Implementar logica para crear nuevo juego
+        Juego.getInstance().initializeGame();
         switchToScene(event, gameScreenView);
     }
 
     @FXML
     public void loadGame(ActionEvent event) throws IOException {
-        // TODO: Implementar logica para cargar juego
+        try {
+            Juego.getInstance().cargarJuego();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
         switchToScene(event, gameScreenView);
     }
 

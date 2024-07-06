@@ -37,4 +37,9 @@ public abstract class CartaComodin implements Carta {
     public String getEtiqueta() {
         return getColor() + getTipo();
     }
+
+    @Override
+    public int getScore() {
+        return 50;
+    }
 }

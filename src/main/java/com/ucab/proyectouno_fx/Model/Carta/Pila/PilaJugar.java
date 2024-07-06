@@ -2,13 +2,11 @@ package com.ucab.proyectouno_fx.Model.Carta.Pila;
 
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
 import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaComodin;
-import com.ucab.proyectouno_fx.Model.Jugador.ImpresoraCarta;
 
 import java.util.*;
 
 public class PilaJugar {
     private final Stack<Carta> listaCartas = new Stack<>();
-    private boolean cartaFueJugada = false;
 
     /**
      * Coloca una carta en la pila de jugar
@@ -17,26 +15,6 @@ public class PilaJugar {
      */
     public void jugarCarta(Carta carta) {
         listaCartas.push(carta);
-        cartaFueJugada = true;
-    }
-
-    /**
-     * Ejecuta la accion de la carta jugada
-     */
-    public void usarEfectoDeCarta() {
-        if (!cartaFueJugada) return;
-        cartaFueJugada = false;
-        listaCartas.peek().ejecutarAccion();
-    }
-
-    /**
-     * Muestra la carta en el tope de la pila de jugar
-     */
-    public void mostrarCartaTope() {
-        System.out.println("+---+");
-        ImpresoraCarta.imprimirCuerpoCarta(listaCartas.peek(), true);
-        System.out.println();
-        System.out.println("+---+");
     }
 
     /**
@@ -63,7 +41,6 @@ public class PilaJugar {
      */
     public void agregarCarta(Carta carta) {
         listaCartas.add(carta);
-        cartaFueJugada = true;
     }
 
     public Carta getCartaTope() {

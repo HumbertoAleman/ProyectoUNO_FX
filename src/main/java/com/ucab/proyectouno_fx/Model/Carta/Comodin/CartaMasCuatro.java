@@ -1,9 +1,8 @@
 package com.ucab.proyectouno_fx.Model.Carta.Comodin;
 
-import com.ucab.proyectouno_fx.Model.Controlador.Juego;
-
 public class CartaMasCuatro extends CartaComodin {
     private static final int aTomar = 4;
+
     private static final String tipo = "T4";
 
     /**
@@ -27,8 +26,7 @@ public class CartaMasCuatro extends CartaComodin {
      */
     @Override
     public void ejecutarAccion() {
-        Juego juego = Juego.getInstance();
-        juego.setCartasATomar(juego.getCartasATomar() + aTomar);
+        juego.increaseCartasATomar(aTomar);
     }
 
     /**

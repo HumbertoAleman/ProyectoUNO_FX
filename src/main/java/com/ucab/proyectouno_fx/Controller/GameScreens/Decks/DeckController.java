@@ -73,8 +73,7 @@ public class DeckController {
             if (juego.isSaltarTurno()) {
                 juego.siguienteJugador();
 
-                controller.refreshDecks();
-                controller.refreshPlayPile();
+                controller.refreshAll();
                 return;
             }
 
@@ -83,8 +82,7 @@ public class DeckController {
                 actions.setText("Escoja un color");
                 controller.triggerChooseColor(card);
 
-                controller.refreshDecks();
-                controller.refreshPlayPile();
+                controller.refreshAll();
                 return;
             }
 
@@ -94,8 +92,8 @@ public class DeckController {
                 controller.triggerCPUTurn();
             }
 
-            controller.refreshDecks();
-            controller.refreshPlayPile();
+            controller.refreshAll();
+            juego.guardarJuego();
         });
         deck.getChildren().add(cardButton.getButton());
     }

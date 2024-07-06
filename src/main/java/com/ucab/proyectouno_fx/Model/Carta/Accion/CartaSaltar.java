@@ -20,7 +20,7 @@ public class CartaSaltar extends CartaAccion {
     @Override
     public void ejecutarAccion() {
         System.out.println("Saltando turno del siguiente jugador");
-        Juego.getInstance().setSaltarTurno(true);
+        juego.setSaltarTurno(true);
         System.out.println(Juego.getInstance().isSaltarTurno());
     }
 

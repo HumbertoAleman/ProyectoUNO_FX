@@ -54,10 +54,10 @@ public class ColorSelector {
         if (juego.isCurrentPlayerHuman()) {
             juego.siguienteJugador();
             juego.currentPlayerTakeTurn();
+            juego.siguienteJugador();
         }
 
         controller.refreshAll();
-
         setColorPickerDisable(true);
     }
 }

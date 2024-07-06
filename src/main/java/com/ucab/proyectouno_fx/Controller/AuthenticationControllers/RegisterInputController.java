@@ -1,6 +1,7 @@
 package com.ucab.proyectouno_fx.Controller.AuthenticationControllers;
 
 import com.ucab.proyectouno_fx.Controller.ControllerParent;
+import com.ucab.proyectouno_fx.Model.Controlador.ManejadorSesion;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.PasswordField;
@@ -15,10 +16,14 @@ public class RegisterInputController extends ControllerParent {
     @FXML
     private PasswordField passwordField;
 
+    private final ManejadorSesion manejadorSesion = ManejadorSesion.getInstance();
+
     @FXML
     public void registerUser() {
         System.out.println("Text field: " + textField.getText());
         System.out.println("Password field: " + passwordField.getText());
+
+        manejadorSesion.registerPlayerDirectory(textField.getText(), passwordField.getText());
     }
 
     @FXML

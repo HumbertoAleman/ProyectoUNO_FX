@@ -7,6 +7,7 @@ import com.ucab.proyectouno_fx.Controller.GameScreens.Decks.ActiveDecks;
 import com.ucab.proyectouno_fx.Controller.MainMenuController;
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
+import com.ucab.proyectouno_fx.Model.Jugador.Jugador;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,12 +17,14 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class GameScreenController extends ControllerParent {
 
-    private final Juego juego = Juego.getInstance();
+    private Juego juego;
 
     private ActiveDecks activeDecks;
 
@@ -37,39 +40,21 @@ public class GameScreenController extends ControllerParent {
         cpuActions.triggerCPUTurn();
     }
 
-
-    public void refreshAll() {
-        refreshDecks();
-        refreshPlayPile();
-    }
-
-    public void refreshDecks() {
-        activeDecks.refreshDecks();
-    }
-
-    public void refreshPlayPile() {
-        playPile.setText(juego.getTopCard().getEtiqueta());
-    }
-
-    private List<VBox> getListOfPlayerContainers() {
-        return List.of(playerOneContainer, playerTwoContainer);
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.juego = Juego.getInstance();
         this.activeDecks = new ActiveDecks(this);
         this.colorSelector = new ColorSelector(this, colorPickContainer);
         this.cpuActions = new CPUControllerActions(this, colorSelector);
 
-        // Initialize game, then get player list, and create HBOXES and LABELS for them
-        juego.initializeGame();
-        activeDecks.initializeDecks(juego.getPlayers(), getListOfPlayerContainers());
+        // Get player list, and create HBOXES and LABELS for them
+        activeDecks.initializeDecks(juego.getPlayers(), List.of(playerOneContainer, playerTwoContainer));
         humanPlayersNameLabel.setText(MainMenuController.getActiveUser());
 
         takePile.setText("UNO");
         takePile.setOnAction(event -> {
             // Le damos las cartas al jugador actual
-            juego.darCartas();
+            juego.darCartasAJugadorActual();
 
             // Siguiente jugador ensues
             juego.siguienteJugador();
@@ -132,5 +117,38 @@ public class GameScreenController extends ControllerParent {
 
     public void triggerChooseColor(Carta card) {
         colorSelector.triggerChooseColor(card);
+    }
+
+    public void refreshAll() {
+        refreshDecks();
+        refreshPlayPile();
+    }
+
+    private void refreshDecks() {
+        activeDecks.refreshDecks();
+    }
+
+    private void refreshPlayPile() {
+        playPile.setText(juego.getTopCard().getEtiqueta());
+    }
+
+    public void triggerWinEvent() {
+        LinkedList<Jugador> players = new LinkedList<>(juego.getPlayers());
+        players.remove(juego.getCurrentPlayer());
+        ArrayList<Carta> remainingCards = new ArrayList<>();
+        for (Jugador player : players)
+            remainingCards.addAll(player.getMazo());
+
+        int score = 0;
+        for (Carta carta : remainingCards)
+            score += carta.getScore();
+
+        System.out.println("Final score: " + score);
+
+        /* TODO
+        1- mover esta logica a juego, no deberia estar aqui
+        2- hacer que los elementos se desactiven cuando alguien gana, y mostrar un boton para regresar al menu
+        3- mostrar que jugador gano cuando termina la partida
+        */
     }
 }

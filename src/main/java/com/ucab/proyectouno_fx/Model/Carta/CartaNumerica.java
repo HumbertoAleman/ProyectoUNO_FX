@@ -37,4 +37,9 @@ public class CartaNumerica extends CartaColorada {
     public String getTipo() {
         return numero;
     }
+
+    @Override
+    public int getScore() {
+        return Integer.parseInt(getTipo());
+    }
 }

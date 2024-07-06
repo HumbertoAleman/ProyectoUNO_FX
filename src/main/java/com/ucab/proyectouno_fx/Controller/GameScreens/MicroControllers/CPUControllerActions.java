@@ -52,6 +52,11 @@ public class CPUControllerActions {
         juego.currentPlayerTakeTurn();
         Carta topCard = juego.getTopCard();
 
+        if (juego.getCurrentPlayer().getCantidadDeCartas() == 0) {
+            controller.triggerWinEvent();
+            return;
+        }
+
         if (previousTopCard == topCard) {
             cpuDidntPlayCard();
             return;

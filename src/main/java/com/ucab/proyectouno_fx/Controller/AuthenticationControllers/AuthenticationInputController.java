@@ -2,6 +2,7 @@ package com.ucab.proyectouno_fx.Controller.AuthenticationControllers;
 
 import com.ucab.proyectouno_fx.Controller.ControllerParent;
 import com.ucab.proyectouno_fx.Controller.MainMenuController;
+import com.ucab.proyectouno_fx.Model.Controlador.ManejadorSesion;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.PasswordField;
@@ -16,20 +17,18 @@ public class AuthenticationInputController extends ControllerParent {
     @FXML
     private PasswordField passwordField;
 
+    private final ManejadorSesion manejadorSesion = ManejadorSesion.getInstance();
+
     @FXML
     public void authenticateUser(ActionEvent event) throws IOException {
-        // TODO: Agregar logica de autenticacion aqui
-        boolean authenticated = true;
+        boolean authenticated = manejadorSesion.loginPlayerDirectory(textField.getText(), passwordField.getText());
 
-        System.out.println("User " + textField.getText() + " is authenticated");
-        System.out.println("Password: " + passwordField.getText());
         if (!authenticated) {
-            // TODO: Encontrar razon de porque no esta autenticado (no existe el usuario, contraseña incorrecta, otro)
-            // TODO: Agregar una manera visual de mostrar que no estas autenticado
-
             System.out.println("ERROR: El usuario no esta autenticado");
             return;
         }
+
+        System.out.println("Usuario autenticado correctamente");
 
         MainMenuController.setActiveUser(textField.getText());
         switchToScene(event, mainMenuView);

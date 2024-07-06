@@ -1,9 +1,8 @@
 package com.ucab.proyectouno_fx.Model.Carta.Accion;
 
-import com.ucab.proyectouno_fx.Model.Controlador.Juego;
-
 public class CartaMasDos extends CartaAccion {
     private static final int aTomar = 2;
+
     private static final String tipo = "T2";
 
     /**
@@ -20,8 +19,7 @@ public class CartaMasDos extends CartaAccion {
      */
     @Override
     public void ejecutarAccion() {
-        Juego juego = Juego.getInstance();
-        juego.setCartasATomar(juego.getCartasATomar() + aTomar);
+        juego.increaseCartasATomar(aTomar);
     }
 
     /**
