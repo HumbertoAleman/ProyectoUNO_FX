@@ -12,7 +12,7 @@ public class ProyectoUNO extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ProyectoUNO.class.getResource("register-auth-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-        stage.setTitle("Hello!");
+        stage.setTitle("UNO_FX");
         stage.setScene(scene);
         stage.show();
     }

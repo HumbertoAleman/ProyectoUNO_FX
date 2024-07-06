@@ -8,7 +8,7 @@ import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import java.util.Random;
 
 public class CPUControllerActions {
-    Juego juego = Juego.getInstance();
+    private final Juego juego = Juego.getInstance();
 
     private final ColorSelector colorSelector;
 

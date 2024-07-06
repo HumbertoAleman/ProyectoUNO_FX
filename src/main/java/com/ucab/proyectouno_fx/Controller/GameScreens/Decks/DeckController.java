@@ -59,41 +59,38 @@ public class DeckController {
         addCardToHBox(card, isPlayerHuman);
     }
 
+    private void executePlayerTurn(Carta card) {
+        // Validamos si la carta es jugable, si lo es, jugamos la carta, y ejecutamos su efecto
+        if (!Validator.validateCard(card)) return;
+        juego.jugarCarta(card);
+        card.ejecutarAccion();
+
+        // Si la carta es saltar turno, saltamos el turno del siguiente jugador
+        if (juego.isSaltarTurno()) {
+            juego.siguienteJugador();
+            return;
+        }
+
+        // Si la carta es comodin, triggerear la seleccion de color
+        if (card instanceof CartaComodin) {
+            actions.setText("Escoja un color");
+            controller.triggerChooseColor(card);
+            return;
+        }
+
+        actions.setText("El jugador jugo la carta " + card.getEtiqueta());
+        juego.siguienteJugador();
+        if (!juego.isCurrentPlayerHuman())
+            controller.triggerCPUTurn();
+    }
+
     private void addCardToHBox(Carta card, boolean show) {
         boolean disableDeck = getDisabledStatus();
         CardButton cardButton = new CardButton(card, show, (!show || !(!disableDeck && Validator.validateCard(card))));
         cardButton.getButton().setOnAction(event -> {
-
-            // Validamos si la carta es jugable, si lo es, jugamos la carta, y ejecutamos su efecto
-            if (!Validator.validateCard(card)) return;
-            juego.jugarCarta(card);
-            card.ejecutarAccion();
-
-            // Si la carta es saltar turno, saltamos el turno del siguiente jugador
-            if (juego.isSaltarTurno()) {
-                juego.siguienteJugador();
-
-                controller.refreshAll();
-                return;
-            }
-
-            // Si la carta es comodin, triggerear la seleccion de color
-            if (card instanceof CartaComodin) {
-                actions.setText("Escoja un color");
-                controller.triggerChooseColor(card);
-
-                controller.refreshAll();
-                return;
-            }
-
-            actions.setText("El jugador jugo la carta " + card.getEtiqueta());
-            juego.siguienteJugador();
-            if (!juego.isCurrentPlayerHuman()) {
-                controller.triggerCPUTurn();
-            }
-
-            controller.refreshAll();
             juego.guardarJuego();
+            executePlayerTurn(card);
+            controller.refreshAll();
         });
         deck.getChildren().add(cardButton.getButton());
     }

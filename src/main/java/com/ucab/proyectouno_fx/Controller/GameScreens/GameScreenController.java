@@ -44,7 +44,7 @@ public class GameScreenController extends ControllerParent {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.juego = Juego.getInstance();
         this.activeDecks = new ActiveDecks(this);
-        this.colorSelector = new ColorSelector(this, colorPickContainer);
+        this.colorSelector = new ColorSelector(this, colorPickContainer, takePile);
         this.cpuActions = new CPUControllerActions(this, colorSelector);
 
         // Get player list, and create HBOXES and LABELS for them

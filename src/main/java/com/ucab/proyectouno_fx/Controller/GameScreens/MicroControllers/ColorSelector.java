@@ -5,6 +5,7 @@ import com.ucab.proyectouno_fx.Model.Carta.Carta;
 import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaComodin;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 public class ColorSelector {
@@ -14,6 +15,8 @@ public class ColorSelector {
 
     private final GridPane colorPickContainer;
 
+    private final Button takePile;
+
     private boolean pickingColor = false;
 
     public boolean isPickingColor() {
@@ -22,15 +25,18 @@ public class ColorSelector {
 
     private CartaComodin comodinBeingPlayed = null;
 
-    public ColorSelector(GameScreenController controller, GridPane colorPickContainer) {
+    public ColorSelector(GameScreenController controller, GridPane colorPickContainer, Button takePile) {
         assert (controller != null);
         assert (colorPickContainer != null);
+        assert (takePile != null);
 
         this.controller = controller;
         this.colorPickContainer = colorPickContainer;
+        this.takePile = takePile;
     }
 
     public void setColorPickerDisable(boolean disable) {
+        takePile.setDisable(!disable);
         for (Node child : colorPickContainer.getChildren())
             child.setDisable(disable);
     }

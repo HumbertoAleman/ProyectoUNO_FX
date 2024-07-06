@@ -35,22 +35,25 @@ public class ManejadorSesion {
 
     private final File directory;
 
+    private File getUserDir(String playerName) {
+        return new File(directory.getName() + "/" + playerName);
+    }
+
+    public boolean userDirExists(String playerName) {
+        assert (directory != null);
+        return getUserDir(playerName).exists();
+    }
 
     public void registerPlayerDirectory(String playerName, String password) {
-        assert (directory != null);
-        String dirName = directory.getName() + "/" + playerName;
-        File dirToCreate = new File(dirName);
+        File dirToCreate = getUserDir(playerName);
 
-        // TODO: Hacer que si existe el directorio, mostrar en el controlador el mensaje de error
-        if (dirToCreate.exists()) return;
-
-        System.out.println("Creating directory " + dirName);
+        System.out.println("Creating directory " + dirToCreate.getPath());
         System.out.println("Created?: " + dirToCreate.mkdirs());
 
         try {
             FileWriter fileWriter = new FileWriter(dirToCreate + "/" + "user_info.json");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write("{ \"name\": " + playerName + ", \"password\": " + password + " }");
+            bufferedWriter.write("{ \"name\": \"" + playerName + "\", \"password\": \"" + password + "\" }");
             bufferedWriter.close();
         } catch (Exception e) {
             System.err.println(e.getMessage());
