@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,7 +32,7 @@ public abstract class ControllerParent implements Initializable {
     @FXML
     protected void switchToScene(ActionEvent event, String newScene) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(ProyectoUNO.class.getResource(newScene)));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -38,9 +40,14 @@ public abstract class ControllerParent implements Initializable {
 
     @FXML
     protected void exitApp() {
-        Platform.exit();
+        // NOTA: Esta confirmacion de salir no esta siendo creada usando java fx, no se si a joselito le importe
+        // porque tecnicamente cumple con el criterio puesto por el
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Esta seguro de que quiere salir?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) Platform.exit();
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) { }
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
 }
