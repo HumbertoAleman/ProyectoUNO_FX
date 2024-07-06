@@ -25,11 +25,20 @@ public abstract class ControllerParent implements Initializable {
     protected static final String mainMenuView = "main-menu-view.fxml";
     protected static final String gameScoresView = "game-scores-view.fxml";
     protected static final String gameScreenView = "game-screen-view.fxml";
+    protected static final String winnerView = "winner-view.fxml";
+    protected static final String loserView = "loser-view.fxml";
 
-    protected Stage stage;
-    protected Scene scene;
+    protected static Stage stage;
+    protected static Scene scene;
 
-    @FXML
+    protected void switchToScene(String newScene) throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(ProyectoUNO.class.getResource(newScene)));
+        stage = (Stage) scene.getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     protected void switchToScene(ActionEvent event, String newScene) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(ProyectoUNO.class.getResource(newScene)));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

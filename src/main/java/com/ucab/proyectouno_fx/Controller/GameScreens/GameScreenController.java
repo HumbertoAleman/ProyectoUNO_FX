@@ -5,9 +5,10 @@ import com.ucab.proyectouno_fx.Controller.GameScreens.MicroControllers.CPUContro
 import com.ucab.proyectouno_fx.Controller.GameScreens.MicroControllers.ColorSelector;
 import com.ucab.proyectouno_fx.Controller.GameScreens.Decks.ActiveDecks;
 import com.ucab.proyectouno_fx.Controller.MainMenuController;
+import com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.LoserViewController;
+import com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.WinnerViewController;
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
-import com.ucab.proyectouno_fx.Model.Jugador.Jugador;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,8 +18,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -133,22 +132,23 @@ public class GameScreenController extends ControllerParent {
     }
 
     public void triggerWinEvent() {
-        LinkedList<Jugador> players = new LinkedList<>(juego.getPlayers());
-        players.remove(juego.getCurrentPlayer());
-        ArrayList<Carta> remainingCards = new ArrayList<>();
-        for (Jugador player : players)
-            remainingCards.addAll(player.getMazo());
+        int score = juego.getWinnerScore();
 
-        int score = 0;
-        for (Carta carta : remainingCards)
-            score += carta.getScore();
+        if (juego.isCurrentPlayerHuman()) {
+            WinnerViewController.setPuntuacionFinal(score);
+            try {
+                switchToScene(winnerView);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+            return;
+        }
 
-        System.out.println("Final score: " + score);
-
-        /* TODO
-        1- mover esta logica a juego, no deberia estar aqui
-        2- hacer que los elementos se desactiven cuando alguien gana, y mostrar un boton para regresar al menu
-        3- mostrar que jugador gano cuando termina la partida
-        */
+        LoserViewController.setPuntuacionFinal(score);
+        try {
+            switchToScene(loserView);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 }

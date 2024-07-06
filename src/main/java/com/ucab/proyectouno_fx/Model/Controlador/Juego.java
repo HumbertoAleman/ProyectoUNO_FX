@@ -13,6 +13,7 @@ import com.ucab.proyectouno_fx.Model.Jugador.Jugador;
 import com.ucab.proyectouno_fx.Model.Jugador.Jugadores;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Juego {
@@ -210,5 +211,19 @@ public class Juego {
 
     public void setPilaTomar(PilaTomar pilaTomar) {
         this.pilaTomar = pilaTomar;
+    }
+
+    public int getWinnerScore() {
+        LinkedList<Jugador> players = new LinkedList<>(getPlayers());
+        players.remove(getCurrentPlayer());
+        ArrayList<Carta> remainingCards = new ArrayList<>();
+        for (Jugador player : players)
+            remainingCards.addAll(player.getMazo());
+
+        int score = 0;
+        for (Carta carta : remainingCards)
+            score += carta.getScore();
+
+        return score;
     }
 }

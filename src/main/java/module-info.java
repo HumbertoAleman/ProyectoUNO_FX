@@ -40,4 +40,6 @@ module com.ucab.proyectouno_fx {
     opens com.ucab.proyectouno_fx.Model.Controlador.Guardador to com.google.gson;
     exports com.ucab.proyectouno_fx.Model.Controlador.Cargador;
     opens com.ucab.proyectouno_fx.Model.Controlador.Cargador to com.google.gson;
+    exports com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen;
+    opens com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen to javafx.fxml;
 }

@@ -65,6 +65,11 @@ public class DeckController {
         juego.jugarCarta(card);
         card.ejecutarAccion();
 
+        if (jugador.getCantidadDeCartas() == 0) {
+            controller.triggerWinEvent();
+            return;
+        }
+
         // Si la carta es saltar turno, saltamos el turno del siguiente jugador
         if (juego.isSaltarTurno()) {
             juego.siguienteJugador();
