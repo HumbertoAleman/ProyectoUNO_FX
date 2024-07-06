@@ -26,19 +26,24 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="163.0">
                <children>
-                  <TextField fx:id="textField" promptText="Usuario" />
+                  <Label fx:id="mensajeAUsuario" text="MENSAJE_DE_ERROR" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <PasswordField fx:id="passwordField" promptText="Contraseña" />
+                  <TextField fx:id="textField" onKeyPressed="#userFieldKeyPressed" promptText="Usuario" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <PasswordField fx:id="passwordField" onKeyPressed="#passwordFieldKeyPressed" promptText="Contraseña" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="12.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#authenticateUser" text="Autenticarse" />
+                  <Button fx:id="authenticateButton" mnemonicParsing="false" onAction="#authenticateUser" text="Autenticarse" />
                   <Button mnemonicParsing="false" onAction="#returnToRegisterAuthView" text="Regresar" />
                </children>
             </HBox>

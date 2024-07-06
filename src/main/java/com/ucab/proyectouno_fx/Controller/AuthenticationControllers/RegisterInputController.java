@@ -63,6 +63,11 @@ public class RegisterInputController extends ControllerParent {
             return false;
         }
 
+        if (manejadorSesion.userDirExists(username)) {
+            sendErrorMessage("ERROR: Un usuario con este nombre ya se encuentra registrado");
+            return false;
+        }
+
         return true;
     }
 
@@ -87,12 +92,6 @@ public class RegisterInputController extends ControllerParent {
         password = passwordField.getText();
 
         if (!validateUsername(username)) return;
-
-        if (manejadorSesion.userDirExists(username)) {
-            sendErrorMessage("ERROR: Un usuario con este nombre ya se encuentra registrado");
-            return;
-        }
-
         if (!validatePassword(password)) return;
 
         manejadorSesion.registerPlayerDirectory(username, password);
