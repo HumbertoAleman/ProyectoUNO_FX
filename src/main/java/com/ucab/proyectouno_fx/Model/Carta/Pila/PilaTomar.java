@@ -6,6 +6,7 @@ import com.ucab.proyectouno_fx.Model.Carta.Accion.CartaSaltar;
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
 import com.ucab.proyectouno_fx.Model.Carta.CartaNumerica;
 import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaCambiarColor;
+import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaComodin;
 import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaMasCuatro;
 import com.ucab.proyectouno_fx.Model.Jugador.Jugador;
 
@@ -48,6 +49,7 @@ public class PilaTomar {
 
     /**
      * baraja las cartas
+     *
      * @param listaCartas La lista de cartas que va a ser revuelta
      */
     public void shuffle(Stack<Carta> listaCartas) {
@@ -63,6 +65,13 @@ public class PilaTomar {
         return listaCartas.isEmpty() ? null : listaCartas.pop();
     }
 
+    private void recargarListaCartas() {
+        listaCartas.addAll(pilaJugar.getCartasPorDebajo());
+        Collections.shuffle(listaCartas);
+        for (Carta carta : listaCartas)
+            if (carta instanceof CartaComodin) ((CartaComodin) carta).setColorSeleccionado('C');
+    }
+
     /**
      * Toma las cartas y se las da a un jugador
      *
@@ -73,7 +82,7 @@ public class PilaTomar {
     public ArrayList<Carta> tomarCartas(Jugador jugador, int n) {
         ArrayList<Carta> listaRetornar = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            if (listaCartas.isEmpty()) listaCartas.addAll(pilaJugar.getCartasPorDebajo());
+            if (listaCartas.isEmpty()) recargarListaCartas();
             Carta carta = tomarCarta();
             jugador.agregarCarta(carta);
             listaRetornar.add(carta);
@@ -93,9 +102,10 @@ public class PilaTomar {
 
     /**
      * Metodo usado para agregar una carta a la lista
+     *
      * @param carta La carta a agregar
      */
-    public void agregarCarta(Carta carta){
+    public void agregarCarta(Carta carta) {
         listaCartas.add(carta);
     }
 }
