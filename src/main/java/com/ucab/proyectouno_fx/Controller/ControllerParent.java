@@ -11,8 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -36,6 +39,13 @@ public abstract class ControllerParent implements Initializable {
         stage = (Stage) scene.getWindow();
         scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
+        Image icono;
+        try {
+            icono = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/UNO_Logo.png"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        stage.getIcons().add(icono);
         stage.show();
     }
 
@@ -44,6 +54,13 @@ public abstract class ControllerParent implements Initializable {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
+        Image icono;
+        try {
+            icono = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/UNO_Logo.png"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        stage.getIcons().add(icono);
         stage.show();
     }
 
