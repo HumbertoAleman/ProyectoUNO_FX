@@ -25,10 +25,10 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#triggerRedSelection" style="-fx-background-color: red;" GridPane.columnIndex="1" />
-                        <Button mnemonicParsing="false" onAction="#triggerBlueSelection" style="-fx-background-color: blue;" GridPane.rowIndex="1" />
-                        <Button mnemonicParsing="false" onAction="#triggerGreenSelection" style="-fx-background-color: green;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Button mnemonicParsing="false" onAction="#triggerYellowSelection" style="-fx-background-color: yellow;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Button fx:id="botonRojo" mnemonicParsing="false" onAction="#triggerRedSelection" style="-fx-background-color: red;" GridPane.columnIndex="1" />
+                        <Button fx:id="botonAzul" mnemonicParsing="false" onAction="#triggerBlueSelection" style="-fx-background-color: blue;" GridPane.rowIndex="1" />
+                        <Button fx:id="botonVerde" mnemonicParsing="false" onAction="#triggerGreenSelection" style="-fx-background-color: green;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Button fx:id="botonAmarillo" mnemonicParsing="false" onAction="#triggerYellowSelection" style="-fx-background-color: yellow;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>
