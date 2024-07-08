@@ -13,9 +13,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -50,7 +54,15 @@ public class GameScreenController extends ControllerParent {
         activeDecks.initializeDecks(juego.getPlayers(), List.of(playerOneContainer, playerTwoContainer));
         humanPlayersNameLabel.setText(MainMenuController.getActiveUser());
 
-        takePile.setText("UNO");
+        //takePile.setText("UNO");
+        Image carta = null;
+        try {
+            carta = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/CartaUno.png"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        takePile.setGraphic(new ImageView(carta));
+
         takePile.setOnAction(event -> {
             // Le damos las cartas al jugador actual
             juego.darCartasAJugadorActual();
@@ -64,7 +76,13 @@ public class GameScreenController extends ControllerParent {
             refreshAll();
         });
 
-        playPile.setText(juego.getTopCard().getEtiqueta());
+        //playPile.setText(juego.getTopCard().getEtiqueta());
+        try {
+            carta = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/" + juego.getTopCard().getEtiqueta() + ".png"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        playPile.setGraphic(new ImageView(carta));
 
         colorSelector.setColorPickerDisable(true);
 
@@ -128,7 +146,14 @@ public class GameScreenController extends ControllerParent {
     }
 
     private void refreshPlayPile() {
-        playPile.setText(juego.getTopCard().getEtiqueta());
+        //playPile.setText(juego.getTopCard().getEtiqueta());
+        Image carta = null;
+        try {
+            carta = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/" + juego.getTopCard().getEtiqueta() + ".png"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        playPile.setGraphic(new ImageView(carta));
     }
 
     public void triggerWinEvent() {

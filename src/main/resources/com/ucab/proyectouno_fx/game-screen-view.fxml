@@ -6,13 +6,13 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucab.proyectouno_fx.Controller.GameScreens.GameScreenController">
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <VBox fx:id="playerTwoContainer" />
             <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="12.0">
                <children>
-                  <Button fx:id="playPile" mnemonicParsing="false" text="Pila Jugar" />
-                  <Button fx:id="takePile" layoutX="271.0" layoutY="48.0" mnemonicParsing="false" text="Pila Tomar" />
+                  <Button fx:id="playPile" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" />
+                  <Button fx:id="takePile" layoutX="271.0" layoutY="48.0" mnemonicParsing="false" />
                   <GridPane fx:id="colorPickContainer" alignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
