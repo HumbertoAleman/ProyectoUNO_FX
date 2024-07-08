@@ -8,6 +8,8 @@ import com.ucab.proyectouno_fx.Model.Carta.Pila.PilaTomar;
 import com.ucab.proyectouno_fx.Model.Carta.Validator;
 import com.ucab.proyectouno_fx.Model.Controlador.Cargador.CargadorJSONSimple;
 import com.ucab.proyectouno_fx.Model.Controlador.Guardador.GuardadorGson;
+import com.ucab.proyectouno_fx.Model.Controlador.Score.Score;
+import com.ucab.proyectouno_fx.Model.Controlador.Score.ScoreManager;
 import com.ucab.proyectouno_fx.Model.Jugador.Humano;
 import com.ucab.proyectouno_fx.Model.Jugador.Jugador;
 import com.ucab.proyectouno_fx.Model.Jugador.Jugadores;
@@ -25,6 +27,16 @@ public class Juego {
     public static Juego getInstance() {
         if (instance == null) instance = new Juego();
         return instance;
+    }
+
+    private ScoreManager scoreManager;
+
+    public ScoreManager getScoreManager() {
+        return scoreManager;
+    }
+
+    public void setScoreManager(ScoreManager scoreManager) {
+        this.scoreManager = scoreManager;
     }
 
     public List<Jugador> getPlayers() {
@@ -157,6 +169,17 @@ public class Juego {
         }
     }
 
+    public void cargarScores() {
+        ManejadorSesion manejadorSesion = ManejadorSesion.getInstance();
+        manejadorSesion.setCargador(new CargadorJSONSimple());
+        try {
+            manejadorSesion.cargarScores(this);
+        } catch (Exception e) {
+            System.err.println("Unable to load game");
+            System.err.println(e.getMessage());
+        }
+    }
+
     public Jugador getCurrentPlayer() {
         return listaJugadores.getCurrentPlayer();
     }
@@ -211,6 +234,18 @@ public class Juego {
 
     public void setPilaTomar(PilaTomar pilaTomar) {
         this.pilaTomar = pilaTomar;
+    }
+
+    public void registerWinner(boolean win) {
+        scoreManager.addScore(new Score(win, getCurrentPlayer(), getWinnerScore()));
+
+        ManejadorSesion manejadorSesion = ManejadorSesion.getInstance();
+        manejadorSesion.setGuardador(new GuardadorGson());
+        try {
+            manejadorSesion.guardarPuntuacion(scoreManager.getScores());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public int getWinnerScore() {

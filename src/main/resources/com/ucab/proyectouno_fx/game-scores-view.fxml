@@ -38,6 +38,9 @@
                      <HBox.margin>
                         <Insets left="24.0" right="24.0" />
                      </HBox.margin>
+                     <content>
+                        <VBox fx:id="scoreList" prefHeight="88.0" prefWidth="534.0" />
+                     </content>
                   </ScrollPane>
                </children>
             </HBox>

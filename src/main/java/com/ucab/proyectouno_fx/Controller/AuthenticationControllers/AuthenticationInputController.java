@@ -2,6 +2,7 @@ package com.ucab.proyectouno_fx.Controller.AuthenticationControllers;
 
 import com.ucab.proyectouno_fx.Controller.ControllerParent;
 import com.ucab.proyectouno_fx.Controller.MainMenuController;
+import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import com.ucab.proyectouno_fx.Model.Controlador.ManejadorSesion;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -82,6 +83,7 @@ public class AuthenticationInputController extends ControllerParent {
         if (!validateLogin(username, password)) return;
 
         MainMenuController.setActiveUser(username);
+        Juego.getInstance().cargarScores();
         switchToScene(event, mainMenuView);
     }
 

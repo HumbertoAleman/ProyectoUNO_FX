@@ -4,12 +4,14 @@ import com.ucab.proyectouno_fx.Model.Carta.Pila.PilaJugar;
 import com.ucab.proyectouno_fx.Model.Carta.Pila.PilaTomar;
 import com.ucab.proyectouno_fx.Model.Controlador.Cargador.Cargador;
 import com.ucab.proyectouno_fx.Model.Controlador.Guardador.Guardador;
+import com.ucab.proyectouno_fx.Model.Controlador.Score.Score;
 import com.ucab.proyectouno_fx.Model.Jugador.Jugadores;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.util.List;
 
 public class ManejadorSesion {
     private ManejadorSesion() {
@@ -89,11 +91,20 @@ public class ManejadorSesion {
         guardador.guardarJuego(currentPlayerDirectory.getPath(), listaJugadores, pilaJugar, pilaTomar, saltarTurno, cartasATomar);
     }
 
+    public void guardarPuntuacion(List<Score> scoreList) throws IOException {
+        guardador.guardarPuntuacion(currentPlayerDirectory.getPath(), scoreList);
+    }
+
+
     public void setCargador(Cargador cargador) {
         this.cargador = cargador;
     }
 
     public void cargarJuego(Juego juego) throws IOException, ParseException {
         cargador.cargarJuego(juego, currentPlayerDirectory.getPath());
+    }
+
+    public void cargarScores(Juego juego) throws IOException, ParseException {
+        cargador.cargarScores(juego, currentPlayerDirectory.getPath());
     }
 }

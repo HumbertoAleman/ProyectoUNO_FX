@@ -43,25 +43,20 @@ public class GameScreenController extends ControllerParent {
         cpuActions.triggerCPUTurn();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.juego = Juego.getInstance();
-        this.activeDecks = new ActiveDecks(this);
-        this.colorSelector = new ColorSelector(this, colorPickContainer, takePile);
-        this.cpuActions = new CPUControllerActions(this, colorSelector);
+    private void initializeTakePile() {
+        Image carta;
 
-        // Get player list, and create HBOXES and LABELS for them
-        activeDecks.initializeDecks(juego.getPlayers(), List.of(playerOneContainer, playerTwoContainer));
-        humanPlayersNameLabel.setText(MainMenuController.getActiveUser());
-
-        //takePile.setText("UNO");
-        Image carta = null;
         try {
             carta = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/CartaUno.png"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        takePile.setGraphic(new ImageView(carta));
+
+        ImageView view = new ImageView(carta);
+        view.setFitHeight(160.0);
+        view.setPreserveRatio(true);
+
+        takePile.setGraphic(view);
 
         takePile.setOnAction(event -> {
             // Le damos las cartas al jugador actual
@@ -75,17 +70,22 @@ public class GameScreenController extends ControllerParent {
 
             refreshAll();
         });
+    }
 
-        //playPile.setText(juego.getTopCard().getEtiqueta());
-        try {
-            carta = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/" + juego.getTopCard().getEtiqueta() + ".png"));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        playPile.setGraphic(new ImageView(carta));
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.juego = Juego.getInstance();
+        this.activeDecks = new ActiveDecks(this);
+        this.colorSelector = new ColorSelector(this, colorPickContainer, takePile);
+        this.cpuActions = new CPUControllerActions(this, colorSelector);
 
+        // Get player list, and create HBOXES and LABELS for them
+        activeDecks.initializeDecks(juego.getPlayers(), List.of(playerOneContainer, playerTwoContainer));
+        humanPlayersNameLabel.setText(MainMenuController.getActiveUser());
+
+        initializeTakePile();
+        refreshPlayPile();
         colorSelector.setColorPickerDisable(true);
-
         refreshAll();
     }
 
@@ -146,20 +146,26 @@ public class GameScreenController extends ControllerParent {
     }
 
     private void refreshPlayPile() {
-        //playPile.setText(juego.getTopCard().getEtiqueta());
-        Image carta = null;
+        Image carta;
+
         try {
             carta = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/" + juego.getTopCard().getEtiqueta() + ".png"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        playPile.setGraphic(new ImageView(carta));
+
+        ImageView view = new ImageView(carta);
+        view.setFitHeight(160.0);
+        view.setPreserveRatio(true);
+
+        playPile.setGraphic(view);
     }
 
     public void triggerWinEvent() {
         int score = juego.getWinnerScore();
 
         if (juego.isCurrentPlayerHuman()) {
+            juego.registerWinner(true);
             WinnerViewController.setPuntuacionFinal(score);
             try {
                 switchToScene(winnerView);
@@ -169,6 +175,7 @@ public class GameScreenController extends ControllerParent {
             return;
         }
 
+        juego.registerWinner(false);
         LoserViewController.setPuntuacionFinal(score);
         try {
             switchToScene(loserView);

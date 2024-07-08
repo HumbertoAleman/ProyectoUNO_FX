@@ -42,4 +42,6 @@ module com.ucab.proyectouno_fx {
     opens com.ucab.proyectouno_fx.Model.Controlador.Cargador to com.google.gson;
     exports com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen;
     opens com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen to javafx.fxml;
+    exports com.ucab.proyectouno_fx.Model.Controlador.Score;
+    opens com.ucab.proyectouno_fx.Model.Controlador.Score to com.google.gson;
 }

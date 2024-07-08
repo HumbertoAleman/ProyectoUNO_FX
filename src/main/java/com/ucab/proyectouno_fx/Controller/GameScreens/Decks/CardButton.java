@@ -16,15 +16,21 @@ public class CardButton {
     }
 
     public CardButton(Carta card, boolean show, boolean isDisabled) {
-        //this.button = new Button(show ? card.getEtiqueta() : "CartaUno");
-        this.button = new Button();
-        Image carta = null;
+        String nombreImagen = show ? card.getEtiqueta() : "CartaUNO";
+
+        Image carta;
         try {
-            carta = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/" + card.getEtiqueta() + ".png"));
+            carta = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/" + nombreImagen + ".png"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        button.setGraphic(new ImageView(carta));
-        this.button.setDisable(isDisabled);
+
+        ImageView view = new ImageView(carta);
+        view.setPreserveRatio(true);
+        view.setFitHeight(160.0);
+
+        button = new Button();
+        button.setGraphic(view);
+        button.setDisable(isDisabled);
     }
 }

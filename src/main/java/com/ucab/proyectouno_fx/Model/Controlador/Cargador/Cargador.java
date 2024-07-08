@@ -6,4 +6,5 @@ import java.io.IOException;
 
 public interface Cargador {
     void cargarJuego(Juego juego, String playerDataPath) throws IOException, ParseException;
+    void cargarScores(Juego juego, String playerDataPath) throws IOException, ParseException;
 }

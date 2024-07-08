@@ -34,7 +34,7 @@ public abstract class ControllerParent implements Initializable {
     protected void switchToScene(String newScene) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(ProyectoUNO.class.getResource(newScene)));
         stage = (Stage) scene.getWindow();
-        scene = new Scene(root);
+        scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
         stage.show();
     }
@@ -42,7 +42,7 @@ public abstract class ControllerParent implements Initializable {
     protected void switchToScene(ActionEvent event, String newScene) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(ProyectoUNO.class.getResource(newScene)));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
         stage.show();
     }
