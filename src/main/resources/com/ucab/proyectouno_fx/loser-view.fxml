@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.LoserViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: darkcyan;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.LoserViewController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -24,9 +24,9 @@
                </children></HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="PERDISTE EL JUEGO">
+                  <Label text="PERDISTE EL JUEGO" textFill="#130d70">
                      <font>
-                        <Font name="System Bold" size="48.0" />
+                        <Font name="Comic Sans MS Bold" size="48.0" />
                      </font>
                   </Label>
                </children>
@@ -35,19 +35,22 @@
                <children>
                   <Label text="Puntuacion Final: ">
                      <font>
-                        <Font name="System Bold" size="32.0" />
+                        <Font name="Comic Sans MS Bold Italic" size="32.0" />
                      </font>
                   </Label>
                   <Label fx:id="puntuacionFinalLabel" layoutX="115.0" layoutY="25.0" text="PUNTUACION">
                      <font>
-                        <Font name="System Bold" size="32.0" />
+                        <Font name="Comic Sans MS" size="32.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="260.0" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#returnToMainMenu" text="Terminar" />
+                  <Button mnemonicParsing="false" onAction="#returnToMainMenu" style="-fx-background-color: salmon;" text="Terminar" textFill="#ffd87c">
+                     <font>
+                        <Font name="Comic Sans MS" size="12.0" />
+                     </font></Button>
                </children>
             </HBox>
          </children>

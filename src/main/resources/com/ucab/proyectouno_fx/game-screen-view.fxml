@@ -3,8 +3,9 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucab.proyectouno_fx.Controller.GameScreens.GameScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: skyblue;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucab.proyectouno_fx.Controller.GameScreens.GameScreenController">
    <center>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -42,13 +43,22 @@
          <children>
             <HBox alignment="CENTER_LEFT">
                <children>
-                  <Label text="Jugador actual: " />
-                  <Label fx:id="humanPlayersNameLabel" text="JUGADOR" />
+                  <Label text="Jugador actual: ">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="13.0" />
+                     </font></Label>
+                  <Label fx:id="humanPlayersNameLabel" text="JUGADOR">
+                     <font>
+                        <Font name="Comic Sans MS" size="12.0" />
+                     </font></Label>
                </children>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button mnemonicParsing="false" onAction="#returnToMainMenu" text="Salir" />
+                  <Button mnemonicParsing="false" onAction="#returnToMainMenu" style="-fx-background-color: maroon;" text="Salir" textFill="#ffd87c">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="12.0" />
+                     </font></Button>
                </children>
             </HBox>
          </children>

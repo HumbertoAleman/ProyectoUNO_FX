@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucab.proyectouno_fx.Controller.AuthenticationControllers.RegisterInputController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: skyblue;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucab.proyectouno_fx.Controller.AuthenticationControllers.RegisterInputController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" BorderPane.alignment="CENTER">
          <children>
@@ -21,30 +21,45 @@
                <children>
                   <Label text="Menu de Registro">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="Comic Sans MS Bold" size="32.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="163.0">
                <children>
-                  <Label fx:id="mensajeAUsuario" text="MENSAJE_DE_ERROR" textFill="RED" />
+                  <Label fx:id="mensajeAUsuario" text="MENSAJE_DE_ERROR" textFill="RED">
+                     <font>
+                        <Font name="Comic Sans MS" size="20.0" />
+                     </font></Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <TextField fx:id="textField" onKeyPressed="#userFieldKeyPressed" promptText="Usuario" />
+                  <TextField fx:id="textField" onKeyPressed="#userFieldKeyPressed" promptText="Usuario">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="12.0" />
+                     </font></TextField>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <PasswordField fx:id="passwordField" onKeyPressed="#passwordFieldKeyPressed" promptText="Contraseña" />
+                  <PasswordField fx:id="passwordField" onKeyPressed="#passwordFieldKeyPressed" promptText="Contraseña">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="12.0" />
+                     </font></PasswordField>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="12.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#registerUser" text="Registrarse" />
-                  <Button mnemonicParsing="false" onAction="#returnToRegisterAuthView" text="Regresar" />
+                  <Button mnemonicParsing="false" onAction="#registerUser" style="-fx-background-color: mediumseagreen; -fx-border-color: black;" text="Registrarse" textFill="#ffd87c">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="12.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#returnToRegisterAuthView" style="-fx-background-color: maroon; -fx-border-color: black;" text="Regresar" textFill="#ffd87c">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="12.0" />
+                     </font></Button>
                </children>
             </HBox>
          </children>

@@ -4,8 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucab.proyectouno_fx.Controller.AuthenticationControllers.RegisterAuthController">
+<BorderPane style="-fx-background-color: skyblue;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucab.proyectouno_fx.Controller.AuthenticationControllers.RegisterAuthController">
    <center>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -20,9 +21,18 @@
             </HBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="12.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#onRegisterButtonPress" text="Registrarse" />
-                  <Button mnemonicParsing="false" onAction="#onAuthButtonPress" text="Autenticarse" />
-                  <Button mnemonicParsing="false" onAction="#onExitButtonPress" text="Salir" />
+                  <Button mnemonicParsing="false" onAction="#onRegisterButtonPress" style="-fx-background-color: mediumseagreen; -fx-border-color: black;" text="Registrarse" textFill="#ffd87c">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="12.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#onAuthButtonPress" style="-fx-background-color: cadetblue; -fx-border-color: black;" text="Autenticarse" textFill="#ffd87c">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="12.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#onExitButtonPress" style="-fx-background-color: maroon; -fx-border-color: black;" text="Salir" textFill="#ffd87c">
+                     <font>
+                        <Font name="Comic Sans MS Bold" size="12.0" />
+                     </font></Button>
                </children>
             </VBox>
          </children>
