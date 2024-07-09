@@ -11,6 +11,7 @@ import com.ucab.proyectouno_fx.Model.Carta.Carta;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -196,5 +197,20 @@ public class GameScreenController extends ControllerParent {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    @FXML
+    public boolean triggerShoutUno(){
+        long startTime = System.currentTimeMillis();
+// ... do something ...
+
+        Alert unoWindow = new Alert(Alert.AlertType.CONFIRMATION);
+        unoWindow.setTitle("Es momento de cantar UNO!");
+        unoWindow.setContentText("UNO!");
+
+
+        long estimatedTime = System.currentTimeMillis() - startTime;
+        return estimatedTime> 3000;
+
     }
 }
