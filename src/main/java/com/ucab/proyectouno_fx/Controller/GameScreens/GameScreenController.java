@@ -107,7 +107,6 @@ public class GameScreenController extends ControllerParent {
             // Le damos las cartas al jugador actual
             juego.darCartasAJugadorActual();
 
-
             // Siguiente jugador ensues
             juego.siguienteJugador();
 
@@ -287,13 +286,14 @@ public class GameScreenController extends ControllerParent {
     @FXML
     public boolean triggerShoutUno() {
         long startTime = System.currentTimeMillis();
-        // ... do something ...
 
         Alert unoWindow = new Alert(Alert.AlertType.CONFIRMATION);
         unoWindow.setTitle("Es momento de cantar UNO!");
         unoWindow.setContentText("UNO!");
+        unoWindow.showAndWait();
 
         long estimatedTime = System.currentTimeMillis() - startTime;
+        System.out.println("Estimated Time"+estimatedTime);
         return estimatedTime > 3000;
     }
 }
