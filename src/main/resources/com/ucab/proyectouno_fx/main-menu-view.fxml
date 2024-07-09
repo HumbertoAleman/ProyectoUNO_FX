@@ -30,7 +30,7 @@
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="151.0" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#newGame" style="-fx-background-color: mediumseagreen; -fx-border-color: black;" stylesheets="@styles.css" text="Nueva Partida" textFill="#ffd87c">
+                  <Button mnemonicParsing="false" onAction="#newGame" style="-fx-background-color: mediumseagreen; -fx-border-color: black;" stylesheets="@styles.css" text="Nueva Partida">
                      <font>
                         <Font name="Comic Sans MS Bold" size="12.0" />
                      </font></Button>
@@ -38,7 +38,7 @@
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="251.0" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#loadGame" style="-fx-background-color: cadetblue; -fx-border-color: black;" text="Cargar Partida" textFill="#ffd87c">
+                  <Button mnemonicParsing="false" onAction="#loadGame" style="-fx-background-color: cadetblue; -fx-border-color: black;" text="Cargar Partida">
                      <font>
                         <Font name="Comic Sans MS Bold" size="12.0" />
                      </font></Button>
@@ -46,7 +46,7 @@
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="323.0" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#gotoScoresView" style="-fx-background-color: orange; -fx-border-color: black;" text="Puntuaciones" textFill="#ffd87c">
+                  <Button mnemonicParsing="false" onAction="#gotoScoresView" style="-fx-background-color: orange; -fx-border-color: black;" text="Puntuaciones">
                      <font>
                         <Font name="Comic Sans MS Bold" size="12.0" />
                      </font></Button>
@@ -54,7 +54,7 @@
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="346.0" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#returnToMainMenu" style="-fx-background-color: maroon; -fx-border-color: black;" text="Salir" textFill="#ffd87c">
+                  <Button mnemonicParsing="false" onAction="#returnToMainMenu" style="-fx-background-color: maroon; -fx-border-color: black;" text="Salir" textFill="#ffeb68">
                      <font>
                         <Font name="Comic Sans MS" size="12.0" />
                      </font></Button>

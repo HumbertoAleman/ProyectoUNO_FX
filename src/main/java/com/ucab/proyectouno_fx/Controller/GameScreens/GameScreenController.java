@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 /**
  * Clase controladora de la vista de juego
@@ -202,15 +204,15 @@ public class GameScreenController extends ControllerParent {
     @FXML
     public boolean triggerShoutUno(){
         long startTime = System.currentTimeMillis();
-// ... do something ...
 
         Alert unoWindow = new Alert(Alert.AlertType.CONFIRMATION);
         unoWindow.setTitle("Es momento de cantar UNO!");
         unoWindow.setContentText("UNO!");
-
+        unoWindow.showAndWait();
 
         long estimatedTime = System.currentTimeMillis() - startTime;
-        return estimatedTime> 3000;
+        System.out.println("Estimated Time"+estimatedTime);
+        return estimatedTime< 3000;
 
     }
 }

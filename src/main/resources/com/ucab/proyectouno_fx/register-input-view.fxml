@@ -52,7 +52,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="12.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#registerUser" style="-fx-background-color: mediumseagreen; -fx-border-color: black;" text="Registrarse" textFill="#ffd87c">
+                  <Button mnemonicParsing="false" onAction="#registerUser" style="-fx-background-color: mediumseagreen; -fx-border-color: black;" text="Registrarse">
                      <font>
                         <Font name="Comic Sans MS Bold" size="12.0" />
                      </font></Button>
