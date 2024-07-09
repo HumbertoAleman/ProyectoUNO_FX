@@ -4,8 +4,8 @@ import com.ucab.proyectouno_fx.Controller.ControllerParent;
 import com.ucab.proyectouno_fx.Controller.MainMenuController;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import com.ucab.proyectouno_fx.Model.Controlador.ManejadorSesion;
-import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 
 /**
  * Clase controladora de la vista de autenticacion
-
  */
 public class AuthenticationInputController extends ControllerParent {
     @FXML
@@ -37,9 +36,10 @@ public class AuthenticationInputController extends ControllerParent {
 
     private ManejadorSesion manejadorSesion;
 
-    @Override/**
-        * Inicializa la vista de autenticacion
-        */
+    @Override
+/**
+ * Inicializa la vista de autenticacion
+ */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         manejadorSesion = ManejadorSesion.getInstance();
         clearMessage();
@@ -55,6 +55,7 @@ public class AuthenticationInputController extends ControllerParent {
 
     /**
      * Muestra un mensaje de error
+     *
      * @param mensaje
      */
     private void sendErrorMessage(String mensaje) {
@@ -65,6 +66,7 @@ public class AuthenticationInputController extends ControllerParent {
 
     /**
      * Valida el nombre de usuario
+     *
      * @param username
      * @return
      */
@@ -84,6 +86,7 @@ public class AuthenticationInputController extends ControllerParent {
 
     /**
      * Valida el login
+     *
      * @param username
      * @param password
      * @return
@@ -99,6 +102,7 @@ public class AuthenticationInputController extends ControllerParent {
 
     /**
      * Autentica al usuario
+     *
      * @param event
      * @throws IOException
      */
@@ -118,6 +122,7 @@ public class AuthenticationInputController extends ControllerParent {
 
     /**
      * Regresa a la vista de registro
+     *
      * @param event
      * @throws IOException
      */
@@ -128,6 +133,7 @@ public class AuthenticationInputController extends ControllerParent {
 
     /**
      * Maneja el evento de tecla presionada en el campo de usuario
+     *
      * @param keyEvent
      */
     @FXML
@@ -137,8 +143,10 @@ public class AuthenticationInputController extends ControllerParent {
         if (passwordField.getText().isEmpty()) passwordField.requestFocus();
         else authenticateButton.fire();
     }
+
     /**
      * Maneja el evento de tecla presionada en el campo de contraseña
+     *
      * @param keyEvent
      */
     @FXML

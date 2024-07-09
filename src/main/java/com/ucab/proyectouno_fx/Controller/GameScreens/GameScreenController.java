@@ -1,12 +1,12 @@
 package com.ucab.proyectouno_fx.Controller.GameScreens;
 
 import com.ucab.proyectouno_fx.Controller.ControllerParent;
+import com.ucab.proyectouno_fx.Controller.GameScreens.Decks.ActiveDecks;
 import com.ucab.proyectouno_fx.Controller.GameScreens.MicroControllers.CPUControllerActions;
 import com.ucab.proyectouno_fx.Controller.GameScreens.MicroControllers.ColorSelector;
-import com.ucab.proyectouno_fx.Controller.GameScreens.Decks.ActiveDecks;
-import com.ucab.proyectouno_fx.Controller.MainMenuController;
 import com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.LoserViewController;
 import com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.WinnerViewController;
+import com.ucab.proyectouno_fx.Controller.MainMenuController;
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import javafx.event.ActionEvent;
@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
 /**
  * Clase controladora de la vista de juego
  */
@@ -40,12 +41,14 @@ public class GameScreenController extends ControllerParent {
     }
 
     private CPUControllerActions cpuActions;
+
     /**
      * Metodo que se encarga de inicializar la vista
      */
     public void triggerCPUTurn() {
         cpuActions.triggerCPUTurn();
     }
+
     /**
      * Metodo que se encarga de inicializar la vista
      */
@@ -77,10 +80,11 @@ public class GameScreenController extends ControllerParent {
             refreshAll();
         });
     }
+
     /**
      * Metodo que se encarga de regresar al menu principal
+     *
      * @param resourceBundle Evento de la accion
-     * @throws IOException Excepcion lanzada si hay un error en la lectura del archivo
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -100,17 +104,17 @@ public class GameScreenController extends ControllerParent {
             ImageView view = new ImageView(color);
             view.setFitHeight(40.0);
             view.setPreserveRatio(true);
-            if(col.equals("Verde"))
+            if (col.equals("Verde"))
                 botonVerde.setGraphic(view);
-            if(col.equals("Rojo"))
+            if (col.equals("Rojo"))
                 botonRojo.setGraphic(view);
-            if(col.equals("Azul"))
+            if (col.equals("Azul"))
                 botonAzul.setGraphic(view);
-            if(col.equals("Amarillo"))
+            if (col.equals("Amarillo"))
                 botonAmarillo.setGraphic(view);
         }
         // Get player list, and create HBOXES and LABELS for them
-        activeDecks.initializeDecks(juego.getPlayers(), List.of(playerOneContainer, playerTwoContainer));
+        activeDecks.initializeDecks(juego.getListaJugadores(), List.of(playerOneContainer, playerTwoContainer));
         humanPlayersNameLabel.setText(MainMenuController.getActiveUser());
 
         initializeTakePile();
@@ -178,6 +182,7 @@ public class GameScreenController extends ControllerParent {
     private void refreshDecks() {
         activeDecks.refreshDecks();
     }
+
     /**
      * Metodo que se encarga de refrescar la pila de juego
      */
@@ -196,6 +201,7 @@ public class GameScreenController extends ControllerParent {
 
         playPile.setGraphic(view);
     }
+
     /**
      * Metodo que se encarga de lanzar el evento de ganar
      */
@@ -203,7 +209,7 @@ public class GameScreenController extends ControllerParent {
         int score = juego.getWinnerScore();
 
         if (juego.isCurrentPlayerHuman()) {
-            juego.registerWinner(true);
+            juego.registerWinnerScore(true);
             WinnerViewController.setPuntuacionFinal(score);
             try {
                 switchToScene(winnerView);
@@ -213,7 +219,7 @@ public class GameScreenController extends ControllerParent {
             return;
         }
 
-        juego.registerWinner(false);
+        juego.registerWinnerScore(false);
         LoserViewController.setPuntuacionFinal(score);
         try {
             switchToScene(loserView);

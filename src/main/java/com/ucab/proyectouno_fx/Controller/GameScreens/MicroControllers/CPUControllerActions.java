@@ -6,6 +6,7 @@ import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaComodin;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 
 import java.util.Random;
+
 /**
  * Clase que se encarga de manejar las acciones de la CPU
  */
@@ -15,9 +16,11 @@ public class CPUControllerActions {
     private final ColorSelector colorSelector;
 
     private final GameScreenController controller;
+
     /**
      * Constructor de la clase
-     * @param controller controlador de la pantalla de juego
+     *
+     * @param controller    controlador de la pantalla de juego
      * @param colorSelector selector de color
      */
     public CPUControllerActions(GameScreenController controller, ColorSelector colorSelector) {
@@ -27,6 +30,7 @@ public class CPUControllerActions {
         this.controller = controller;
         this.colorSelector = colorSelector;
     }
+
     /**
      * Metodo que se encarga de manejar la accion de la CPU cuando no juega una carta
      */
@@ -35,6 +39,7 @@ public class CPUControllerActions {
         juego.siguienteJugador();
         controller.refreshAll();
     }
+
     /**
      * Metodo que se encarga de manejar la accion de la CPU cuando salta el turno
      */
@@ -43,8 +48,10 @@ public class CPUControllerActions {
         triggerCPUTurn();
         controller.refreshAll();
     }
+
     /**
      * Metodo que se encarga de manejar la accion de la CPU cuando elige un color
+     *
      * @param card carta a la que se le asigna el color
      */
     private void cpuPickColor(Carta card) {
@@ -56,6 +63,7 @@ public class CPUControllerActions {
 
         controller.refreshAll();
     }
+
     /**
      * Metodo que se encarga de manejar la accion de la CPU cuando es su turno
      */

@@ -26,6 +26,7 @@ public class ManejadorSesion {
 
     /**
      * Retorna la unica instancia del singleton ManejadorSesion, si no existe, la crea
+     *
      * @return Retorna la instancia
      */
     public static ManejadorSesion getInstance() {
@@ -43,8 +44,9 @@ public class ManejadorSesion {
 
     /**
      * Registra un nuevo directorio de un usuario
+     *
      * @param playerName Nombre del usuario a registrar
-     * @param password Contraseña del usuario a registrar
+     * @param password   Contraseña del usuario a registrar
      */
     public void registerPlayerDirectory(String playerName, String password) {
         File dirToCreate = getUserDir(playerName);
@@ -64,7 +66,8 @@ public class ManejadorSesion {
 
     /**
      * Hace login en el directorio determinado utilizando la contraseña dada
-     * @param playerName Nombre del usuario
+     *
+     * @param playerName     Nombre del usuario
      * @param playerPassword Contraseña del usuario
      * @return Retorna true si el login fue exitoso, retorna false si no lo fue
      */
@@ -91,11 +94,12 @@ public class ManejadorSesion {
 
     /**
      * Metodo para guardar el juego
+     *
      * @param listaJugadores Lista de jugadores a guardar
-     * @param pilaJugar Pila de cartas jugadas a guardar
-     * @param pilaTomar Pila de cartas tomadas a guardar
-     * @param saltarTurno Si se salta el turno actual
-     * @param cartasATomar La cantidad de cartas a tomar
+     * @param pilaJugar      Pila de cartas jugadas a guardar
+     * @param pilaTomar      Pila de cartas tomadas a guardar
+     * @param saltarTurno    Si se salta el turno actual
+     * @param cartasATomar   La cantidad de cartas a tomar
      * @throws IOException Excepcion a lanzar si ocurre un error de IO
      */
     public void guardarJuego(Jugadores listaJugadores, PilaJugar pilaJugar, PilaTomar pilaTomar, boolean saltarTurno, int cartasATomar) throws IOException {
@@ -104,6 +108,7 @@ public class ManejadorSesion {
 
     /**
      * Metodo para guardar la lista de puntuaciones
+     *
      * @param scoreList La lista de puntuaciones a guardar
      * @throws IOException Excepcion a lanzar si ocurre un error de IO
      */
@@ -113,8 +118,9 @@ public class ManejadorSesion {
 
     /**
      * Metodo para cargar el juego
+     *
      * @param juego Instancia de juego a donde cargar la informacion
-     * @throws IOException Excepcion a lanzar si ocurre un error de IO
+     * @throws IOException    Excepcion a lanzar si ocurre un error de IO
      * @throws ParseException Excepcion a lanzar si ocurre un error con el JSON
      */
     public void cargarJuego(Juego juego) throws IOException, ParseException {
@@ -123,8 +129,9 @@ public class ManejadorSesion {
 
     /**
      * Metodo para cargar las puntuaciones
+     *
      * @param juego Instancia de juego a donde cargar la informacion
-     * @throws IOException Excepcion a lanzar si ocurre un error de IO
+     * @throws IOException    Excepcion a lanzar si ocurre un error de IO
      * @throws ParseException Excepcion a lanzar si ocurre un error con el JSON
      */
     public void cargarScores(Juego juego) throws IOException, ParseException {
@@ -133,6 +140,7 @@ public class ManejadorSesion {
 
     /**
      * Metodo que retorna el directorio de un usuario especificado
+     *
      * @param playerName Nombre del jugador
      * @return String con el camino al directorio del jugador
      */
@@ -142,6 +150,7 @@ public class ManejadorSesion {
 
     /**
      * Metodo para revisar si el directorio de un jugador existe
+     *
      * @param playerName Nombre del jugador
      * @return Retorna true si existe, false si no existe
      */
@@ -152,6 +161,7 @@ public class ManejadorSesion {
 
     /**
      * Metodo para asignar el guardador
+     *
      * @param guardador Guardador a asignar
      */
     public void setGuardador(Guardador guardador) {
@@ -160,6 +170,7 @@ public class ManejadorSesion {
 
     /**
      * Metodo para asignar al cargador
+     *
      * @param cargador Cargador a asignar
      */
     public void setCargador(Cargador cargador) {

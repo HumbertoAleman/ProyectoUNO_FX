@@ -58,6 +58,7 @@ public class DeckController {
     private boolean getDisabledStatus() {
         return !juego.getCurrentPlayer().equals(jugador) || controller.isPickingColor();
     }
+
     /**
      * Agrega una carta al mazo del jugador
      *
@@ -67,6 +68,7 @@ public class DeckController {
         // TODO: Probablemente haya que cambiar la logica para mostrar las cartas
         addCardToHBox(card, isPlayerHuman);
     }
+
     /**
      * Ejecuta el turno del jugador actual
      *
@@ -100,6 +102,7 @@ public class DeckController {
         if (!juego.isCurrentPlayerHuman())
             controller.triggerCPUTurn();
     }
+
     /**
      * Agrega una carta al mazo del jugador
      *
@@ -120,6 +123,7 @@ public class DeckController {
         });
         deck.getChildren().add(cardButton.getButton());
     }
+
     /**
      * Refresca el mazo del jugador
      */

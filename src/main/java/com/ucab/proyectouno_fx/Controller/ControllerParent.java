@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
 /**
  * Clase abstracta que contiene metodos y atributos comunes a todos los controladores
  */
@@ -37,8 +38,10 @@ public abstract class ControllerParent implements Initializable {
 
     protected static Stage stage;
     protected static Scene scene;
+
     /**
      * Metodo encargado de cambiar de escena
+     *
      * @param newScene Escena a la que se desea cambiar
      * @throws IOException Sera lanzada si hay un error leyendo el archivo
      */
@@ -49,8 +52,10 @@ public abstract class ControllerParent implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
     /**
      * Metodo encargado de cambiar de escena
+     *
      * @param newScene Escena a la que se desea cambiar
      * @throws IOException Sera lanzada si hay un error leyendo el archivo
      */
@@ -70,9 +75,11 @@ public abstract class ControllerParent implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
     /**
      * Metodo encargado de cambiar de escena
-     * @param event Evento que se esta ejecutando
+     *
+     * @param event    Evento que se esta ejecutando
      * @param newScene Escena a la que se desea cambiar
      * @throws IOException Sera lanzada si hay un error leyendo el archivo
      */
@@ -83,6 +90,7 @@ public abstract class ControllerParent implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
     /**
      * Metodo encargado de salir de la aplicacion
      */
@@ -94,9 +102,11 @@ public abstract class ControllerParent implements Initializable {
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) Platform.exit();
     }
+
     /**
      * Metodo encargado de inicializar la clase
-     * @param url URL de la clase
+     *
+     * @param url            URL de la clase
      * @param resourceBundle Recurso de la clase
      */
     @Override

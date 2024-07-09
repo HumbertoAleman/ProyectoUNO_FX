@@ -26,6 +26,7 @@ public class Juego {
 
     /**
      * Retorna la instancia del singleton Juego, y si no existe, la crea
+     *
      * @return Retorna la unica instancia
      */
     public static Juego getInstance() {
@@ -161,6 +162,7 @@ public class Juego {
 
     /**
      * Metodo para conseguir al jugador actual
+     *
      * @return Retorna al jugador actual
      */
     public Jugador getCurrentPlayer() {
@@ -169,6 +171,7 @@ public class Juego {
 
     /**
      * Metodo para saber si el jugador actual es Humano
+     *
      * @return Retorna true si el jugador es Humano
      */
     public boolean isCurrentPlayerHuman() {
@@ -177,6 +180,7 @@ public class Juego {
 
     /**
      * Metodo para retornar la carta tope de la pila jugar
+     *
      * @return Retorna la carta tope de la pila jugar
      */
     public Carta getTopCard() {
@@ -204,6 +208,7 @@ public class Juego {
 
     /**
      * Metodo para registrar una puntuacion ganadora
+     *
      * @param win Si el jugador que esta actualmente jugando gano la partida o no
      */
     public void registerWinnerScore(boolean win) {
@@ -213,6 +218,7 @@ public class Juego {
 
     /**
      * Retorna el puntaje del jugador ganador
+     *
      * @return Retorna un integer, que sera el puntaje del jugador ganador
      */
     public int getWinnerScore() {
@@ -233,6 +239,7 @@ public class Juego {
 
     /**
      * Retorna la cantidad de cartas a tomar
+     *
      * @return Retorna la cantidad de cartas a tomar
      */
     public int getCartasATomar() {
@@ -241,6 +248,7 @@ public class Juego {
 
     /**
      * Incrementa la cantidad de cartas a tomar
+     *
      * @param increase Cantidad de cartas a tomar a incrementar
      */
     public void increaseCartasATomar(int increase) {
@@ -249,6 +257,7 @@ public class Juego {
 
     /**
      * Retorna si se salta el turno del siguiente jugador
+     *
      * @return Retorna verdadero o falso si el turno se debe saltar
      */
     public boolean isSaltarTurno() {
@@ -257,6 +266,7 @@ public class Juego {
 
     /**
      * Asigna el valor de verdad a saltar turno del siguiente jugador
+     *
      * @param saltarTurno Valor de verdad de saltar turno
      */
     public void setSaltarTurno(boolean saltarTurno) {
@@ -265,6 +275,7 @@ public class Juego {
 
     /**
      * Retorna una lista con los jugadores del juego
+     *
      * @return Retorna una lista con los jugadores
      */
     public List<Jugador> getListaJugadores() {
@@ -273,6 +284,7 @@ public class Juego {
 
     /**
      * Asigna una nueva lista de jugadores al juego
+     *
      * @param listaJugadores Lista de jugadores a asignar
      */
     public void setListaJugadores(Jugadores listaJugadores) {
@@ -281,6 +293,7 @@ public class Juego {
 
     /**
      * Retorna la pila de cartas a tomar del juego
+     *
      * @return Retorna la pila de cartas a tomar
      */
     public PilaTomar getPilaTomar() {
@@ -289,6 +302,7 @@ public class Juego {
 
     /**
      * Asigna la pila de cartas a tomar
+     *
      * @param pilaTomar Pila de cartas a tomar a asignar
      */
     public void setPilaTomar(PilaTomar pilaTomar) {
@@ -297,6 +311,7 @@ public class Juego {
 
     /**
      * Retorna la pila de cartas que han sido jugadas en el juego
+     *
      * @return Retorna la pila de cartas jugadas
      */
     public PilaJugar getPilaJugar() {
@@ -305,6 +320,7 @@ public class Juego {
 
     /**
      * Asigna una nueva pila de cartas jugadas en el juego
+     *
      * @param pilaJugar Pila de cartas a asignar
      */
     public void setPilaJugar(PilaJugar pilaJugar) {
@@ -313,6 +329,7 @@ public class Juego {
 
     /**
      * Retorna el manejador de puntuaciones del juego
+     *
      * @return Retorna el manejador de puntuaciones
      */
     public ScoreManager getScoreManager() {
@@ -321,9 +338,11 @@ public class Juego {
 
     /**
      * Asigna un nuevo manejador de puntuaciones al juego
+     *
      * @param scoreManager Manejador de puntuaciones a asignar
      */
     public void setScoreManager(ScoreManager scoreManager) {
         this.scoreManager = scoreManager;
     }
+
 }

@@ -13,6 +13,7 @@ import java.io.IOException;
 public class ProyectoUNO extends Application {
     /**
      * Metodo para comenzar el juego
+     *
      * @param stage Escenario en donde colocar las escenas
      * @throws IOException Excepcion a lanzar si ocurre un error de IO
      */
@@ -34,6 +35,7 @@ public class ProyectoUNO extends Application {
 
     /**
      * Metodo main para lanzar la aplicacion
+     *
      * @param args Argumentos de la aplicacion
      */
     public static void main(String[] args) {

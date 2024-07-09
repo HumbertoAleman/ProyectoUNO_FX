@@ -2,8 +2,8 @@ package com.ucab.proyectouno_fx.Controller.AuthenticationControllers;
 
 import com.ucab.proyectouno_fx.Controller.ControllerParent;
 import com.ucab.proyectouno_fx.Model.Controlador.ManejadorSesion;
-import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -15,7 +15,6 @@ import java.util.ResourceBundle;
 
 /**
  * Clase controladora de la vista de registro de usuario
-
  */
 public class RegisterInputController extends ControllerParent {
     @FXML
@@ -32,8 +31,10 @@ public class RegisterInputController extends ControllerParent {
     private final static String successStyle = "-fx-text-fill: green;";
 
     private ManejadorSesion manejadorSesion;
+
     /**
      * Metodo que se encarga de inicializar la vista
+     *
      * @param url
      * @param resourceBundle
      */
@@ -42,6 +43,7 @@ public class RegisterInputController extends ControllerParent {
         manejadorSesion = ManejadorSesion.getInstance();
         clearMessage();
     }
+
     /**
      * Metodo que se encarga de limpiar el mensaje
      */
@@ -49,8 +51,10 @@ public class RegisterInputController extends ControllerParent {
         mensajeAUsuario.setVisible(false);
         mensajeAUsuario.setText(null);
     }
+
     /**
      * Metodo que se encarga de enviar un mensaje de error
+     *
      * @param message
      */
     private void sendErrorMessage(String message) {
@@ -58,8 +62,10 @@ public class RegisterInputController extends ControllerParent {
         mensajeAUsuario.setStyle(errorStyle);
         mensajeAUsuario.setText(message);
     }
+
     /**
      * Metodo que se encarga de enviar un mensaje de exito
+     *
      * @param message
      */
     private void sendSuccessMessage(String message) {
@@ -67,8 +73,10 @@ public class RegisterInputController extends ControllerParent {
         mensajeAUsuario.setStyle(successStyle);
         mensajeAUsuario.setText(message);
     }
+
     /**
      * Metodo que se encarga de validar el nombre de usuario
+     *
      * @param username
      * @return boolean
      */
@@ -90,8 +98,10 @@ public class RegisterInputController extends ControllerParent {
 
         return true;
     }
+
     /**
      * Metodo que se encarga de validar la contraseña
+     *
      * @param password
      * @return boolean
      */
@@ -108,6 +118,7 @@ public class RegisterInputController extends ControllerParent {
 
         return true;
     }
+
     /**
      * Metodo que se encarga de registrar un usuario
      */
@@ -123,8 +134,10 @@ public class RegisterInputController extends ControllerParent {
         manejadorSesion.registerPlayerDirectory(username, password);
         sendSuccessMessage("Usuario " + username + " registrado correctamente, puede regresar al menu principal");
     }
+
     /**
      * Metodo que se encarga de regresar a la vista de autenticacion
+     *
      * @param event
      * @throws IOException
      */
@@ -132,8 +145,10 @@ public class RegisterInputController extends ControllerParent {
     public void returnToRegisterAuthView(ActionEvent event) throws IOException {
         switchToScene(event, registerAuthView);
     }
+
     /**
      * Metodo que se encarga de manejar el evento de presionar el boton de registro
+     *
      * @param keyEvent
      * @throws IOException
      */
@@ -145,8 +160,10 @@ public class RegisterInputController extends ControllerParent {
         if (passwordField.getText().isEmpty()) passwordField.requestFocus();
         else registerUser();
     }
+
     /**
      * Metodo que se encarga de manejar el evento de presionar el boton de registro
+     *
      * @param keyEvent
      */
     @FXML

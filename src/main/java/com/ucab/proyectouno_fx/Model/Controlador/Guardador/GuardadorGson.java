@@ -69,7 +69,7 @@ public class GuardadorGson implements Guardador {
      * Metodo que guarda las puntuaciones del jugador
      *
      * @param directorioCargado Directorio a guardar la informacion
-     * @param scoreList Lista de puntuaciones a guardar
+     * @param scoreList         Lista de puntuaciones a guardar
      * @throws IOException Excepcion a lanzar si ocurre un error de IO
      */
     @Override
