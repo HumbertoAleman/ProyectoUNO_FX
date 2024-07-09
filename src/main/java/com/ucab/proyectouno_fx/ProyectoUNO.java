@@ -11,6 +11,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ProyectoUNO extends Application {
+    /**
+     * Metodo para comenzar el juego
+     * @param stage Escenario en donde colocar las escenas
+     * @throws IOException Excepcion a lanzar si ocurre un error de IO
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ProyectoUNO.class.getResource("register-auth-view.fxml"));
@@ -27,6 +32,10 @@ public class ProyectoUNO extends Application {
         stage.show();
     }
 
+    /**
+     * Metodo main para lanzar la aplicacion
+     * @param args Argumentos de la aplicacion
+     */
     public static void main(String[] args) {
         launch();
     }

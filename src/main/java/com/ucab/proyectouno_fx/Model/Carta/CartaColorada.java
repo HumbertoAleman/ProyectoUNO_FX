@@ -1,8 +1,6 @@
 package com.ucab.proyectouno_fx.Model.Carta;
 
 public abstract class CartaColorada implements Carta {
-    protected char color;
-
     /**
      * Constructor de la carta colorada
      */
@@ -17,6 +15,11 @@ public abstract class CartaColorada implements Carta {
     public CartaColorada(char color) {
         this.color = color;
     }
+
+    /**
+     * Color de la carta colorada
+     */
+    protected char color;
 
     /**
      * Obtiene el color de la carta
