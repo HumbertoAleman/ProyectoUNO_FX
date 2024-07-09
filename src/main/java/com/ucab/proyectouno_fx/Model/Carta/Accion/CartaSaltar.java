@@ -1,5 +1,7 @@
 package com.ucab.proyectouno_fx.Model.Carta.Accion;
 
+import com.ucab.proyectouno_fx.Model.Controlador.Juego;
+
 public class CartaSaltar extends CartaAccion {
     /**
      * Constructor de la carta saltar
@@ -17,7 +19,7 @@ public class CartaSaltar extends CartaAccion {
      */
     @Override
     public void ejecutarAccion() {
-        juego.setSaltarTurno(true);
+        Juego.getInstance().setSaltarTurno(true);
     }
 
     /**

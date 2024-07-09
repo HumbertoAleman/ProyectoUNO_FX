@@ -1,6 +1,7 @@
 package com.ucab.proyectouno_fx.Model.Jugador;
 
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
+import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ public class Computador extends Jugador {
      */
     @Override
     public void tomarTurno() {
+        Juego juego = Juego.getInstance();
         for (Carta carta : mazo) {
             if (!juego.jugarCarta(carta)) continue;
             System.out.println(nombre + " jugo " + carta.getEtiqueta());

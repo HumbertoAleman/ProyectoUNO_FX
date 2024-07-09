@@ -1,5 +1,7 @@
 package com.ucab.proyectouno_fx.Model.Carta.Accion;
 
+import com.ucab.proyectouno_fx.Model.Controlador.Juego;
+
 public class CartaRevertir extends CartaAccion {
     /**
      * Constructor de la carta revertir
@@ -17,7 +19,7 @@ public class CartaRevertir extends CartaAccion {
      */
     @Override
     public void ejecutarAccion() {
-        juego.revertirOrden();
+        Juego.getInstance().revertirOrden();
     }
 
     /**

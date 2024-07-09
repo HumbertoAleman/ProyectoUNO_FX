@@ -3,8 +3,6 @@ package com.ucab.proyectouno_fx.Model.Carta;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 
 public interface Carta {
-    Juego juego = Juego.getInstance();
-
     /**
      * Ejecuta la accion de la carta
      */

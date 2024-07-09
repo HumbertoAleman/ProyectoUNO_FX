@@ -1,6 +1,7 @@
 package com.ucab.proyectouno_fx.Model.Jugador;
 
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
+import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,6 +23,7 @@ public class Humano extends Jugador {
      */
     @Override
     public void tomarTurno() {
+        Juego juego = Juego.getInstance();
         Scanner scanner = new Scanner(System.in);
         Carta cartaSeleccionada = null;
         String seleccion = "";

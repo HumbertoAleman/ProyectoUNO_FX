@@ -1,7 +1,7 @@
 package com.ucab.proyectouno_fx.Controller.AuthenticationControllers;
 
 import com.ucab.proyectouno_fx.Controller.ControllerParent;
-import com.ucab.proyectouno_fx.Controller.MainMenuController;
+import com.ucab.proyectouno_fx.Controller.GameScreens.MainMenuController;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import com.ucab.proyectouno_fx.Model.Controlador.ManejadorSesion;
 import javafx.event.ActionEvent;
@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
  */
 public class AuthenticationInputController extends ControllerParent {
     @FXML
-    public Button authenticateButton;
+    private Button authenticateButton;
 
     @FXML
     private TextField textField;
@@ -30,16 +30,16 @@ public class AuthenticationInputController extends ControllerParent {
     private PasswordField passwordField;
 
     @FXML
-    public Label mensajeAUsuario;
+    private Label mensajeAUsuario;
 
     private final static String errorStyle = "-fx-text-fill: red;";
 
     private ManejadorSesion manejadorSesion;
 
+    /**
+     * Inicializa la vista de autenticacion
+     */
     @Override
-/**
- * Inicializa la vista de autenticacion
- */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         manejadorSesion = ManejadorSesion.getInstance();
         clearMessage();

@@ -4,7 +4,7 @@ public abstract class CartaColorada implements Carta {
     /**
      * Constructor de la carta colorada
      */
-    public CartaColorada() {
+    protected CartaColorada() {
     }
 
     /**
@@ -12,7 +12,7 @@ public abstract class CartaColorada implements Carta {
      *
      * @param color color de la carta
      */
-    public CartaColorada(char color) {
+    protected CartaColorada(char color) {
         this.color = color;
     }
 

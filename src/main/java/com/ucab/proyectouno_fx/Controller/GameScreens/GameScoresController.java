@@ -1,7 +1,6 @@
 package com.ucab.proyectouno_fx.Controller.GameScreens;
 
 import com.ucab.proyectouno_fx.Controller.ControllerParent;
-import com.ucab.proyectouno_fx.Controller.MainMenuController;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import com.ucab.proyectouno_fx.Model.Controlador.Score.Score;
 import javafx.event.ActionEvent;

@@ -6,24 +6,33 @@ import com.ucab.proyectouno_fx.Controller.GameScreens.MicroControllers.CPUContro
 import com.ucab.proyectouno_fx.Controller.GameScreens.MicroControllers.ColorSelector;
 import com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.LoserViewController;
 import com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.WinnerViewController;
-import com.ucab.proyectouno_fx.Controller.MainMenuController;
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
+import com.ucab.proyectouno_fx.ProyectoUNO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -170,8 +179,31 @@ public class GameScreenController extends ControllerParent {
         switchToScene(event, mainMenuView);
     }
 
+    /**
+     *
+     * Metodo encargado de cambiar de escena
+     *
+     * @throws IOException Sera lanzada si hay un error leyendo el archivo
+     */
+    private void switchToColorPopupScene() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(ProyectoUNO.class.getResource(gameColorView)));
+        Stage stage = new Stage();
+        scene = new Scene(root, 400, 200);
+        stage.initModality(Modality.APPLICATION_MODAL);  // Bloquea la opción de clicar la otra pantalla
+        stage.setTitle("Cambiar_Color");
+        Image icono;
+        try {
+            icono = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/UNO_Logo.png"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        stage.getIcons().add(icono);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void triggerChooseColor(Carta card) throws IOException {
-        switchToColorPopupScene(gameColorView);
+        switchToColorPopupScene();
         colorSelector.triggerChooseColor(card);
     }
 

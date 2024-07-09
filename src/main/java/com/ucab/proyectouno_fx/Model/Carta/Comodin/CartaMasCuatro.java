@@ -1,5 +1,7 @@
 package com.ucab.proyectouno_fx.Model.Carta.Comodin;
 
+import com.ucab.proyectouno_fx.Model.Controlador.Juego;
+
 public class CartaMasCuatro extends CartaComodin {
     /**
      * Constructor de la carta mas cuatro
@@ -27,6 +29,6 @@ public class CartaMasCuatro extends CartaComodin {
      */
     @Override
     public void ejecutarAccion() {
-        juego.increaseCartasATomar(aTomar);
+        Juego.getInstance().increaseCartasATomar(aTomar);
     }
 }

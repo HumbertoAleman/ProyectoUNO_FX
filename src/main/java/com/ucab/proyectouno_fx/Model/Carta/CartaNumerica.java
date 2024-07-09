@@ -1,8 +1,6 @@
 package com.ucab.proyectouno_fx.Model.Carta;
 
 public class CartaNumerica extends CartaColorada {
-    private String numero;
-
     /**
      * Constructor de la carta numerica
      */
@@ -19,6 +17,8 @@ public class CartaNumerica extends CartaColorada {
         super(color);
         this.numero = numero;
     }
+
+    private String numero;
 
     /**
      * Ejecuta la accion de la carta

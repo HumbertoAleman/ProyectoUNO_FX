@@ -1,6 +1,6 @@
 package com.ucab.proyectouno_fx.Model.Jugador;
 
-import com.ucab.proyectouno_fx.Controller.MainMenuController;
+import com.ucab.proyectouno_fx.Controller.GameScreens.MainMenuController;
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
 
 import java.util.ArrayList;

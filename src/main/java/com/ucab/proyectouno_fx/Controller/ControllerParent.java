@@ -11,12 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -53,28 +49,6 @@ public abstract class ControllerParent implements Initializable {
         stage.show();
     }
 
-    /**
-     * Metodo encargado de cambiar de escena
-     *
-     * @param newScene Escena a la que se desea cambiar
-     * @throws IOException Sera lanzada si hay un error leyendo el archivo
-     */
-    protected void switchToColorPopupScene(String newScene) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(ProyectoUNO.class.getResource(newScene)));
-        Stage stage = new Stage();
-        scene = new Scene(root, 400, 200);
-        stage.initModality(Modality.APPLICATION_MODAL);  // Bloquea la opción de clicar la otra pantalla
-        stage.setTitle("Cambiar_Color");
-        Image icono;
-        try {
-            icono = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/UNO_Logo.png"));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        stage.getIcons().add(icono);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     /**
      * Metodo encargado de cambiar de escena

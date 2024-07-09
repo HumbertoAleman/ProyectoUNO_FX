@@ -1,9 +1,9 @@
 package com.ucab.proyectouno_fx.Model.Jugador;
 
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
-import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public abstract class Jugador {
     /**
@@ -17,14 +17,9 @@ public abstract class Jugador {
     }
 
     /**
-     * Instancia del juego en el que los jugadores participan
-     */
-    protected transient final Juego juego = Juego.getInstance();
-
-    /**
      * Mazo de cartas que le pertenece a los jugadores
      */
-    protected final LinkedList<Carta> mazo = new LinkedList<>();
+    protected final List<Carta> mazo = new LinkedList<>();
 
     /**
      * Nombre del jugador
@@ -74,7 +69,7 @@ public abstract class Jugador {
      *
      * @return Retorna el mazo del jugador
      */
-    public LinkedList<Carta> getMazo() {
+    public List<Carta> getMazo() {
         return this.mazo;
     }
 

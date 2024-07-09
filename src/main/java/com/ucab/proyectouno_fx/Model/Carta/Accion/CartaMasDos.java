@@ -1,5 +1,7 @@
 package com.ucab.proyectouno_fx.Model.Carta.Accion;
 
+import com.ucab.proyectouno_fx.Model.Controlador.Juego;
+
 public class CartaMasDos extends CartaAccion {
     /**
      * Constructor de la carta mas dos
@@ -19,7 +21,7 @@ public class CartaMasDos extends CartaAccion {
      */
     @Override
     public void ejecutarAccion() {
-        juego.increaseCartasATomar(aTomar);
+        Juego.getInstance().increaseCartasATomar(aTomar);
     }
 
     /**
