@@ -7,6 +7,7 @@ import com.ucab.proyectouno_fx.Controller.GameScreens.MicroControllers.ColorSele
 import com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.LoserViewController;
 import com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.WinnerViewController;
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
+import com.ucab.proyectouno_fx.Model.Carta.Validator;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import com.ucab.proyectouno_fx.ProyectoUNO;
 import javafx.event.ActionEvent;
@@ -15,9 +16,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -60,6 +58,29 @@ public class GameScreenController extends ControllerParent {
         cpuActions.triggerCPUTurn();
     }
 
+    private void playTakenCard() {
+        juego.darCartasAJugadorActual();
+        Carta cartaTomada = juego.getCurrentPlayer().getMazo().getLast();
+        if (!Validator.validateCard(cartaTomada)) return;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Desea jugar esta carta tomada?", ButtonType.YES, ButtonType.NO);
+
+        Image graficoCarta;
+        try {
+            graficoCarta = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/" + cartaTomada.getEtiqueta() + ".png"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        ImageView vistaDeCarta = new ImageView(graficoCarta);
+        vistaDeCarta.setFitHeight(160.0);
+        vistaDeCarta.setPreserveRatio(true);
+        alert.setGraphic(vistaDeCarta);
+
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES)
+            juego.jugarCarta(cartaTomada);
+    }
+
     /**
      * Metodo que se encarga de inicializar la vista
      */
@@ -79,8 +100,13 @@ public class GameScreenController extends ControllerParent {
         takePile.setGraphic(view);
 
         takePile.setOnAction(event -> {
+            if (juego.getCartasATomar() == 0) playTakenCard();
+            else juego.darCartasAJugadorActual();
+
+            juego.getTopCard();
             // Le damos las cartas al jugador actual
             juego.darCartasAJugadorActual();
+
 
             // Siguiente jugador ensues
             juego.siguienteJugador();
@@ -115,14 +141,10 @@ public class GameScreenController extends ControllerParent {
             ImageView view = new ImageView(color);
             view.setFitHeight(40.0);
             view.setPreserveRatio(true);
-            if (col.equals("Verde"))
-                botonVerde.setGraphic(view);
-            if (col.equals("Rojo"))
-                botonRojo.setGraphic(view);
-            if (col.equals("Azul"))
-                botonAzul.setGraphic(view);
-            if (col.equals("Amarillo"))
-                botonAmarillo.setGraphic(view);
+            if (col.equals("Verde")) botonVerde.setGraphic(view);
+            if (col.equals("Rojo")) botonRojo.setGraphic(view);
+            if (col.equals("Azul")) botonAzul.setGraphic(view);
+            if (col.equals("Amarillo")) botonAmarillo.setGraphic(view);
         }
         // Get player list, and create HBOXES and LABELS for them
         activeDecks.initializeDecks(juego.getListaJugadores(), List.of(playerOneContainer, playerTwoContainer));
@@ -181,7 +203,6 @@ public class GameScreenController extends ControllerParent {
     }
 
     /**
-     *
      * Metodo encargado de cambiar de escena
      *
      * @throws IOException Sera lanzada si hay un error leyendo el archivo
@@ -264,7 +285,7 @@ public class GameScreenController extends ControllerParent {
     }
 
     @FXML
-    public boolean triggerShoutUno(){
+    public boolean triggerShoutUno() {
         long startTime = System.currentTimeMillis();
         // ... do something ...
 
