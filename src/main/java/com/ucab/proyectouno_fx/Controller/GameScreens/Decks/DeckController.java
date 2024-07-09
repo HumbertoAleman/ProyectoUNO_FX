@@ -12,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
+
 /**
  * Clase controladora de la vista de la mano de cartas de un jugador
  */
@@ -69,7 +72,7 @@ public class DeckController {
      *
      * @param card Carta a jugar
      */
-    private void executePlayerTurn(Carta card) {
+    private void executePlayerTurn(Carta card) throws IOException {
         // Validamos si la carta es jugable, si lo es, jugamos la carta, y ejecutamos su efecto
         if (!Validator.validateCard(card)) return;
         juego.jugarCarta(card);
@@ -88,7 +91,6 @@ public class DeckController {
 
         // Si la carta es comodin, triggerear la seleccion de color
         if (card instanceof CartaComodin) {
-            actions.setText("Escoja un color");
             controller.triggerChooseColor(card);
             return;
         }
@@ -109,7 +111,11 @@ public class DeckController {
         CardButton cardButton = new CardButton(card, show, (!show || !(!disableDeck && Validator.validateCard(card))));
         cardButton.getButton().setOnAction(event -> {
             juego.guardarJuego();
-            executePlayerTurn(card);
+            try {
+                executePlayerTurn(card);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             controller.refreshAll();
         });
         deck.getChildren().add(cardButton.getButton());

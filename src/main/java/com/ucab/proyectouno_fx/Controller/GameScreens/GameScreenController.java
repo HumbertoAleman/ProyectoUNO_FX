@@ -165,7 +165,8 @@ public class GameScreenController extends ControllerParent {
         switchToScene(event, mainMenuView);
     }
 
-    public void triggerChooseColor(Carta card) {
+    public void triggerChooseColor(Carta card) throws IOException {
+        switchToColorPopupScene(gameColorView);
         colorSelector.triggerChooseColor(card);
     }
 

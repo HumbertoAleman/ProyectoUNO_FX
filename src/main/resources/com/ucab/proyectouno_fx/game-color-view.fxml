@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucab.proyectouno_fx.Controller.GameScreens.GameColorController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="60.0" prefWidth="400.0">
+         <children>
+            <Label contentDisplay="CENTER" prefHeight="68.0" prefWidth="204.0" text="Selecciona el color a cambiar" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+         </children></HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+         <children>
+            <Button fx:id="botonRojo" mnemonicParsing="false" onAction="#triggerRedSelection" style="-fx-background-color: red;" />
+            <Button fx:id="botonAzul" mnemonicParsing="false" onAction="#triggerBlueSelection" style="-fx-background-color: blue;" />
+            <Button fx:id="botonVerde" mnemonicParsing="false" onAction="#triggerGreenSelection" style="-fx-background-color: green;" />
+            <Button fx:id="botonAmarillo" mnemonicParsing="false" onAction="#triggerYellowSelection" style="-fx-background-color: yellow;" />
+         </children></HBox>
+   </children>
+</VBox>
