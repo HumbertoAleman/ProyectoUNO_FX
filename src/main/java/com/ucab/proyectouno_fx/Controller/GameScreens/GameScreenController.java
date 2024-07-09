@@ -89,6 +89,26 @@ public class GameScreenController extends ControllerParent {
         this.colorSelector = new ColorSelector(this, colorPickContainer, takePile);
         this.cpuActions = new CPUControllerActions(this, colorSelector);
 
+        Image color;
+        String[] colores = {"Verde", "Rojo", "Azul", "Amarillo"};
+        for (String col : colores) {
+            try {
+                color = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/Color" + col + ".png"));
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            ImageView view = new ImageView(color);
+            view.setFitHeight(40.0);
+            view.setPreserveRatio(true);
+            if(col.equals("Verde"))
+                botonVerde.setGraphic(view);
+            if(col.equals("Rojo"))
+                botonRojo.setGraphic(view);
+            if(col.equals("Azul"))
+                botonAzul.setGraphic(view);
+            if(col.equals("Amarillo"))
+                botonAmarillo.setGraphic(view);
+        }
         // Get player list, and create HBOXES and LABELS for them
         activeDecks.initializeDecks(juego.getPlayers(), List.of(playerOneContainer, playerTwoContainer));
         humanPlayersNameLabel.setText(MainMenuController.getActiveUser());
@@ -116,6 +136,9 @@ public class GameScreenController extends ControllerParent {
 
     @FXML
     private GridPane colorPickContainer;
+
+    @FXML
+    private Button botonRojo, botonAzul, botonAmarillo, botonVerde;
 
     @FXML
     private void triggerRedSelection() {
