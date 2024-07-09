@@ -24,82 +24,38 @@ public class Juego {
 
     private static Juego instance;
 
+    /**
+     * Retorna la instancia del singleton Juego, y si no existe, la crea
+     * @return Retorna la unica instancia
+     */
     public static Juego getInstance() {
         if (instance == null) instance = new Juego();
         return instance;
-    }
-
-    private ScoreManager scoreManager;
-
-    public ScoreManager getScoreManager() {
-        return scoreManager;
-    }
-
-    public void setScoreManager(ScoreManager scoreManager) {
-        this.scoreManager = scoreManager;
-    }
-
-    public List<Jugador> getPlayers() {
-        return listaJugadores.getListaJugadores();
     }
 
     private int cartasATomar;
 
     private boolean saltarTurno;
 
-    /**
-     * Obtiene las cartas a tomar
-     *
-     * @return cantidad de cartas
-     */
-    public int getCartasATomar() {
-        return this.cartasATomar;
-    }
+    private Jugadores listaJugadores;
 
-    /**
-     * Aumenta la cantidad de cartas a tomar
-     *
-     * @param increase Numero de cartas a tomar por aumentar
-     */
-    public void increaseCartasATomar(int increase) {
-        cartasATomar += increase;
-    }
+    private PilaTomar pilaTomar;
 
-    /**
-     * Revisa si se debe saltar un turno
-     *
-     * @return true si hay que saltar un turno, false si no
-     */
-    public boolean isSaltarTurno() {
-        return saltarTurno;
-    }
+    private PilaJugar pilaJugar;
 
-    /**
-     * Notifica si se debe de saltar el turno
-     *
-     * @param saltarTurno true si se debe saltar turno, false si no
-     */
-    public void setSaltarTurno(boolean saltarTurno) {
-        this.saltarTurno = saltarTurno;
-    }
+    private ScoreManager scoreManager;
 
     /**
      * Revierte el orden de jugadores
      */
     public void revertirOrden() {
         assert (listaJugadores != null);
-        if (listaJugadores.size() < 3) {
+        if (listaJugadores.getSize() < 3) {
             saltarTurno = true;
             return;
         }
         listaJugadores.cambiarOrden();
     }
-
-    private Jugadores listaJugadores;
-
-    private PilaTomar pilaTomar;
-
-    private PilaJugar pilaJugar;
 
     /**
      * Le da cartas a el jugador actual
@@ -147,6 +103,9 @@ public class Juego {
         }
     }
 
+    /**
+     * Metodo para guardar el juego
+     */
     public void guardarJuego() {
         ManejadorSesion manejadorSesion = ManejadorSesion.getInstance();
         manejadorSesion.setGuardador(new GuardadorGson());
@@ -158,6 +117,9 @@ public class Juego {
         }
     }
 
+    /**
+     * Metodo para cargar el juego
+     */
     public void cargarJuego() {
         ManejadorSesion manejadorSesion = ManejadorSesion.getInstance();
         manejadorSesion.setCargador(new CargadorJSONSimple());
@@ -165,33 +127,65 @@ public class Juego {
             manejadorSesion.cargarJuego(this);
         } catch (Exception e) {
             System.err.println("Unable to load game");
-            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Metodo para guardar las puntuaciones
+     */
+    public void guardarScores() {
+        ManejadorSesion manejadorSesion = ManejadorSesion.getInstance();
+        manejadorSesion.setGuardador(new GuardadorGson());
+        try {
+            manejadorSesion.guardarPuntuacion(scoreManager.getScores());
+        } catch (Exception e) {
+            System.err.println("Unable to save scores");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Metodo para cargar las puntuaciones
+     */
     public void cargarScores() {
         ManejadorSesion manejadorSesion = ManejadorSesion.getInstance();
         manejadorSesion.setCargador(new CargadorJSONSimple());
         try {
             manejadorSesion.cargarScores(this);
         } catch (Exception e) {
-            System.err.println("Unable to load game");
-            System.err.println(e.getMessage());
+            System.err.println("Unable to load scores");
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Metodo para conseguir al jugador actual
+     * @return Retorna al jugador actual
+     */
     public Jugador getCurrentPlayer() {
         return listaJugadores.getCurrentPlayer();
     }
 
+    /**
+     * Metodo para saber si el jugador actual es Humano
+     * @return Retorna true si el jugador es Humano
+     */
     public boolean isCurrentPlayerHuman() {
         return getCurrentPlayer() instanceof Humano;
     }
 
+    /**
+     * Metodo para retornar la carta tope de la pila jugar
+     * @return Retorna la carta tope de la pila jugar
+     */
     public Carta getTopCard() {
         return pilaJugar.getCartaTope();
     }
 
+    /**
+     * Metodo para avanzar al turno del siguiente jugador
+     */
     public void siguienteJugador() {
         if (saltarTurno) {
             listaJugadores.siguienteJugador();
@@ -201,55 +195,28 @@ public class Juego {
         listaJugadores.siguienteJugador();
     }
 
+    /**
+     * Metodo para que el jugador actual tome su turno
+     */
     public void currentPlayerTakeTurn() {
         listaJugadores.jugadorActualTurno();
     }
 
     /**
-     * Limpia la patalla
-     *
-     * @deprecated
+     * Metodo para registrar una puntuacion ganadora
+     * @param win Si el jugador que esta actualmente jugando gano la partida o no
      */
-    public static void limpiarConsola() {
-        // Esto es probablemente lo mas tonto que he hecho en mis 3.5 semestres que he estado en esta universidad
-        // pero me da demasiada flojera encontrar una manera de limpiar la consola en java.
-        // Si alguien encuentra una manera de limpiar la consola de verdad, y que funcione tanto en mac
-        // como en windows se lo agradeceria.
-        // - Humberto Aleman
-
-        System.out.println("\n".repeat(15));
-    }
-
-    public void setListaJugadores(Jugadores listaJugadores) {
-        this.listaJugadores = listaJugadores;
-    }
-
-    public void setPilaJugar(PilaJugar pilaJugar) {
-        this.pilaJugar = pilaJugar;
-    }
-
-    public PilaJugar getPilaJugar() {
-        return pilaJugar;
-    }
-
-    public void setPilaTomar(PilaTomar pilaTomar) {
-        this.pilaTomar = pilaTomar;
-    }
-
-    public void registerWinner(boolean win) {
+    public void registerWinnerScore(boolean win) {
         scoreManager.addScore(new Score(win, getCurrentPlayer(), getWinnerScore()));
-
-        ManejadorSesion manejadorSesion = ManejadorSesion.getInstance();
-        manejadorSesion.setGuardador(new GuardadorGson());
-        try {
-            manejadorSesion.guardarPuntuacion(scoreManager.getScores());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        guardarScores();
     }
 
+    /**
+     * Retorna el puntaje del jugador ganador
+     * @return Retorna un integer, que sera el puntaje del jugador ganador
+     */
     public int getWinnerScore() {
-        LinkedList<Jugador> players = new LinkedList<>(getPlayers());
+        LinkedList<Jugador> players = new LinkedList<>(getListaJugadores());
         players.remove(getCurrentPlayer());
         ArrayList<Carta> remainingCards = new ArrayList<>();
         for (Jugador player : players)
@@ -260,5 +227,103 @@ public class Juego {
             score += carta.getScore();
 
         return score;
+    }
+
+    /* GETTERS Y SETTERS */
+
+    /**
+     * Retorna la cantidad de cartas a tomar
+     * @return Retorna la cantidad de cartas a tomar
+     */
+    public int getCartasATomar() {
+        return this.cartasATomar;
+    }
+
+    /**
+     * Incrementa la cantidad de cartas a tomar
+     * @param increase Cantidad de cartas a tomar a incrementar
+     */
+    public void increaseCartasATomar(int increase) {
+        cartasATomar += increase;
+    }
+
+    /**
+     * Retorna si se salta el turno del siguiente jugador
+     * @return Retorna verdadero o falso si el turno se debe saltar
+     */
+    public boolean isSaltarTurno() {
+        return saltarTurno;
+    }
+
+    /**
+     * Asigna el valor de verdad a saltar turno del siguiente jugador
+     * @param saltarTurno Valor de verdad de saltar turno
+     */
+    public void setSaltarTurno(boolean saltarTurno) {
+        this.saltarTurno = saltarTurno;
+    }
+
+    /**
+     * Retorna una lista con los jugadores del juego
+     * @return Retorna una lista con los jugadores
+     */
+    public List<Jugador> getListaJugadores() {
+        return listaJugadores.getListaJugadores();
+    }
+
+    /**
+     * Asigna una nueva lista de jugadores al juego
+     * @param listaJugadores Lista de jugadores a asignar
+     */
+    public void setListaJugadores(Jugadores listaJugadores) {
+        this.listaJugadores = listaJugadores;
+    }
+
+    /**
+     * Retorna la pila de cartas a tomar del juego
+     * @return Retorna la pila de cartas a tomar
+     */
+    public PilaTomar getPilaTomar() {
+        return pilaTomar;
+    }
+
+    /**
+     * Asigna la pila de cartas a tomar
+     * @param pilaTomar Pila de cartas a tomar a asignar
+     */
+    public void setPilaTomar(PilaTomar pilaTomar) {
+        this.pilaTomar = pilaTomar;
+    }
+
+    /**
+     * Retorna la pila de cartas que han sido jugadas en el juego
+     * @return Retorna la pila de cartas jugadas
+     */
+    public PilaJugar getPilaJugar() {
+        return pilaJugar;
+    }
+
+    /**
+     * Asigna una nueva pila de cartas jugadas en el juego
+     * @param pilaJugar Pila de cartas a asignar
+     */
+    public void setPilaJugar(PilaJugar pilaJugar) {
+        this.pilaJugar = pilaJugar;
+    }
+
+    /**
+     * Retorna el manejador de puntuaciones del juego
+     * @return Retorna el manejador de puntuaciones
+     */
+    public ScoreManager getScoreManager() {
+        return scoreManager;
+    }
+
+    /**
+     * Asigna un nuevo manejador de puntuaciones al juego
+     * @param scoreManager Manejador de puntuaciones a asignar
+     */
+    public void setScoreManager(ScoreManager scoreManager) {
+        this.scoreManager = scoreManager;
     }
 }

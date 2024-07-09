@@ -16,14 +16,14 @@ import java.util.List;
 import java.util.Stack;
 
 public class PilaTomar {
-    private final PilaJugar pilaJugar;
-
     /**
      * Constructor de la pila de cartas a tomar
      */
     public PilaTomar(PilaJugar pilaJugar) {
         this.pilaJugar = pilaJugar;
     }
+
+    private final PilaJugar pilaJugar;
 
     private final Stack<Carta> listaCartas = new Stack<>();
 
@@ -48,7 +48,7 @@ public class PilaTomar {
     }
 
     /**
-     * baraja las cartas
+     * Baraja las cartas
      *
      * @param listaCartas La lista de cartas que va a ser revuelta
      */

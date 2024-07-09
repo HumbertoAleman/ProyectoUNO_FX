@@ -1,8 +1,6 @@
 package com.ucab.proyectouno_fx.Model.Carta.Accion;
 
 public class CartaRevertir extends CartaAccion {
-    private static final String tipo = "R";
-
     /**
      * Constructor de la carta revertir
      *
@@ -12,14 +10,13 @@ public class CartaRevertir extends CartaAccion {
         super(color, CartaRevertir.tipo);
     }
 
+    private static final String tipo = "R";
+
     /**
      * Ejecuta la accion de la carta revertir
-     * Si la cantidad de jugadores es igual a 2, la carta se comporta de manera identica a la carta saltar
-     * Si la cantidad de jugadores es mayor a 2, la carta revierte el orden del juego
      */
     @Override
     public void ejecutarAccion() {
-        System.out.println("Revirtiendo el flow del juego");
         juego.revertirOrden();
     }
 

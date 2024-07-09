@@ -3,7 +3,9 @@ package com.ucab.proyectouno_fx.Model.Carta.Pila;
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
 import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaComodin;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 
 public class PilaJugar {
     private final Stack<Carta> listaCartas = new Stack<>();
@@ -27,8 +29,8 @@ public class PilaJugar {
         LinkedList<Carta> cartasPorDebajo = new LinkedList<>(listaCartas);
         listaCartas.clear();
         listaCartas.add(primeraCarta);
-        for(Carta carta : cartasPorDebajo){
-            if(carta instanceof CartaComodin)
+        for (Carta carta : cartasPorDebajo) {
+            if (carta instanceof CartaComodin)
                 ((CartaComodin) carta).setColorSeleccionado('C');
         }
         return cartasPorDebajo;
@@ -43,6 +45,11 @@ public class PilaJugar {
         listaCartas.add(carta);
     }
 
+    /**
+     * Toma la primera carta de la pila
+     *
+     * @return La primera carta de la pila
+     */
     public Carta getCartaTope() {
         return listaCartas.peek();
     }

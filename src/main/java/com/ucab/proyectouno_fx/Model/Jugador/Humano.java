@@ -18,17 +18,15 @@ public class Humano extends Jugador {
     /**
      * El jugador realiza una accion en su turno
      *
-     * @return Retorna si el jugador va a salir al menu principal
+     * @deprecated
      */
     @Override
-    public boolean tomarTurno() {
+    public void tomarTurno() {
         Scanner scanner = new Scanner(System.in);
         Carta cartaSeleccionada = null;
         String seleccion = "";
 
         while (!juego.jugarCarta(cartaSeleccionada) && !seleccion.equals("T") && !seleccion.equals("0")) {
-            ImpresoraCarta.mostrarMazo(mazo, true);
-
             System.out.println();
             System.out.println("Es el turno de: " + getNombre());
             if (juego.getCartasATomar() > 0)
@@ -53,7 +51,6 @@ public class Humano extends Jugador {
                 while (!seleccion.equals("S") && !seleccion.equals("N")) {
                     System.out.println("La carta tomada fue ");
                     System.out.println("+---+");
-                    ImpresoraCarta.imprimirCuerpoCarta(cartaTomada, true);
                     System.out.println();
                     System.out.println("+---+");
                     System.out.println();
@@ -65,20 +62,17 @@ public class Humano extends Jugador {
                     seleccion = scanner.nextLine().toUpperCase();
                 }
 
-                if (seleccion.equals("N")) return true;
+                if (seleccion.equals("N")) return;
 
                 if (juego.jugarCarta(cartaTomada)) {
                     System.out.println("Si se pudo jugar la carta tomada");
                     mazo.remove(cartaTomada);
                 } else System.out.println("No se pudo jugar la carta tomada");
-                return true;
+                return;
             }
-            return true;
+            return;
         }
 
-        if (seleccion.equals("0")) return false;
-
         mazo.remove(cartaSeleccionada);
-        return true;
     }
 }

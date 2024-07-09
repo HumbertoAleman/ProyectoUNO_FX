@@ -1,10 +1,6 @@
 package com.ucab.proyectouno_fx.Model.Carta.Accion;
 
-import com.ucab.proyectouno_fx.Model.Controlador.Juego;
-
 public class CartaSaltar extends CartaAccion {
-    private static final String tipo = "S";
-
     /**
      * Constructor de la carta saltar
      *
@@ -14,14 +10,14 @@ public class CartaSaltar extends CartaAccion {
         super(color, tipo);
     }
 
+    private static final String tipo = "S";
+
     /**
      * Ejecuta la accion de la carta saltar
      */
     @Override
     public void ejecutarAccion() {
-        System.out.println("Saltando turno del siguiente jugador");
         juego.setSaltarTurno(true);
-        System.out.println(Juego.getInstance().isSaltarTurno());
     }
 
     /**

@@ -24,6 +24,10 @@ public class ManejadorSesion {
 
     private static ManejadorSesion instance;
 
+    /**
+     * Retorna la unica instancia del singleton ManejadorSesion, si no existe, la crea
+     * @return Retorna la instancia
+     */
     public static ManejadorSesion getInstance() {
         if (instance == null) instance = new ManejadorSesion();
         return instance;
@@ -37,15 +41,11 @@ public class ManejadorSesion {
 
     private final File directory;
 
-    private File getUserDir(String playerName) {
-        return new File(directory.getName() + "/" + playerName);
-    }
-
-    public boolean userDirExists(String playerName) {
-        assert (directory != null);
-        return getUserDir(playerName).exists();
-    }
-
+    /**
+     * Registra un nuevo directorio de un usuario
+     * @param playerName Nombre del usuario a registrar
+     * @param password Contraseña del usuario a registrar
+     */
     public void registerPlayerDirectory(String playerName, String password) {
         File dirToCreate = getUserDir(playerName);
 
@@ -62,6 +62,12 @@ public class ManejadorSesion {
         }
     }
 
+    /**
+     * Hace login en el directorio determinado utilizando la contraseña dada
+     * @param playerName Nombre del usuario
+     * @param playerPassword Contraseña del usuario
+     * @return Retorna true si el login fue exitoso, retorna false si no lo fue
+     */
     public boolean loginPlayerDirectory(String playerName, String playerPassword) {
         assert (directory != null);
         JSONObject jsonObject;
@@ -83,28 +89,80 @@ public class ManejadorSesion {
         return true;
     }
 
-    public void setGuardador(Guardador guardador) {
-        this.guardador = guardador;
-    }
-
+    /**
+     * Metodo para guardar el juego
+     * @param listaJugadores Lista de jugadores a guardar
+     * @param pilaJugar Pila de cartas jugadas a guardar
+     * @param pilaTomar Pila de cartas tomadas a guardar
+     * @param saltarTurno Si se salta el turno actual
+     * @param cartasATomar La cantidad de cartas a tomar
+     * @throws IOException Excepcion a lanzar si ocurre un error de IO
+     */
     public void guardarJuego(Jugadores listaJugadores, PilaJugar pilaJugar, PilaTomar pilaTomar, boolean saltarTurno, int cartasATomar) throws IOException {
         guardador.guardarJuego(currentPlayerDirectory.getPath(), listaJugadores, pilaJugar, pilaTomar, saltarTurno, cartasATomar);
     }
 
+    /**
+     * Metodo para guardar la lista de puntuaciones
+     * @param scoreList La lista de puntuaciones a guardar
+     * @throws IOException Excepcion a lanzar si ocurre un error de IO
+     */
     public void guardarPuntuacion(List<Score> scoreList) throws IOException {
         guardador.guardarPuntuacion(currentPlayerDirectory.getPath(), scoreList);
     }
 
-
-    public void setCargador(Cargador cargador) {
-        this.cargador = cargador;
-    }
-
+    /**
+     * Metodo para cargar el juego
+     * @param juego Instancia de juego a donde cargar la informacion
+     * @throws IOException Excepcion a lanzar si ocurre un error de IO
+     * @throws ParseException Excepcion a lanzar si ocurre un error con el JSON
+     */
     public void cargarJuego(Juego juego) throws IOException, ParseException {
         cargador.cargarJuego(juego, currentPlayerDirectory.getPath());
     }
 
+    /**
+     * Metodo para cargar las puntuaciones
+     * @param juego Instancia de juego a donde cargar la informacion
+     * @throws IOException Excepcion a lanzar si ocurre un error de IO
+     * @throws ParseException Excepcion a lanzar si ocurre un error con el JSON
+     */
     public void cargarScores(Juego juego) throws IOException, ParseException {
         cargador.cargarScores(juego, currentPlayerDirectory.getPath());
+    }
+
+    /**
+     * Metodo que retorna el directorio de un usuario especificado
+     * @param playerName Nombre del jugador
+     * @return String con el camino al directorio del jugador
+     */
+    private File getUserDir(String playerName) {
+        return new File(directory.getName() + "/" + playerName);
+    }
+
+    /**
+     * Metodo para revisar si el directorio de un jugador existe
+     * @param playerName Nombre del jugador
+     * @return Retorna true si existe, false si no existe
+     */
+    public boolean userDirExists(String playerName) {
+        assert (directory != null);
+        return getUserDir(playerName).exists();
+    }
+
+    /**
+     * Metodo para asignar el guardador
+     * @param guardador Guardador a asignar
+     */
+    public void setGuardador(Guardador guardador) {
+        this.guardador = guardador;
+    }
+
+    /**
+     * Metodo para asignar al cargador
+     * @param cargador Cargador a asignar
+     */
+    public void setCargador(Cargador cargador) {
+        this.cargador = cargador;
     }
 }

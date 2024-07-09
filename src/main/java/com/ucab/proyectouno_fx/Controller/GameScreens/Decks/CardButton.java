@@ -7,22 +7,27 @@ import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
 /**
  * Clase que representa un boton con una carta
  */
 public class CardButton {
     private final Button button;
+
     /**
      * Obtiene el boton
+     *
      * @return boton
      */
     public Button getButton() {
         return this.button;
     }
+
     /**
      * Constructor de la clase
-     * @param card carta
-     * @param show mostrar
+     *
+     * @param card       carta
+     * @param show       mostrar
      * @param isDisabled deshabilitado
      */
     public CardButton(Carta card, boolean show, boolean isDisabled) {

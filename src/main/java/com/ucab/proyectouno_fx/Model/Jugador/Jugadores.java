@@ -7,25 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Jugadores {
-    private final List<Jugador> listaJugadores = new ArrayList<>();
-
-    /**
-     * Constructor jugadores
-     */
-    public Jugadores() { }
-
-    /**
-     * Obtiene la lista de jugadores
-     * 
-     * @return lista de jugadores
-     */
-    public List<Jugador> getListaJugadores() {
-        return this.listaJugadores;
-    }
-
     private int index = 0;
 
     private boolean order = true;
+
+    private final List<Jugador> listaJugadores = new ArrayList<>();
 
     /**
      * Cambia el turno de los jugaores
@@ -44,11 +30,9 @@ public class Jugadores {
 
     /**
      * El jugador actual toma turno
-     *
-     * @return Retorna si el jugador va a salir al menu principal
      */
-    public boolean jugadorActualTurno() {
-        return listaJugadores.get(index).tomarTurno();
+    public void jugadorActualTurno() {
+        listaJugadores.get(index).tomarTurno();
     }
 
     /**
@@ -61,52 +45,58 @@ public class Jugadores {
         }
         index = (index - 1) % listaJugadores.size();
     }
+
+    /**
+     * Agrega un jugador a la lista de jugadores
+     *
+     * @param jugador un jugador
+     */
+    public void agregarJugador(Jugador jugador) {
+        listaJugadores.add(jugador);
+    }
+
+    /**
+     * Remueve una carta del mazo del jugadora actual
+     *
+     * @param card Carta {@code }a remover
+     */
+    public void removeCardFromCurrentPlayer(Carta card) {
+        listaJugadores.get(index).removeCard(card);
+    }
+
+    /**
+     * Asigna a quien le toca el turno
+     *
+     * @param index posicion del turno del personaje actual
+     */
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    /**
+     * Obtiene la lista de jugadores
+     *
+     * @return lista de jugadores
+     */
+    public List<Jugador> getListaJugadores() {
+        return this.listaJugadores;
+    }
+
+    /**
+     * Obtiene la catidad de jugadores en la partida
+     *
+     * @return cantidad de jugadores
+     */
+    public int getSize() {
+        return listaJugadores.size();
+    }
+
     /**
      * Obtiene el jugador actual
      *
      * @return Jugador actual
      */
-    public Jugador getCurrentPlayer(){
+    public Jugador getCurrentPlayer() {
         return listaJugadores.get(index);
-    }
-
-    /**
-     * Obtiene la cantidad de cartas del mazo del jugador actual
-     * 
-     * @return cantidad de cartas 
-     */
-    public int getNumCartasJugadorActual() {
-        return listaJugadores.get(index).getCantidadDeCartas();
-    }
-    /**
-     * Obtiene la catidad de jugadores en la partida
-     * 
-     * @return cantidad de jugadores
-     */
-    public int size() {
-        return listaJugadores.size();
-    }
-
-    //Esta funcion es unicamente usada al cargar
-    /**
-     * Agrega un jugador a la lista de jugadores
-     * 
-     * @param jugador un jugador
-     */
-    public void agregarJugador(Jugador jugador){
-        listaJugadores.add(jugador);
-    }
-
-    /**
-     * Asigna a quien le toca el turno
-     * 
-     * @param index posicion del turno del personaje actual
-     */
-    public void setIndex(int index){
-        this.index = index;
-    }
-
-    public void removeCardFromCurrentPlayer(Carta card) {
-        listaJugadores.get(index).removeCardFromDeck(card);
     }
 }

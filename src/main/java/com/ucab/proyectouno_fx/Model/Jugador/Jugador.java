@@ -6,18 +6,6 @@ import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import java.util.LinkedList;
 
 public abstract class Jugador {
-    protected transient final Juego juego = Juego.getInstance();
-
-    protected LinkedList<Carta> mazo = new LinkedList<>();
-
-    protected final String nombre;
-
-    protected final String tipo;
-
-    public LinkedList<Carta> getMazo() {
-        return this.mazo;
-    }
-
     /**
      * Constructor de Jugador
      *
@@ -26,6 +14,50 @@ public abstract class Jugador {
     public Jugador(String nombre, String tipo) {
         this.nombre = nombre;
         this.tipo = tipo;
+    }
+
+    /**
+     * Instancia del juego en el que los jugadores participan
+     */
+    protected transient final Juego juego = Juego.getInstance();
+
+    /**
+     * Mazo de cartas que le pertenece a los jugadores
+     */
+    protected final LinkedList<Carta> mazo = new LinkedList<>();
+
+    /**
+     * Nombre del jugador
+     */
+    protected final String nombre;
+
+    /**
+     * Tipo de jugador (Es utilizado por la libreria GSON)
+     */
+    protected final String tipo;
+
+    /**
+     * Toma el turno del jugador
+     */
+    public abstract void tomarTurno();
+
+    /**
+     * Agrega una carta al mazo del jugador
+     *
+     * @param carta una carta
+     */
+    public void agregarCarta(Carta carta) {
+        if (carta == null) return;
+        mazo.add(carta);
+    }
+
+    /**
+     * Remueve una carta del mazo del jugador
+     *
+     * @param card una carta
+     */
+    public void removeCard(Carta card) {
+        mazo.remove(card);
     }
 
     /**
@@ -38,13 +70,12 @@ public abstract class Jugador {
     }
 
     /**
-     * Agrega una carta al mazo
+     * Metodo que retorna el mazo de cartas del jugador
      *
-     * @param carta una carta
+     * @return Retorna el mazo del jugador
      */
-    public void agregarCarta(Carta carta) {
-        if (carta == null) return;
-        mazo.add(carta);
+    public LinkedList<Carta> getMazo() {
+        return this.mazo;
     }
 
     /**
@@ -54,25 +85,5 @@ public abstract class Jugador {
      */
     public int getCantidadDeCartas() {
         return mazo.size();
-    }
-
-    /**
-     * Obtiene la primera carta del mazo del jugaor
-     *
-     * @return Carta
-     */
-    public Carta getCarta() {
-        return mazo.getFirst();
-    }
-
-    /**
-     * Toma el turno del jugador
-     *
-     * @return Retorna si el jugador tomo la decision de regresar al menu principal
-     */
-    public abstract boolean tomarTurno();
-
-    public void removeCardFromDeck(Carta card) {
-        mazo.remove(card);
     }
 }

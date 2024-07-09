@@ -1,13 +1,14 @@
 package com.ucab.proyectouno_fx.Model.Controlador.Guardador;
 
+import com.google.gson.Gson;
 import com.ucab.proyectouno_fx.Model.Carta.Pila.PilaJugar;
 import com.ucab.proyectouno_fx.Model.Carta.Pila.PilaTomar;
 import com.ucab.proyectouno_fx.Model.Controlador.Score.Score;
 import com.ucab.proyectouno_fx.Model.Jugador.Jugadores;
 
-import com.google.gson.Gson;
-
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.List;
 
 
@@ -64,6 +65,13 @@ public class GuardadorGson implements Guardador {
 
     }
 
+    /**
+     * Metodo que guarda las puntuaciones del jugador
+     *
+     * @param directorioCargado Directorio a guardar la informacion
+     * @param scoreList Lista de puntuaciones a guardar
+     * @throws IOException Excepcion a lanzar si ocurre un error de IO
+     */
     @Override
     public void guardarPuntuacion(String directorioCargado, List<Score> scoreList) throws IOException {
         String dirName = directorioCargado + "/";

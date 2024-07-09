@@ -5,8 +5,6 @@ import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import java.util.Objects;
 
 public interface Validator {
-    Juego juego = Juego.getInstance();
-
     /**
      * Valida si una carta se puede jugar
      *
@@ -14,6 +12,8 @@ public interface Validator {
      * @return true si se puede jugar o false si no se puede jugar
      */
     static boolean validateCard(Carta carta) {
+        Juego juego = Juego.getInstance();
+
         Carta topCard = juego.getTopCard();
         assert (topCard != null);
 
