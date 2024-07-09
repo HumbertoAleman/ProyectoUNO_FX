@@ -29,7 +29,7 @@ public class Juego {
         return instance;
     }
 
-    private ScoreManager scoreManager;
+    private ScoreManager scoreManager = new ScoreManager();
 
     public ScoreManager getScoreManager() {
         return scoreManager;
