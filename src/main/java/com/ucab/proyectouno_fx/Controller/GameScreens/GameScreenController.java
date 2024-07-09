@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -199,6 +200,7 @@ public class GameScreenController extends ControllerParent {
         }
         stage.getIcons().add(icono);
         stage.setScene(scene);
+        stage.setUserData(colorSelector);
         stage.show();
     }
 
@@ -264,15 +266,13 @@ public class GameScreenController extends ControllerParent {
     @FXML
     public boolean triggerShoutUno(){
         long startTime = System.currentTimeMillis();
-// ... do something ...
+        // ... do something ...
 
         Alert unoWindow = new Alert(Alert.AlertType.CONFIRMATION);
         unoWindow.setTitle("Es momento de cantar UNO!");
         unoWindow.setContentText("UNO!");
 
-
         long estimatedTime = System.currentTimeMillis() - startTime;
-        return estimatedTime> 3000;
-
+        return estimatedTime > 3000;
     }
 }
