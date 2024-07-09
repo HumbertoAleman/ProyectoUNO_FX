@@ -120,6 +120,7 @@ public class DeckController {
             controller.refreshAll();
         });
         deck.getChildren().add(cardButton.getButton());
+        juego.guardarJuego();
     }
     /**
      * Refresca el mazo del jugador
