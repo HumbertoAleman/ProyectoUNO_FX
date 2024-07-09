@@ -12,7 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
+/**
+ * Clase controladora de la vista de la mano de cartas de un jugador
+ */
 public class DeckController {
     public DeckController(Jugador jugador, VBox mainContainer, GameScreenController controller) {
         this.jugador = jugador;
@@ -53,12 +55,20 @@ public class DeckController {
     private boolean getDisabledStatus() {
         return !juego.getCurrentPlayer().equals(jugador) || controller.isPickingColor();
     }
-
+    /**
+     * Agrega una carta al mazo del jugador
+     *
+     * @param card Carta a agregar
+     */
     private void addCardToHBox(Carta card) {
         // TODO: Probablemente haya que cambiar la logica para mostrar las cartas
         addCardToHBox(card, isPlayerHuman);
     }
-
+    /**
+     * Ejecuta el turno del jugador actual
+     *
+     * @param card Carta a jugar
+     */
     private void executePlayerTurn(Carta card) {
         // Validamos si la carta es jugable, si lo es, jugamos la carta, y ejecutamos su efecto
         if (!Validator.validateCard(card)) return;
@@ -88,7 +98,12 @@ public class DeckController {
         if (!juego.isCurrentPlayerHuman())
             controller.triggerCPUTurn();
     }
-
+    /**
+     * Agrega una carta al mazo del jugador
+     *
+     * @param card Carta a agregar
+     * @param show Mostrar la carta
+     */
     private void addCardToHBox(Carta card, boolean show) {
         boolean disableDeck = getDisabledStatus();
         CardButton cardButton = new CardButton(card, show, (!show || !(!disableDeck && Validator.validateCard(card))));
@@ -99,7 +114,9 @@ public class DeckController {
         });
         deck.getChildren().add(cardButton.getButton());
     }
-
+    /**
+     * Refresca el mazo del jugador
+     */
     public void refreshHBox() {
         clearHBox();
         for (Carta carta : jugador.getMazo())

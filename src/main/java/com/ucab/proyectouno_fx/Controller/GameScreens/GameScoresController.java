@@ -12,14 +12,20 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * Clase controladora de la vista de puntajes
+ */
 public class GameScoresController extends ControllerParent {
     @FXML
     public VBox scoreList;
 
     @FXML
     public Label currentPlayer;
-
+    /**
+     * Metodo que se encarga de regresar al menu principal
+     * @param resourceBundle Evento de la accion
+     * @throws IOException Excepcion lanzada si hay un error en la lectura del archivo
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Juego juego = Juego.getInstance();
@@ -34,7 +40,11 @@ public class GameScoresController extends ControllerParent {
         }
         currentPlayer.setText(MainMenuController.getActiveUser());
     }
-
+    /**
+     * Metodo que se encarga de regresar al menu principal
+     * @param event Evento de la accion
+     * @throws IOException Excepcion lanzada si hay un error en la lectura del archivo
+     */
     @FXML
     public void returnToMainMenu(ActionEvent event) throws IOException {
         switchToScene(event, mainMenuView);

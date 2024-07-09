@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
+/**
+ * Clase controladora de la vista de juego
+ */
 public class GameScreenController extends ControllerParent {
 
     private Juego juego;
@@ -38,11 +40,15 @@ public class GameScreenController extends ControllerParent {
     }
 
     private CPUControllerActions cpuActions;
-
+    /**
+     * Metodo que se encarga de inicializar la vista
+     */
     public void triggerCPUTurn() {
         cpuActions.triggerCPUTurn();
     }
-
+    /**
+     * Metodo que se encarga de inicializar la vista
+     */
     private void initializeTakePile() {
         Image carta;
 
@@ -71,7 +77,11 @@ public class GameScreenController extends ControllerParent {
             refreshAll();
         });
     }
-
+    /**
+     * Metodo que se encarga de regresar al menu principal
+     * @param resourceBundle Evento de la accion
+     * @throws IOException Excepcion lanzada si hay un error en la lectura del archivo
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.juego = Juego.getInstance();
@@ -79,26 +89,6 @@ public class GameScreenController extends ControllerParent {
         this.colorSelector = new ColorSelector(this, colorPickContainer, takePile);
         this.cpuActions = new CPUControllerActions(this, colorSelector);
 
-        Image color;
-        String[] colores = {"Verde", "Rojo", "Azul", "Amarillo"};
-        for (String col : colores) {
-            try {
-                color = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/Color" + col + ".png"));
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            ImageView view = new ImageView(color);
-            view.setFitHeight(40.0);
-            view.setPreserveRatio(true);
-            if(col.equals("Verde"))
-                botonVerde.setGraphic(view);
-            if(col.equals("Rojo"))
-                botonRojo.setGraphic(view);
-            if(col.equals("Azul"))
-                botonAzul.setGraphic(view);
-            if(col.equals("Amarillo"))
-                botonAmarillo.setGraphic(view);
-        }
         // Get player list, and create HBOXES and LABELS for them
         activeDecks.initializeDecks(juego.getPlayers(), List.of(playerOneContainer, playerTwoContainer));
         humanPlayersNameLabel.setText(MainMenuController.getActiveUser());
@@ -126,9 +116,6 @@ public class GameScreenController extends ControllerParent {
 
     @FXML
     private GridPane colorPickContainer;
-
-    @FXML
-    private Button botonRojo, botonAzul, botonAmarillo, botonVerde;
 
     @FXML
     private void triggerRedSelection() {
@@ -167,7 +154,9 @@ public class GameScreenController extends ControllerParent {
     private void refreshDecks() {
         activeDecks.refreshDecks();
     }
-
+    /**
+     * Metodo que se encarga de refrescar la pila de juego
+     */
     private void refreshPlayPile() {
         Image carta;
 
@@ -183,7 +172,9 @@ public class GameScreenController extends ControllerParent {
 
         playPile.setGraphic(view);
     }
-
+    /**
+     * Metodo que se encarga de lanzar el evento de ganar
+     */
     public void triggerWinEvent() {
         int score = juego.getWinnerScore();
 

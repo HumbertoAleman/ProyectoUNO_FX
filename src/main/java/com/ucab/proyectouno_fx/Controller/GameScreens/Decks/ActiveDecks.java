@@ -6,7 +6,9 @@ import javafx.scene.layout.VBox;
 
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * Clase que se encarga de manejar los mazos de los jugadores activos
+ */
 public class ActiveDecks {
     public ActiveDecks(GameScreenController controller) {
         this.controller = controller;
@@ -31,7 +33,12 @@ public class ActiveDecks {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Agrega un jugador a la lista de jugadores activos
+     *
+     * @param player        Jugador a agregar
+     * @param mainContainer Contenedor principal
+     */
     public void addPlayer(Jugador player, VBox mainContainer) {
         assert (player != null);
         if (decks.size() >= 2) {
@@ -41,7 +48,9 @@ public class ActiveDecks {
 
         decks.add(new DeckController(player, mainContainer, controller));
     }
-
+    /**
+     * Refresca los mazos de los jugadores
+     */
     public void refreshDecks() {
         for (DeckController deck : decks)
             deck.refreshHBox();

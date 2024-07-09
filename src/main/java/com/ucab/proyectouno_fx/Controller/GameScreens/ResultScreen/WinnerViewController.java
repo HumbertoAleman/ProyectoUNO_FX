@@ -8,7 +8,9 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * Clase controladora de la vista de ganador
+ */
 public class WinnerViewController extends ControllerParent {
     private static int puntuacionFinal;
 
@@ -18,12 +20,20 @@ public class WinnerViewController extends ControllerParent {
 
     @FXML
     public Label puntuacionFinalLabel;
-
+    /**
+     * Metodo que se encarga de regresar al menu principal
+     * @param event Evento de la accion
+     * @throws IOException Excepcion lanzada si hay un error en la lectura del archivo
+     */
     @FXML
     public void returnToMainMenu(ActionEvent event) throws IOException {
         switchToScene(event, mainMenuView);
     }
-
+    /**
+     * Metodo que se encarga de inicializar la vista
+     * @param url URL de la vista
+     * @param resourceBundle Recurso de la vista
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         puntuacionFinalLabel.setText(String.valueOf(puntuacionFinal));

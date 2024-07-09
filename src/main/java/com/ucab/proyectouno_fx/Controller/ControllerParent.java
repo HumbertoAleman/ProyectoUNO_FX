@@ -11,16 +11,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
+/**
+ * Clase abstracta que contiene metodos y atributos comunes a todos los controladores
+ */
 public abstract class ControllerParent implements Initializable {
     protected static final String registerInputViewFile = "register-input-view.fxml";
     protected static final String registerAuthView = "register-auth-view.fxml";
@@ -33,37 +32,34 @@ public abstract class ControllerParent implements Initializable {
 
     protected static Stage stage;
     protected static Scene scene;
-
+    /**
+     * Metodo encargado de cambiar de escena
+     * @param newScene Escena a la que se desea cambiar
+     * @throws IOException Sera lanzada si hay un error leyendo el archivo
+     */
     protected void switchToScene(String newScene) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(ProyectoUNO.class.getResource(newScene)));
         stage = (Stage) scene.getWindow();
         scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
-        Image icono;
-        try {
-            icono = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/UNO_Logo.png"));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        stage.getIcons().add(icono);
         stage.show();
     }
-
+    /**
+     * Metodo encargado de cambiar de escena
+     * @param event Evento que se esta ejecutando
+     * @param newScene Escena a la que se desea cambiar
+     * @throws IOException Sera lanzada si hay un error leyendo el archivo
+     */
     protected void switchToScene(ActionEvent event, String newScene) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(ProyectoUNO.class.getResource(newScene)));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 1280, 720);
         stage.setScene(scene);
-        Image icono;
-        try {
-            icono = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/UNO_Logo.png"));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        stage.getIcons().add(icono);
         stage.show();
     }
-
+    /**
+     * Metodo encargado de salir de la aplicacion
+     */
     @FXML
     protected void exitApp() {
         // NOTA: Esta confirmacion de salir no esta siendo creada usando java fx, no se si a joselito le importe
@@ -72,7 +68,11 @@ public abstract class ControllerParent implements Initializable {
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) Platform.exit();
     }
-
+    /**
+     * Metodo encargado de inicializar la clase
+     * @param url URL de la clase
+     * @param resourceBundle Recurso de la clase
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
