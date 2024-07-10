@@ -32,6 +32,20 @@
                   </Label>
                </children>
             </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="163.0">
+               <children>
+                  <Label text="Puntuacion TOTAL: ">
+                     <font>
+                        <Font name="Comic Sans MS" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="puntuacionTotal" layoutX="216.0" layoutY="10.0" text="PUNTUACIONTOTAL">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -39,7 +53,7 @@
                         <Insets left="24.0" right="24.0" />
                      </HBox.margin>
                      <content>
-                        <VBox fx:id="scoreList" prefHeight="88.0" prefWidth="534.0" style="-fx-background-color: lightgray; -fx-border-color: black;" />
+                        <VBox fx:id="scoreList" prefHeight="139.0" prefWidth="534.0" style="-fx-background-color: lightgray; -fx-border-color: black;" />
                      </content>
                   </ScrollPane>
                </children>

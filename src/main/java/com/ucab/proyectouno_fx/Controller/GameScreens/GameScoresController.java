@@ -22,6 +22,9 @@ public class GameScoresController extends ControllerParent {
     @FXML
     public Label currentPlayer;
 
+    @FXML
+    public Label puntuacionTotal;
+
     /**
      * Metodo que se encarga de regresar al menu principal
      *
@@ -31,15 +34,24 @@ public class GameScoresController extends ControllerParent {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Juego juego = Juego.getInstance();
 
+        int totalScore = 0;
+        boolean gray = false;
         for (Score score : juego.getScoreManager().getScores()) {
             Label winLabel, playerLabel, scoreLabel;
             winLabel = new Label(score.isWin() ? "GANADA" : "PERDIDA");
             playerLabel = new Label(score.getJugadorGanador().getNombre());
             scoreLabel = new Label(String.valueOf(score.getScore()));
 
-            scoreList.getChildren().add(new VBox(winLabel, playerLabel, scoreLabel));
+            totalScore += score.isWin() ? score.getScore() : 0;
+            VBox scoreBox = new VBox(winLabel, playerLabel, scoreLabel);
+            scoreBox.setStyle("-fx-background-color: " + (gray ? "#FFFFFF80" : "#FFFFFF40"));
+            gray = !gray;
+            scoreList.getChildren().add(scoreBox);
         }
+
+        scoreList.setSpacing(4.0);
         currentPlayer.setText(MainMenuController.getActiveUser());
+        puntuacionTotal.setText(String.valueOf(totalScore));
     }
 
     /**
