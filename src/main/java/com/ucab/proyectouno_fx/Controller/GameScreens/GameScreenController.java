@@ -258,6 +258,7 @@ public class GameScreenController extends ControllerParent {
     public void refreshAll() {
         refreshDecks();
         refreshPlayPile();
+        refreshButtons();
     }
 
     private void refreshDecks() {
@@ -281,6 +282,28 @@ public class GameScreenController extends ControllerParent {
         view.setPreserveRatio(true);
 
         playPile.setGraphic(view);
+    }
+
+    private void refreshButtons() {
+        char color = juego.getTopCard().getColor();
+        botonRojo.setDisable(true);
+        botonAzul.setDisable(true);
+        botonAmarillo.setDisable(true);
+        botonVerde.setDisable(true);
+        switch (color){
+            case 'R':
+                botonRojo.setDisable(false);
+                break;
+            case 'B':
+                botonAzul.setDisable(false);
+                break;
+            case 'Y':
+                botonAmarillo.setDisable(false);
+                break;
+            case 'G':
+                botonVerde.setDisable(false);
+                break;
+        }
     }
 
     /**
