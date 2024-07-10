@@ -88,10 +88,10 @@ public class ManejadorSesion {
         if (!login) return false;
 
         currentPlayerDirectory = new File(directory.getName() + "/" + playerName);
-        File scoresFile = new File(currentPlayerDirectory.getPath() + "/scores.json");
+        File scoresFile = new File(directory.getPath() + "/scores.json");
         if (!scoresFile.exists()) {
             try {
-                FileWriter fileWriter = new FileWriter(currentPlayerDirectory.getPath() + "/" + "scores.json");
+                FileWriter fileWriter = new FileWriter(scoresFile);
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 bufferedWriter.write("[]");
                 bufferedWriter.close();
@@ -125,7 +125,8 @@ public class ManejadorSesion {
      * @throws IOException Excepcion a lanzar si ocurre un error de IO
      */
     public void guardarPuntuacion(List<Score> scoreList) throws IOException {
-        guardador.guardarPuntuacion(currentPlayerDirectory.getPath(), scoreList);
+        System.out.println("Guardar puntuacion");
+        guardador.guardarPuntuacion(directory.getPath(), scoreList);
     }
 
     /**
@@ -147,7 +148,7 @@ public class ManejadorSesion {
      * @throws ParseException Excepcion a lanzar si ocurre un error con el JSON
      */
     public void cargarScores(Juego juego) throws IOException, ParseException {
-        cargador.cargarScores(juego, currentPlayerDirectory.getPath());
+        cargador.cargarScores(juego, directory.getPath());
     }
 
     /**
