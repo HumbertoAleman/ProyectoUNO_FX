@@ -34,6 +34,13 @@ public class Juego {
         return instance;
     }
 
+    /**
+     * Destruye la instancia juego
+     */
+    public static void destruirInstancia() {
+        if (instance != null) instance = null;
+    }
+
     private int cartasATomar;
 
     private boolean saltarTurno;
@@ -191,11 +198,8 @@ public class Juego {
      * Metodo para avanzar al turno del siguiente jugador
      */
     public void siguienteJugador() {
-        if (saltarTurno) {
-            listaJugadores.siguienteJugador();
-            saltarTurno = false;
-        }
-
+        if (saltarTurno) listaJugadores.siguienteJugador();
+        saltarTurno = false;
         listaJugadores.siguienteJugador();
     }
 

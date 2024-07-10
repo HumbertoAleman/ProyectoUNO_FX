@@ -7,6 +7,7 @@ import com.ucab.proyectouno_fx.Controller.GameScreens.MicroControllers.ColorSele
 import com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.LoserViewController;
 import com.ucab.proyectouno_fx.Controller.GameScreens.ResultScreen.WinnerViewController;
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
+import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaComodin;
 import com.ucab.proyectouno_fx.Model.Carta.Validator;
 import com.ucab.proyectouno_fx.Model.Controlador.Juego;
 import com.ucab.proyectouno_fx.ProyectoUNO;
@@ -61,7 +62,11 @@ public class GameScreenController extends ControllerParent {
     private void playTakenCard() {
         juego.darCartasAJugadorActual();
         Carta cartaTomada = juego.getCurrentPlayer().getMazo().getLast();
-        if (!Validator.validateCard(cartaTomada)) return;
+        if (!Validator.validateCard(cartaTomada)) {
+            juego.siguienteJugador();
+            cpuActions.triggerCPUTurn();
+            return;
+        }
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Desea jugar esta carta tomada?", ButtonType.YES, ButtonType.NO);
 
@@ -77,8 +82,32 @@ public class GameScreenController extends ControllerParent {
         alert.setGraphic(vistaDeCarta);
 
         alert.showAndWait();
-        if (alert.getResult() == ButtonType.YES)
-            juego.jugarCarta(cartaTomada);
+        if (alert.getResult() == ButtonType.NO) {
+            juego.siguienteJugador();
+            cpuActions.triggerCPUTurn();
+            return;
+        }
+
+        juego.jugarCarta(cartaTomada);
+        cartaTomada.ejecutarAccion();
+
+        if (juego.getCurrentPlayer().getCantidadDeCartas() == 1 && juego.isCurrentPlayerHuman()) {
+            if(!triggerShoutUno()) {
+                juego.increaseCartasATomar(6);
+                juego.darCartasAJugadorActual();
+            }
+        }
+
+        // Si la carta es saltar turno, saltamos el turno del siguiente jugador
+        if (juego.isSaltarTurno()) {
+            juego.siguienteJugador();
+            return;
+        }
+
+        // Si la carta es comodin, triggerear la seleccion de color
+        if (cartaTomada instanceof CartaComodin) {
+            triggerChooseColor(cartaTomada);
+        }
     }
 
     /**
@@ -101,18 +130,11 @@ public class GameScreenController extends ControllerParent {
 
         takePile.setOnAction(event -> {
             if (juego.getCartasATomar() == 0) playTakenCard();
-            else juego.darCartasAJugadorActual();
-
-            juego.getTopCard();
-            // Le damos las cartas al jugador actual
-            juego.darCartasAJugadorActual();
-
-            // Siguiente jugador ensues
-            juego.siguienteJugador();
-
-            // Triggereamos el turno del CPU
-            cpuActions.triggerCPUTurn();
-
+            else {
+                juego.darCartasAJugadorActual();
+                juego.siguienteJugador();
+                cpuActions.triggerCPUTurn();
+            }
             refreshAll();
         });
     }
@@ -209,7 +231,7 @@ public class GameScreenController extends ControllerParent {
     private void switchToColorPopupScene() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(ProyectoUNO.class.getResource(gameColorView)));
         Stage stage = new Stage();
-        scene = new Scene(root, 400, 200);
+        Scene scene = new Scene(root, 400, 200);
         stage.initModality(Modality.APPLICATION_MODAL);  // Bloquea la opción de clicar la otra pantalla
         stage.setTitle("Cambiar_Color");
         Image icono;
@@ -224,8 +246,12 @@ public class GameScreenController extends ControllerParent {
         stage.show();
     }
 
-    public void triggerChooseColor(Carta card) throws IOException {
-        switchToColorPopupScene();
+    public void triggerChooseColor(Carta card) {
+        try {
+            switchToColorPopupScene();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         colorSelector.triggerChooseColor(card);
     }
 
@@ -269,7 +295,7 @@ public class GameScreenController extends ControllerParent {
             try {
                 switchToScene(winnerView);
             } catch (Exception e) {
-                System.err.println(e.getMessage());
+                e.printStackTrace();
             }
             return;
         }
@@ -279,7 +305,7 @@ public class GameScreenController extends ControllerParent {
         try {
             switchToScene(loserView);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -294,6 +320,6 @@ public class GameScreenController extends ControllerParent {
 
         long estimatedTime = System.currentTimeMillis() - startTime;
         System.out.println("Estimated Time"+estimatedTime);
-        return estimatedTime > 3000;
+        return estimatedTime < 3000;
     }
 }

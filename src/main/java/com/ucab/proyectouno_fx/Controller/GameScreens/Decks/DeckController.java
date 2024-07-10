@@ -1,6 +1,5 @@
 package com.ucab.proyectouno_fx.Controller.GameScreens.Decks;
 
-import com.ucab.proyectouno_fx.Controller.ControllerParent;
 import com.ucab.proyectouno_fx.Controller.GameScreens.GameScreenController;
 import com.ucab.proyectouno_fx.Model.Carta.Carta;
 import com.ucab.proyectouno_fx.Model.Carta.Comodin.CartaComodin;
@@ -82,7 +81,7 @@ public class DeckController {
         card.ejecutarAccion();
 
         if (jugador.getCantidadDeCartas() == 1 && juego.isCurrentPlayerHuman()){
-            if(!controller.triggerShoutUno()){
+            if(!controller.triggerShoutUno()) {
                 juego.increaseCartasATomar(7);
                 juego.darCartasAJugadorActual();
             }

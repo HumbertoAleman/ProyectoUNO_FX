@@ -41,18 +41,17 @@ public class MainMenuController extends ControllerParent {
 
     /**
      * Metodo que obtiene el jugador actual
-     *
-     * @return Jugador actual
      */
     @FXML
     private Label currentPlayer;
 
+    /**
+     * Metodo que inicia un nuevo juego
+     *
+     * @param event Evento de la accion
+     * @throws IOException Excepcion de entrada y salida
+     */
     @FXML
-/**
- * Metodo que inicia un nuevo juego
- * @param event Evento de la accion
- * @throws IOException Excepcion de entrada y salida
- */
     public void newGame(ActionEvent event) throws IOException {
         Juego.getInstance().initializeGame();
         switchToScene(event, gameScreenView);
@@ -92,5 +91,6 @@ public class MainMenuController extends ControllerParent {
     public void returnToMainMenu(ActionEvent event) throws IOException {
         activeUser = null;
         switchToScene(event, registerAuthView);
+        Juego.destruirInstancia();
     }
 }

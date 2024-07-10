@@ -32,10 +32,14 @@ public class GameScoresController extends ControllerParent {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Juego juego = Juego.getInstance();
-
         int totalScore = 0;
         boolean gray = false;
+        Juego juego = Juego.getInstance();
+        if (juego.getScoreManager() == null) {
+            currentPlayer.setText(MainMenuController.getActiveUser());
+            puntuacionTotal.setText(String.valueOf(totalScore));
+            return;
+        }
         for (Score score : juego.getScoreManager().getScores()) {
             Label winLabel, playerLabel, scoreLabel;
             winLabel = new Label(score.isWin() ? "GANADA" : "PERDIDA");

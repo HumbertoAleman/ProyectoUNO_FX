@@ -55,6 +55,7 @@ public class CargadorJSONSimple implements Cargador {
      */
     @Override
     public void cargarScores(Juego juego, String playerDataPath) throws IOException, ParseException {
+        System.out.println("Cargando scores");
         this.playerDataPath = playerDataPath + "/";
         juego.setScoreManager(new ScoreManager(cargarScores()));
     }

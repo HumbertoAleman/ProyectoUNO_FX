@@ -77,7 +77,6 @@ public class ManejadorSesion {
         try {
             jsonObject = (JSONObject) new JSONParser().parse(new FileReader(directory.getName() + "/" + playerName + "/" + "user_info.json"));
         } catch (Exception e) {
-            // TODO: Potencialmente mostrar mensaje de error
             return false;
         }
 
@@ -89,6 +88,19 @@ public class ManejadorSesion {
         if (!login) return false;
 
         currentPlayerDirectory = new File(directory.getName() + "/" + playerName);
+        File scoresFile = new File(currentPlayerDirectory.getPath() + "/scores.json");
+        if (!scoresFile.exists()) {
+            try {
+                FileWriter fileWriter = new FileWriter(currentPlayerDirectory.getPath() + "/" + "scores.json");
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                bufferedWriter.write("[]");
+                bufferedWriter.close();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
+
+
         return true;
     }
 
