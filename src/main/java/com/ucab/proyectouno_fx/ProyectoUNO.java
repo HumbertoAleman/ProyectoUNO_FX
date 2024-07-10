@@ -23,13 +23,14 @@ public class ProyectoUNO extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setTitle("UNO_FX");
         stage.setScene(scene);
-        Image icono;
+        Image icono = null;
         try {
             icono = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/UNO_Logo.png"));
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("WARNING: Fallo en cargar el icono del programa");
         }
-        stage.getIcons().add(icono);
+        if (icono != null)
+            stage.getIcons().add(icono);
         stage.show();
     }
 
