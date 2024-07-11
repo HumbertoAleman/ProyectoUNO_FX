@@ -68,20 +68,7 @@ public class GameScreenController extends ControllerParent {
             return;
         }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Desea jugar esta carta tomada?", ButtonType.YES, ButtonType.NO);
-
-        Image graficoCarta;
-        try {
-            graficoCarta = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/" + cartaTomada.getEtiqueta() + ".png"));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        ImageView vistaDeCarta = new ImageView(graficoCarta);
-        vistaDeCarta.setFitHeight(160.0);
-        vistaDeCarta.setPreserveRatio(true);
-        alert.setGraphic(vistaDeCarta);
-
-        alert.showAndWait();
+        Alert alert = getCartaTomadaAlert(cartaTomada);
         if (alert.getResult() == ButtonType.NO) {
             juego.siguienteJugador();
             cpuActions.triggerCPUTurn();
@@ -92,8 +79,8 @@ public class GameScreenController extends ControllerParent {
         cartaTomada.ejecutarAccion();
 
         if (juego.getCurrentPlayer().getCantidadDeCartas() == 1 && juego.isCurrentPlayerHuman()) {
-            if(!triggerShoutUno()) {
-                juego.increaseCartasATomar(6);
+            if (!triggerShoutUno()) {
+                juego.increaseCartasATomar(2);
                 juego.darCartasAJugadorActual();
             }
         }
@@ -108,6 +95,24 @@ public class GameScreenController extends ControllerParent {
         if (cartaTomada instanceof CartaComodin) {
             triggerChooseColor(cartaTomada);
         }
+    }
+
+    private static Alert getCartaTomadaAlert(Carta cartaTomada) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Desea jugar esta carta tomada?", ButtonType.YES, ButtonType.NO);
+
+        Image graficoCarta;
+        try {
+            graficoCarta = new Image(new FileInputStream("src/main/resources/com/ucab/proyectouno_fx/images/" + cartaTomada.getEtiqueta() + ".png"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        ImageView vistaDeCarta = new ImageView(graficoCarta);
+        vistaDeCarta.setFitHeight(160.0);
+        vistaDeCarta.setPreserveRatio(true);
+        alert.setGraphic(vistaDeCarta);
+
+        alert.showAndWait();
+        return alert;
     }
 
     /**
@@ -148,7 +153,7 @@ public class GameScreenController extends ControllerParent {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.juego = Juego.getInstance();
         this.activeDecks = new ActiveDecks(this);
-        this.colorSelector = new ColorSelector(this, colorPickContainer, takePile);
+        this.colorSelector = new ColorSelector(this);
         this.cpuActions = new CPUControllerActions(this, colorSelector);
 
         Image color;
@@ -173,7 +178,6 @@ public class GameScreenController extends ControllerParent {
 
         initializeTakePile();
         refreshPlayPile();
-        colorSelector.setColorPickerDisable(true);
         refreshAll();
     }
 
@@ -253,6 +257,7 @@ public class GameScreenController extends ControllerParent {
             e.printStackTrace();
         }
         colorSelector.triggerChooseColor(card);
+        refreshAll();
     }
 
     public void refreshAll() {
@@ -286,22 +291,24 @@ public class GameScreenController extends ControllerParent {
 
     private void refreshButtons() {
         char color = juego.getTopCard().getColor();
-        botonRojo.setDisable(true);
-        botonAzul.setDisable(true);
-        botonAmarillo.setDisable(true);
-        botonVerde.setDisable(true);
-        switch (color){
+
+        botonRojo.setVisible(false);
+        botonAzul.setVisible(false);
+        botonAmarillo.setVisible(false);
+        botonVerde.setVisible(false);
+
+        switch (color) {
             case 'R':
-                botonRojo.setDisable(false);
+                botonRojo.setVisible(true);
                 break;
             case 'B':
-                botonAzul.setDisable(false);
+                botonAzul.setVisible(true);
                 break;
             case 'Y':
-                botonAmarillo.setDisable(false);
+                botonAmarillo.setVisible(true);
                 break;
             case 'G':
-                botonVerde.setDisable(false);
+                botonVerde.setVisible(true);
                 break;
         }
     }
@@ -342,7 +349,7 @@ public class GameScreenController extends ControllerParent {
         unoWindow.showAndWait();
 
         long estimatedTime = System.currentTimeMillis() - startTime;
-        System.out.println("Estimated Time"+estimatedTime);
+        System.out.println("Estimated Time" + estimatedTime);
         return estimatedTime < 3000;
     }
 }

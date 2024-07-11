@@ -90,7 +90,7 @@ public class DeckController {
 
         if (jugador.getCantidadDeCartas() == 1 && juego.isCurrentPlayerHuman()){
             if(!controller.triggerShoutUno()) {
-                juego.increaseCartasATomar(7);
+                juego.increaseCartasATomar(2);
                 juego.darCartasAJugadorActual();
             }
         }
