@@ -47,5 +47,6 @@ public class CardButton {
         button = new Button();
         button.setGraphic(view);
         button.setDisable(isDisabled);
+        button.setTranslateZ(isDisabled ? 0 : 1);
     }
 }

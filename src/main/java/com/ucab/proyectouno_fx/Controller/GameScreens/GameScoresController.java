@@ -6,24 +6,20 @@ import com.ucab.proyectouno_fx.Model.Controlador.Score.Score;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Clase controladora de la vista de puntajes
  */
 public class GameScoresController extends ControllerParent {
     @FXML
-    public VBox scoreList;
+    public GridPane scoreTable;
 
-    @FXML
-    public Label currentPlayer;
-
-    @FXML
-    public Label puntuacionTotal;
+    private final Map<String, Integer> scores = new HashMap<>();
 
     /**
      * Metodo que se encarga de regresar al menu principal
@@ -31,31 +27,32 @@ public class GameScoresController extends ControllerParent {
      * @param resourceBundle Evento de la accion
      */
     @Override
+
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        int totalScore = 0;
-        boolean gray = false;
         Juego juego = Juego.getInstance();
-        if (juego.getScoreManager() == null) {
-            currentPlayer.setText(MainMenuController.getActiveUser());
-            puntuacionTotal.setText(String.valueOf(totalScore));
-            return;
-        }
+
+        if (juego.getScoreManager() == null) return;
+
         for (Score score : juego.getScoreManager().getScores()) {
-            Label winLabel, playerLabel, scoreLabel;
-            winLabel = new Label(score.isWin() ? "GANADA" : "PERDIDA");
-            playerLabel = new Label(score.getJugadorGanador().getNombre());
-            scoreLabel = new Label(String.valueOf(score.getScore()));
-
-            totalScore += score.isWin() ? score.getScore() : 0;
-            VBox scoreBox = new VBox(winLabel, playerLabel, scoreLabel);
-            scoreBox.setStyle("-fx-background-color: " + (gray ? "#FFFFFF80" : "#FFFFFF40"));
-            gray = !gray;
-            scoreList.getChildren().add(scoreBox);
+            if (!scores.containsKey(score.getJugadorGanador().getNombre())) {
+                scores.put(score.getJugadorGanador().getNombre(), score.getScore());
+                continue;
+            }
+            scores.put(score.getJugadorGanador().getNombre(), score.getScore() + scores.get(score.getJugadorGanador().getNombre()));
         }
 
-        scoreList.setSpacing(4.0);
-        currentPlayer.setText(MainMenuController.getActiveUser());
-        puntuacionTotal.setText(String.valueOf(totalScore));
+        // Sorteamos
+        List<Map.Entry<String, Integer>> list = new LinkedList<>(scores.entrySet());
+        list.sort(Map.Entry.comparingByValue());
+        HashMap<String, Integer> result = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> me : list.reversed())
+            result.put(me.getKey(), me.getValue());
+
+        // Creamos
+        for (String jugadorNombre : result.keySet()) {
+            scoreTable.add(new Label(jugadorNombre), 0, scoreTable.getRowCount());
+            scoreTable.add(new Label(scores.get(jugadorNombre).toString()), 1, scoreTable.getRowCount()-1);
+        }
     }
 
     /**

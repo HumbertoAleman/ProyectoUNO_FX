@@ -10,8 +10,10 @@ import com.ucab.proyectouno_fx.Model.Jugador.Jugador;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 
@@ -26,7 +28,14 @@ public class DeckController {
         this.deck = new HBox();
 
         mainContainer.getChildren().add(actions);
-        mainContainer.getChildren().add(new ScrollPane(deck));
+        deck.setBackground(Background.fill(Color.TRANSPARENT));
+
+        ScrollPane scrollPane = new ScrollPane(deck);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setBackground(Background.fill(Color.TRANSPARENT));
+
+        mainContainer.getChildren().add(scrollPane);
 
         assert (controller != null);
         this.controller = controller;
@@ -65,7 +74,6 @@ public class DeckController {
      * @param card Carta a agregar
      */
     private void addCardToHBox(Carta card) {
-        // TODO: Probablemente haya que cambiar la logica para mostrar las cartas
         addCardToHBox(card, isPlayerHuman);
     }
 
@@ -128,6 +136,7 @@ public class DeckController {
             controller.refreshAll();
         });
         deck.getChildren().add(cardButton.getButton());
+        deck.setSpacing(Math.max(-64.0, 16.0 - deck.getChildren().size() * 4.0));
         juego.guardarJuego();
     }
 
@@ -138,5 +147,6 @@ public class DeckController {
         clearHBox();
         for (Carta carta : jugador.getMazo())
             addCardToHBox(carta);
+
     }
 }
